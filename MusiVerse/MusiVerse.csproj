@@ -46,12 +46,160 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\Services\AuthService.cs" />
+    <Compile Include="BLL\Services\CommentService.cs" />
+    <Compile Include="BLL\Services\ConcertService.cs" />
+    <Compile Include="BLL\Services\PlaylistService.cs" />
+    <Compile Include="BLL\Services\PostService.cs" />
+    <Compile Include="BLL\Services\SongService.cs" />
+    <Compile Include="BLL\Services\TicketService.cs" />
+    <Compile Include="BLL\Services\UserService.cs" />
+    <Compile Include="BLL\Validators\PostValidator.cs" />
+    <Compile Include="BLL\Validators\SongValidator.cs" />
+    <Compile Include="BLL\Validators\UserValidator.cs" />
+    <Compile Include="DAL\DatabaseConnection.cs" />
+    <Compile Include="DAL\Interfaces\IPostRepository.cs" />
+    <Compile Include="DAL\Interfaces\ISongRepository.cs" />
+    <Compile Include="DAL\Interfaces\IUserRepository.cs" />
+    <Compile Include="DAL\Repositories\CommentRepository.cs" />
+    <Compile Include="DAL\Repositories\ConcertRepository.cs" />
+    <Compile Include="DAL\Repositories\PlaylistRepository.cs" />
+    <Compile Include="DAL\Repositories\PostRepository.cs" />
+    <Compile Include="DAL\Repositories\SongRepository.cs" />
+    <Compile Include="DAL\Repositories\TicketRepository.cs" />
+    <Compile Include="DAL\Repositories\UserRepository.cs" />
+    <Compile Include="DTO\Enums\MediaType.cs" />
+    <Compile Include="DTO\Enums\TicketStatus.cs" />
+    <Compile Include="DTO\Enums\UserRole.cs" />
+    <Compile Include="DTO\Models\Comment.cs" />
+    <Compile Include="DTO\Models\Concert.cs" />
+    <Compile Include="DTO\Models\Playlist.cs" />
+    <Compile Include="DTO\Models\Post.cs" />
+    <Compile Include="DTO\Models\Song.cs" />
+    <Compile Include="DTO\Models\Ticket.cs" />
+    <Compile Include="DTO\Models\User.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Forms\Admin\frmConcertManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Admin\frmConcertManagement.Designer.cs">
+      <DependentUpon>frmConcertManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Admin\frmSongManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Admin\frmSongManagement.Designer.cs">
+      <DependentUpon>frmSongManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Admin\frmUserManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Admin\frmUserManagement.Designer.cs">
+      <DependentUpon>frmUserManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Auth\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Auth\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Auth\frmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Auth\frmRegister.Designer.cs">
+      <DependentUpon>frmRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Main\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Main\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmMusicPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmMusicPlayer.Designer.cs">
+      <DependentUpon>frmMusicPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmPlaylistManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmPlaylistManager.Designer.cs">
+      <DependentUpon>frmPlaylistManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmSongLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmSongLibrary.Designer.cs">
+      <DependentUpon>frmSongLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmConcertDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmConcertDetail.Designer.cs">
+      <DependentUpon>frmConcertDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmConcertList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmConcertList.Designer.cs">
+      <DependentUpon>frmConcertList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmMyTickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmMyTickets.Designer.cs">
+      <DependentUpon>frmMyTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCreatePost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCreatePost.Designer.cs">
+      <DependentUpon>frmCreatePost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmNewsFeed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmNewsFeed.Designer.cs">
+      <DependentUpon>frmNewsFeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmProfile.Designer.cs">
+      <DependentUpon>frmProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucConcertCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucConcertCard.Designer.cs">
+      <DependentUpon>ucConcertCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucMusicPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucMusicPlayer.Designer.cs">
+      <DependentUpon>ucMusicPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucPostCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucPostCard.Designer.cs">
+      <DependentUpon>ucPostCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSongItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSongItem.Designer.cs">
+      <DependentUpon>ucSongItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Utils\SessionManager.cs" />
+    <Compile Include="GUI\Utils\UIHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -75,6 +223,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GUI\Resources\Fonts\" />
+    <Folder Include="GUI\Resources\Icons\" />
+    <Folder Include="GUI\Resources\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
