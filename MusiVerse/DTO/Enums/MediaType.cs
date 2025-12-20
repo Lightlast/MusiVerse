@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusiVerse.DTO.Enums
 {
-    internal class MediaType
+    public class MediaType
     {
     }
 }
