@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace MusiVerse.DTO.Models
 {
-    internal class Playlist
+    public class Playlist
     {
+        public int PlaylistID { get; set; }
+        public int UserID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string CoverImage { get; set; }
+        public bool IsPublic { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int SongCount { get; set; } // Calculated
     }
 }

@@ -8,5 +8,7 @@ namespace MusiVerse.DTO.Enums
 {
     public class MediaType
     {
+        Image,
+        Video
     }
 }

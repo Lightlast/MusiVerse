@@ -74,6 +74,7 @@
     <Compile Include="DTO\Models\Comment.cs" />
     <Compile Include="DTO\Models\Concert.cs" />
     <Compile Include="DTO\Models\Playlist.cs" />
+    <Compile Include="DTO\Models\PlaylistSong.cs" />
     <Compile Include="DTO\Models\Post.cs" />
     <Compile Include="DTO\Models\Song.cs" />
     <Compile Include="DTO\Models\Ticket.cs" />
