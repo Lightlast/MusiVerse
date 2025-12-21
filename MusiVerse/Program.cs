@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MusiVerse.GUI.Forms.Auth;
+using MusiVerse.GUI.Forms.Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace MusiVerse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(mainForm: new frmLogin());
         }
     }
 }

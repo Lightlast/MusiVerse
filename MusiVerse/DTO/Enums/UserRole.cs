@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusiVerse.DTO.Enums
 {
-    public class UserRole
+    public enum UserRole
     {
         User,
         Artist,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusiVerse.DTO.Enums
 {
-    public class TicketStatus
+    public enum TicketStatus
     {
         Active,
         Used,

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusiVerse.DTO.Models
 {
@@ -18,5 +14,9 @@ namespace MusiVerse.DTO.Models
         public string Bio { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsActive { get; set; }
+
+        // ✅ THÊM: Kiểm tra user đã mua VIP chưa
+        public bool HasVIP { get; set; }
+        public DateTime? VIPExpiryDate { get; set; } // Ngày hết hạn VIP
     }
 }
