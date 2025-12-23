@@ -226,6 +226,12 @@
     <Compile Include="GUI\Forms\Music\frmSongLibrary.Designer.cs">
       <DependentUpon>frmSongLibrary.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Forms\Music\frmUploadSong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Music\frmUploadSong.Designer.cs">
+      <DependentUpon>frmUploadSong.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Forms\Shopping\frmConcertDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,6 +274,12 @@
     <Compile Include="GUI\UserControls\ucConcertCard.Designer.cs">
       <DependentUpon>ucConcertCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserControls\ucMusicPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucMusicPage.Designer.cs">
+      <DependentUpon>ucMusicPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\ucMusicPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -302,8 +314,17 @@
     <EmbeddedResource Include="GUI\Forms\Main\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Music\frmUploadSong.resx">
+      <DependentUpon>frmUploadSong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucMusicPage.resx">
+      <DependentUpon>ucMusicPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucPersonalPage.resx">
       <DependentUpon>ucPersonalPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucSongItem.resx">
+      <DependentUpon>ucSongItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -324,6 +345,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="STOP_FEATURE_GUIDE.md" />
+    <None Include="STOP_FEATURE_SUMMARY.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

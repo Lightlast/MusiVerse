@@ -12,6 +12,9 @@ namespace MusiVerse.GUI.UserControls
         private Timer updateTimer;
         private bool isDraggingSeekBar = false;
 
+        // Event để thông báo cho frmMain khi stop music
+        public event EventHandler OnPlayerStopped;
+
         public ucMusicPlayer()
         {
             InitializeComponent();
@@ -32,36 +35,61 @@ namespace MusiVerse.GUI.UserControls
             updateTimer = new Timer();
             updateTimer.Interval = 100; // Update mỗi 100ms
             updateTimer.Tick += UpdateTimer_Tick;
-            updateTimer.Start();
-
-            // Initialize volume
-            trackBarVolume.Value = (int)(player.Volume * 100);
         }
 
         private void ucMusicPlayer_Load(object sender, EventArgs e)
         {
-            UpdateUI();
+            if (!DesignMode)
+            {
+                updateTimer.Start();
+
+                // Initialize volume
+                trackBarVolume.Value = (int)(player.Volume * 100);
+                UpdateUI();
+            }
         }
 
         #region Player Events
 
         private void Player_SongChanged(object sender, EventArgs e)
         {
-            UpdateSongInfo();
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => Player_SongChanged(sender, e)));
+                return;
+            }
+
+            UpdateSongInfo(); // Cập nhật tên bài hát, ảnh bìa...
+            UpdateUI();
         }
 
         private void Player_PlaybackStopped(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => UpdateUI()));
+                return;
+            }
             UpdateUI();
         }
 
         private void Player_PlaybackPaused(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => UpdateUI()));
+                return;
+            }
             UpdateUI();
         }
 
         private void Player_PlaybackResumed(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => UpdateUI()));
+                return;
+            }
             UpdateUI();
         }
 
@@ -82,7 +110,8 @@ namespace MusiVerse.GUI.UserControls
         {
             if (player.CurrentSong == null)
             {
-                MessageBox.Show("Chưa có bài hát nào được chọn!", "Thông báo");
+                MessageBox.Show("Chưa có bài hát nào được chọn!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -94,44 +123,54 @@ namespace MusiVerse.GUI.UserControls
         {
             player.Stop();
             UpdateUI();
+            UpdateSongInfo();
+            
+            // Phát event để frmMain biết cần ẩn music player
+            OnPlayerStopped?.Invoke(this, EventArgs.Empty);
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             // TODO: Implement previous song in playlist
-            MessageBox.Show("Chức năng Previous đang được phát triển", "Thông báo");
+            MessageBox.Show("Chức năng Previous đang được phát triển", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
             // TODO: Implement next song in playlist
-            MessageBox.Show("Chức năng Next đang được phát triển", "Thông báo");
+            MessageBox.Show("Chức năng Next đang được phát triển", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnBackward_Click(object sender, EventArgs e)
         {
-            player.Backward(10);
+            if (player.CurrentSong != null)
+                player.Backward(10);
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
-            player.Forward(10);
+            if (player.CurrentSong != null)
+                player.Forward(10);
         }
 
         private void btnShuffle_Click(object sender, EventArgs e)
         {
-            btnShuffle.BackColor = btnShuffle.BackColor == Color.FromArgb(0, 150, 136)
-                ? Color.Gray
-                : Color.FromArgb(0, 150, 136);
+            bool isActive = btnShuffle.BackColor != Color.FromArgb(0, 150, 136);
+            btnShuffle.BackColor = isActive
+                ? Color.FromArgb(0, 150, 136)
+                : Color.Gray;
 
             // TODO: Implement shuffle logic
         }
 
         private void btnRepeat_Click(object sender, EventArgs e)
         {
-            btnRepeat.BackColor = btnRepeat.BackColor == Color.FromArgb(0, 150, 136)
-                ? Color.Gray
-                : Color.FromArgb(0, 150, 136);
+            bool isActive = btnRepeat.BackColor != Color.FromArgb(0, 150, 136);
+            btnRepeat.BackColor = isActive
+                ? Color.FromArgb(0, 150, 136)
+                : Color.Gray;
 
             // TODO: Implement repeat logic
         }
@@ -139,6 +178,7 @@ namespace MusiVerse.GUI.UserControls
         private void btnMute_Click(object sender, EventArgs e)
         {
             player.ToggleMute();
+            trackBarVolume.Value = (int)(player.Volume * 100);
             UpdateVolumeIcon();
         }
 
@@ -186,33 +226,23 @@ namespace MusiVerse.GUI.UserControls
 
         private void UpdateUI()
         {
+            btnPlayPause.Enabled = player.CurrentSong != null;
+            btnStop.Enabled = player.CurrentSong != null;
+            btnBackward.Enabled = player.CurrentSong != null;
+            btnForward.Enabled = player.CurrentSong != null;
+
             if (player.CurrentSong == null)
             {
                 btnPlayPause.Text = "▶";
-                btnPlayPause.Enabled = false;
-                btnStop.Enabled = false;
-                btnBackward.Enabled = false;
-                btnForward.Enabled = false;
+                btnPlayPause.BackColor = Color.FromArgb(30, 144, 255);
                 return;
             }
 
-            // Enable controls
-            btnPlayPause.Enabled = true;
-            btnStop.Enabled = true;
-            btnBackward.Enabled = true;
-            btnForward.Enabled = true;
-
             // Update play/pause button
-            if (player.IsPlaying)
-            {
-                btnPlayPause.Text = "⏸";
-                btnPlayPause.BackColor = Color.FromArgb(0, 150, 136);
-            }
-            else
-            {
-                btnPlayPause.Text = "▶";
-                btnPlayPause.BackColor = Color.FromArgb(30, 144, 255);
-            }
+            btnPlayPause.Text = player.IsPlaying ? "⏸" : "▶";
+            btnPlayPause.BackColor = player.IsPlaying 
+                ? Color.FromArgb(0, 150, 136) 
+                : Color.FromArgb(30, 144, 255);
         }
 
         private void UpdateSongInfo()
@@ -223,12 +253,14 @@ namespace MusiVerse.GUI.UserControls
                 lblArtistName.Text = player.CurrentSong.ArtistName;
 
                 // Load cover image
-                if (!string.IsNullOrEmpty(player.CurrentSong.CoverImage)
+                if (!string.IsNullOrEmpty(player.CurrentSong.CoverImage) 
                     && System.IO.File.Exists(player.CurrentSong.CoverImage))
                 {
                     try
                     {
+                        var oldImage = pictureBoxCover.Image;
                         pictureBoxCover.Image = Image.FromFile(player.CurrentSong.CoverImage);
+                        oldImage?.Dispose();
                     }
                     catch
                     {
@@ -242,6 +274,8 @@ namespace MusiVerse.GUI.UserControls
 
                 // Update total time
                 lblTotalTime.Text = player.TotalTime.ToMinutesSeconds();
+                trackBarSeek.Value = 0;
+                lblCurrentTime.Text = "0:00";
             }
             else
             {
@@ -271,17 +305,11 @@ namespace MusiVerse.GUI.UserControls
         private void UpdateVolumeIcon()
         {
             if (player.Volume == 0)
-            {
                 btnMute.Text = "🔇";
-            }
             else if (player.Volume < 0.5f)
-            {
                 btnMute.Text = "🔉";
-            }
             else
-            {
                 btnMute.Text = "🔊";
-            }
         }
 
         #endregion
@@ -313,12 +341,8 @@ namespace MusiVerse.GUI.UserControls
             }
             else
             {
-                MessageBox.Show(
-                    "Không thể phát bài hát này!",
-                    "Lỗi",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Không thể phát bài hát này!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -333,6 +357,8 @@ namespace MusiVerse.GUI.UserControls
                     updateTimer.Stop();
                     updateTimer.Dispose();
                 }
+
+                pictureBoxCover?.Image?.Dispose();
 
                 if (components != null)
                 {

@@ -1,4 +1,5 @@
-﻿using MusiVerse.GUI.Forms.Auth;
+﻿using MusiVerse.BLL.Services;
+using MusiVerse.GUI.Forms.Auth;
 using MusiVerse.GUI.UserControls;
 using MusiVerse.GUI.Utils;
 using System;
@@ -9,17 +10,42 @@ namespace MusiVerse.GUI.Forms.Main
 {
     public partial class frmMain : Form
     {
-        // Current selected menu button
         private System.Windows.Forms.Button currentSelectedButton;
+        private ucMusicPage currentMusicPage;
 
         public frmMain()
         {
             InitializeComponent();
+            MusicPlayerService.Instance.SongChanged += ShowMusicPlayer;
+            musicPlayerBar.OnPlayerStopped += HideMusicPlayer;
+            musicPlayerBar.Visible = false;
+        }
+
+        private void ShowMusicPlayer(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => ShowMusicPlayer(sender, e)));
+                return;
+            }
+
+            musicPlayerBar.Visible = true;
+            musicPlayerBar.BringToFront();
+        }
+
+        private void HideMusicPlayer(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => HideMusicPlayer(sender, e)));
+                return;
+            }
+
+            musicPlayerBar.Visible = false;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            // Kiểm tra đăng nhập
             if (!SessionManager.IsLoggedIn())
             {
                 MessageBox.Show("Bạn cần đăng nhập!", "Thông báo",
@@ -28,22 +54,14 @@ namespace MusiVerse.GUI.Forms.Main
                 return;
             }
 
-            // Thiết lập giao diện
             SetupUI();
-
-            // Load trang Home mặc định
             LoadHomePage();
         }
 
         private void SetupUI()
         {
-            // Hiển thị thông tin user
             lblAccountInfo.Text = SessionManager.GetCurrentUsername();
-
-            // Phân quyền hiển thị menu
             SetupMenuByRole();
-
-            // Tô màu nút Home mặc định
             SelectMenuButton(btnHome);
         }
 
@@ -51,22 +69,19 @@ namespace MusiVerse.GUI.Forms.Main
         {
             string role = SessionManager.CurrentUser?.Role ?? "User";
 
-            // Tất cả user đều thấy
             btnHome.Visible = true;
             btnMusic.Visible = true;
             btnSocialNetwork.Visible = true;
             btnShopping.Visible = true;
             btnPersonalPage.Visible = true;
-
-            // ✅ TẤT CẢ USER ĐỀU THẤY NÚT VIP (Mua gói không quảng cáo)
             btnVIP.Visible = true;
             btnVIP.Text = "🎵 VIP - Không quảng cáo";
-            btnVIP.BackColor = Color.FromArgb(255, 140, 0); // Orange
-            // TODO: Kiểm tra nếu user đã mua VIP thì đổi màu/text
+            btnVIP.BackColor = Color.FromArgb(255, 140, 0);
+
             if (SessionManager.CurrentUser.HasVIP)
             {
                 btnVIP.Text = "⭐ VIP Active";
-                btnVIP.BackColor = Color.FromArgb(218, 165, 32); // Gold
+                btnVIP.BackColor = Color.FromArgb(218, 165, 32);
             }
 
             if (role == "User")
@@ -114,15 +129,16 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void btnVIP_Click(object sender, EventArgs e)
         {
-            // Hiển thị form mua gói VIP (không quảng cáo)
             ShowVIPPackageForm();
+        }
+
+        private void btnUpRole_Click(object sender, EventArgs e)
+        {
+            ShowUpgradeToArtistForm();
         }
 
         private void ShowVIPPackageForm()
         {
-            // Form mua gói VIP - Không quảng cáo khi nghe nhạc
-            // TODO: Tạo frmVIPPackage.cs
-
             var result = MessageBox.Show(
                 "🎵 GÓI VIP - KHÔNG QUẢNG CÁO\n\n" +
                 "Quyền lợi:\n" +
@@ -140,7 +156,6 @@ namespace MusiVerse.GUI.Forms.Main
 
             if (result == DialogResult.Yes)
             {
-                // TODO: Mở form thanh toán
                 MessageBox.Show(
                     "Chức năng thanh toán đang được phát triển!\n\n" +
                     "Sẽ tích hợp:\n" +
@@ -157,13 +172,10 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void ShowUpgradeToArtistForm()
         {
-            // Form nâng cấp lên Artist (MIỄN PHÍ)
-            // Chỉ dùng cho User thường muốn trở thành Artist
             frmUpgradeToArtist upgradeForm = new frmUpgradeToArtist();
 
             if (upgradeForm.ShowDialog() == DialogResult.OK)
             {
-                // Refresh UI sau khi nâng cấp thành công
                 SetupUI();
                 MessageBox.Show(
                     "🎉 Chúc mừng! Bạn đã trở thành nghệ sĩ!\n\n" +
@@ -181,14 +193,12 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void SelectMenuButton(System.Windows.Forms.Button button)
         {
-            // Reset màu nút cũ
             if (currentSelectedButton != null)
             {
                 currentSelectedButton.BackColor = Color.FromArgb(40, 40, 60);
             }
 
-            // Tô màu nút mới
-            button.BackColor = Color.FromArgb(255, 140, 0); // Orange
+            button.BackColor = Color.FromArgb(255, 140, 0);
             currentSelectedButton = button;
         }
 
@@ -198,10 +208,8 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void LoadHomePage()
         {
-            // Xóa nội dung cũ
             panelContent.Controls.Clear();
 
-            // Tạo welcome screen
             System.Windows.Forms.Label lblWelcome = new System.Windows.Forms.Label
             {
                 Text = $"Chào mừng {SessionManager.GetCurrentUsername()}\nđến với Musiverse! 🎵",
@@ -214,7 +222,6 @@ namespace MusiVerse.GUI.Forms.Main
             };
             panelContent.Controls.Add(lblWelcome);
 
-            // Logo/Image placeholder
             System.Windows.Forms.Panel logoPanel = new System.Windows.Forms.Panel
             {
                 Size = new Size(600, 400),
@@ -235,7 +242,6 @@ namespace MusiVerse.GUI.Forms.Main
             logoPanel.Controls.Add(lblLogo);
             panelContent.Controls.Add(logoPanel);
 
-            // Quick info
             System.Windows.Forms.Label lblInfo = new System.Windows.Forms.Label
             {
                 Text = "🎵 Khám phá âm nhạc  |  📱 Kết nối với nghệ sĩ  |  🎫 Mua vé concert",
@@ -253,30 +259,18 @@ namespace MusiVerse.GUI.Forms.Main
         {
             panelContent.Controls.Clear();
 
-            System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
+            try
             {
-                Text = "🎵 THƯ VIỆN NHẠC",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(30, 144, 255),
-                Location = new Point(20, 20),
-                AutoSize = true
-            };
-            panelContent.Controls.Add(lblTitle);
-
-            System.Windows.Forms.Label lblTemp = new System.Windows.Forms.Label
+                currentMusicPage = new ucMusicPage
+                {
+                    Dock = System.Windows.Forms.DockStyle.Fill
+                };
+                panelContent.Controls.Add(currentMusicPage);
+            }
+            catch (Exception ex)
             {
-                Text = "Tính năng Music đang được phát triển...\n\n" +
-                       "Sẽ có:\n" +
-                       "• Danh sách bài hát\n" +
-                       "• Tìm kiếm & lọc\n" +
-                       "• Quản lý playlist\n" +
-                       "• Upload nhạc (Artist)",
-                Font = new Font("Segoe UI", 12),
-                Location = new Point(20, 80),
-                AutoSize = true,
-                ForeColor = Color.Gray
-            };
-            panelContent.Controls.Add(lblTemp);
+                ShowErrorPage("🎵 THƯ VIỆN NHẠC", $"Lỗi: {ex.Message}");
+            }
         }
 
         private void LoadSocialNetworkPage()
@@ -343,7 +337,6 @@ namespace MusiVerse.GUI.Forms.Main
         {
             panelContent.Controls.Clear();
 
-            // Load UserControl Personal Page
             try
             {
                 ucPersonalPage personalPage = new ucPersonalPage
@@ -354,30 +347,31 @@ namespace MusiVerse.GUI.Forms.Main
             }
             catch (Exception ex)
             {
-                // Nếu UserControl chưa tạo, hiển thị placeholder
-                System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
-                {
-                    Text = "👤 TRANG CÁ NHÂN",
-                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                    ForeColor = Color.FromArgb(30, 144, 255),
-                    Location = new Point(20, 20),
-                    AutoSize = true
-                };
-                panelContent.Controls.Add(lblTitle);
-
-                System.Windows.Forms.Label lblUserInfo = new System.Windows.Forms.Label
-                {
-                    Text = $"Xin chào, {SessionManager.CurrentUser.FullName}!\n\n" +
-                           $"Username: {SessionManager.CurrentUser.Username}\n" +
-                           $"Email: {SessionManager.CurrentUser.Email}\n" +
-                           $"Role: {SessionManager.CurrentUser.Role}\n\n" +
-                           "UserControl ucPersonalPage đang được phát triển...",
-                    Font = new Font("Segoe UI", 12),
-                    Location = new Point(20, 80),
-                    AutoSize = true
-                };
-                panelContent.Controls.Add(lblUserInfo);
+                ShowErrorPage("👤 TRANG CÁ NHÂN", $"Lỗi: {ex.Message}");
             }
+        }
+
+        private void ShowErrorPage(string title, string message)
+        {
+            System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
+            {
+                Text = title,
+                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                ForeColor = Color.FromArgb(30, 144, 255),
+                Location = new Point(20, 20),
+                AutoSize = true
+            };
+            panelContent.Controls.Add(lblTitle);
+
+            System.Windows.Forms.Label lblMessage = new System.Windows.Forms.Label
+            {
+                Text = message,
+                Font = new Font("Segoe UI", 12),
+                Location = new Point(20, 80),
+                AutoSize = true,
+                ForeColor = Color.Gray
+            };
+            panelContent.Controls.Add(lblMessage);
         }
 
         #endregion
@@ -437,7 +431,6 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void lblAccountInfo_Click(object sender, EventArgs e)
         {
-            // Hiển thị context menu
             ContextMenuStrip accountMenu = new ContextMenuStrip();
 
             accountMenu.Items.Add("👤 Profile", null, (s, args) => LoadPersonalPage());
@@ -472,7 +465,6 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Confirm trước khi thoát
             if (SessionManager.IsLoggedIn())
             {
                 var result = MessageBox.Show(
@@ -486,31 +478,10 @@ namespace MusiVerse.GUI.Forms.Main
                 {
                     e.Cancel = true;
                 }
-            }
-        }
-
-        // Public method để access music player (nếu có)
-        public ucMusicPlayer GetMusicPlayer()
-        {
-            // TODO: Return music player khi đã tạo
-            return null;
-        }
-
-        private void btnUpRole_Click(object sender, EventArgs e)
-        {
-            // Mở form nâng cấp
-            frmUpgradeToArtist upgradeForm = new frmUpgradeToArtist();
-
-            if (upgradeForm.ShowDialog() == DialogResult.OK)
-            {
-                // Refresh UI sau khi nâng cấp thành công
-                SetupUI();
-                MessageBox.Show(
-                    "Bạn đã trở thành nghệ sĩ! Khám phá các tính năng mới ngay!",
-                    "Chào mừng",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                else
+                {
+                    MusicPlayerService.Instance.Stop();
+                }
             }
         }
     }
