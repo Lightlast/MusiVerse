@@ -30,8 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmProfile";
+            this.ClientSize = new System.Drawing.Size(1000, 800);
+            this.Text = "User Profile";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
         }
 
         #endregion

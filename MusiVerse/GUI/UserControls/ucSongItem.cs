@@ -111,5 +111,25 @@ namespace MusiVerse.GUI.UserControls
         {
             OnMoreClicked?.Invoke(this, EventArgs.Empty);
         }
+
+        private void lblDuration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPlayCount_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ucSongItem_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblGenre_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

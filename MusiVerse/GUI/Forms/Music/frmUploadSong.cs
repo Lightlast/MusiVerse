@@ -42,6 +42,17 @@ namespace MusiVerse.GUI.Forms.Music
 
         private void SetupUI()
         {
+            this.Size = new Size(610, 610);
+
+            // Cách 2: Hoặc nếu muốn nó phóng to toàn màn hình luôn thì dùng dòng này:
+            // this.WindowState = FormWindowState.Maximized;
+
+            // Căn giữa màn hình cho đẹp
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            // Cho phép người dùng tự kéo to nhỏ thêm nếu muốn
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+
             // Populate genre dropdown
             cmbGenre.Items.AddRange(new string[]
             {

@@ -17,8 +17,6 @@ namespace MusiVerse.GUI.Forms.Main
         {
             InitializeComponent();
             MusicPlayerService.Instance.SongChanged += ShowMusicPlayer;
-            musicPlayerBar.OnPlayerStopped += HideMusicPlayer;
-            musicPlayerBar.Visible = false;
         }
 
         private void ShowMusicPlayer(object sender, EventArgs e)
@@ -29,8 +27,9 @@ namespace MusiVerse.GUI.Forms.Main
                 return;
             }
 
-            musicPlayerBar.Visible = true;
-            musicPlayerBar.BringToFront();
+            // Hiển thị music player (nó đã được add vào Designer)
+            ucMusicPlayer1.Visible = true;
+            ucMusicPlayer1.BringToFront();
         }
 
         private void HideMusicPlayer(object sender, EventArgs e)
@@ -41,7 +40,7 @@ namespace MusiVerse.GUI.Forms.Main
                 return;
             }
 
-            musicPlayerBar.Visible = false;
+            ucMusicPlayer1.Visible = false;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -53,6 +52,9 @@ namespace MusiVerse.GUI.Forms.Main
                 this.Close();
                 return;
             }
+
+            // Subscribe vào event OnPlayerStopped của ucMusicPlayer1
+            ucMusicPlayer1.OnPlayerStopped += HideMusicPlayer;
 
             SetupUI();
             LoadHomePage();
@@ -208,7 +210,7 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void LoadHomePage()
         {
-            panelContent.Controls.Clear();
+            ClearContentExceptMusicPlayer();
 
             System.Windows.Forms.Label lblWelcome = new System.Windows.Forms.Label
             {
@@ -257,7 +259,7 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void LoadMusicPage()
         {
-            panelContent.Controls.Clear();
+            ClearContentExceptMusicPlayer();
 
             try
             {
@@ -265,6 +267,11 @@ namespace MusiVerse.GUI.Forms.Main
                 {
                     Dock = System.Windows.Forms.DockStyle.Fill
                 };
+                
+                currentMusicPage.OnSongRequested += (sender, song) =>
+                {
+                };
+                
                 panelContent.Controls.Add(currentMusicPage);
             }
             catch (Exception ex)
@@ -275,7 +282,7 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void LoadSocialNetworkPage()
         {
-            panelContent.Controls.Clear();
+            ClearContentExceptMusicPlayer();
 
             System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
             {
@@ -305,7 +312,7 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void LoadShoppingPage()
         {
-            panelContent.Controls.Clear();
+            ClearContentExceptMusicPlayer();
 
             System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
             {
@@ -335,7 +342,7 @@ namespace MusiVerse.GUI.Forms.Main
 
         private void LoadPersonalPage()
         {
-            panelContent.Controls.Clear();
+            ClearContentExceptMusicPlayer();
 
             try
             {
@@ -374,6 +381,20 @@ namespace MusiVerse.GUI.Forms.Main
             panelContent.Controls.Add(lblMessage);
         }
 
+        /// <summary>
+        /// Xóa tất cả controls trong panelContent NGOẠI TRỪ ucMusicPlayer1
+        /// </summary>
+        private void ClearContentExceptMusicPlayer()
+        {
+            // Lưu lại ucMusicPlayer1
+            Control musicPlayer = ucMusicPlayer1;
+
+            // Xóa tất cả controls
+            panelContent.Controls.Clear();
+
+            // Thêm lại ucMusicPlayer1
+            panelContent.Controls.Add(musicPlayer);
+        }
         #endregion
 
         #region Top Bar Actions

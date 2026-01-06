@@ -49,7 +49,7 @@
             this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnPlay.ForeColor = System.Drawing.Color.White;
             this.btnPlay.Location = new System.Drawing.Point(20, 29);
-            this.btnPlay.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnPlay.Margin = new System.Windows.Forms.Padding(6);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(80, 77);
             this.btnPlay.TabIndex = 0;
@@ -62,7 +62,7 @@
             this.pbCover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(120)))));
             this.pbCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbCover.Location = new System.Drawing.Point(120, 19);
-            this.pbCover.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pbCover.Margin = new System.Windows.Forms.Padding(6);
             this.pbCover.Name = "pbCover";
             this.pbCover.Size = new System.Drawing.Size(98, 94);
             this.pbCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -97,37 +97,40 @@
             // 
             this.lblGenre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblGenre.ForeColor = System.Drawing.Color.Gray;
-            this.lblGenre.Location = new System.Drawing.Point(900, 48);
+            this.lblGenre.Location = new System.Drawing.Point(783, 52);
             this.lblGenre.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblGenre.Name = "lblGenre";
             this.lblGenre.Size = new System.Drawing.Size(200, 38);
             this.lblGenre.TabIndex = 4;
             this.lblGenre.Text = "Genre";
             this.lblGenre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblGenre.Click += new System.EventHandler(this.lblGenre_Click);
             // 
             // lblDuration
             // 
             this.lblDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblDuration.ForeColor = System.Drawing.Color.Gray;
-            this.lblDuration.Location = new System.Drawing.Point(1160, 48);
+            this.lblDuration.Location = new System.Drawing.Point(1043, 52);
             this.lblDuration.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDuration.Name = "lblDuration";
             this.lblDuration.Size = new System.Drawing.Size(100, 38);
             this.lblDuration.TabIndex = 5;
             this.lblDuration.Text = "00:00";
             this.lblDuration.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDuration.Click += new System.EventHandler(this.lblDuration_Click);
             // 
             // lblPlayCount
             // 
             this.lblPlayCount.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblPlayCount.ForeColor = System.Drawing.Color.Gray;
-            this.lblPlayCount.Location = new System.Drawing.Point(1320, 48);
+            this.lblPlayCount.Location = new System.Drawing.Point(1203, 52);
             this.lblPlayCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblPlayCount.Name = "lblPlayCount";
             this.lblPlayCount.Size = new System.Drawing.Size(160, 38);
             this.lblPlayCount.TabIndex = 6;
             this.lblPlayCount.Text = "▶ 0";
             this.lblPlayCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPlayCount.Click += new System.EventHandler(this.lblPlayCount_Click);
             // 
             // btnLike
             // 
@@ -137,8 +140,8 @@
             this.btnLike.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLike.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.btnLike.ForeColor = System.Drawing.Color.Red;
-            this.btnLike.Location = new System.Drawing.Point(1540, 29);
-            this.btnLike.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnLike.Location = new System.Drawing.Point(1423, 33);
+            this.btnLike.Margin = new System.Windows.Forms.Padding(6);
             this.btnLike.Name = "btnLike";
             this.btnLike.Size = new System.Drawing.Size(80, 77);
             this.btnLike.TabIndex = 7;
@@ -154,8 +157,8 @@
             this.btnMore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMore.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.btnMore.ForeColor = System.Drawing.Color.Gray;
-            this.btnMore.Location = new System.Drawing.Point(1640, 29);
-            this.btnMore.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnMore.Location = new System.Drawing.Point(1523, 33);
+            this.btnMore.Margin = new System.Windows.Forms.Padding(6);
             this.btnMore.Name = "btnMore";
             this.btnMore.Size = new System.Drawing.Size(80, 77);
             this.btnMore.TabIndex = 8;
@@ -178,9 +181,10 @@
             this.Controls.Add(this.pbCover);
             this.Controls.Add(this.btnPlay);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.Margin = new System.Windows.Forms.Padding(10);
             this.Name = "ucSongItem";
             this.Size = new System.Drawing.Size(1800, 135);
+            this.Load += new System.EventHandler(this.ucSongItem_Load);
             this.MouseEnter += new System.EventHandler(this.ucSongItem_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ucSongItem_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();

@@ -21,8 +21,8 @@
             this.lblInstructions = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
-            this.lblProgress = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.lblProgress = new System.Windows.Forms.Label();
             this.groupBoxCover = new System.Windows.Forms.GroupBox();
             this.lblCoverStatus = new System.Windows.Forms.Label();
             this.btnClearCover = new System.Windows.Forms.Button();
@@ -54,10 +54,10 @@
             // 
             this.panelMain.BackColor = System.Drawing.Color.White;
             this.panelMain.Controls.Add(this.lblInstructions);
-            this.panelMain.Controls.Add(this.btnCancel);
-            this.panelMain.Controls.Add(this.btnUpload);
             this.panelMain.Controls.Add(this.lblProgress);
             this.panelMain.Controls.Add(this.progressBar);
+            this.panelMain.Controls.Add(this.btnCancel);
+            this.panelMain.Controls.Add(this.btnUpload);
             this.panelMain.Controls.Add(this.groupBoxCover);
             this.panelMain.Controls.Add(this.groupBoxSongInfo);
             this.panelMain.Controls.Add(this.groupBoxAudioFile);
@@ -65,17 +65,38 @@
             this.panelMain.Controls.Add(this.lblTitle);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(5);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1371, 1167);
+            this.panelMain.Size = new System.Drawing.Size(1356, 1057);
             this.panelMain.TabIndex = 0;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(51, 840);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(5);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(1269, 31);
+            this.progressBar.TabIndex = 10;
+            this.progressBar.Visible = false;
+            // 
+            // lblProgress
+            // 
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblProgress.ForeColor = System.Drawing.Color.Blue;
+            this.lblProgress.Location = new System.Drawing.Point(51, 806);
+            this.lblProgress.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(0, 37);
+            this.lblProgress.TabIndex = 11;
+            this.lblProgress.Visible = false;
             // 
             // lblInstructions
             // 
             this.lblInstructions.AutoSize = true;
             this.lblInstructions.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblInstructions.ForeColor = System.Drawing.Color.Gray;
-            this.lblInstructions.Location = new System.Drawing.Point(51, 1083);
+            this.lblInstructions.Location = new System.Drawing.Point(5, 1001);
             this.lblInstructions.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblInstructions.Name = "lblInstructions";
             this.lblInstructions.Size = new System.Drawing.Size(805, 32);
@@ -89,8 +110,8 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(1183, 967);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnCancel.Location = new System.Drawing.Point(1183, 890);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(137, 83);
             this.btnCancel.TabIndex = 8;
@@ -106,35 +127,14 @@
             this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpload.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnUpload.ForeColor = System.Drawing.Color.White;
-            this.btnUpload.Location = new System.Drawing.Point(891, 967);
-            this.btnUpload.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnUpload.Location = new System.Drawing.Point(874, 888);
+            this.btnUpload.Margin = new System.Windows.Forms.Padding(5);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(257, 83);
             this.btnUpload.TabIndex = 7;
             this.btnUpload.Text = "📤 UPLOAD";
             this.btnUpload.UseVisualStyleBackColor = false;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // lblProgress
-            // 
-            this.lblProgress.AutoSize = true;
-            this.lblProgress.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblProgress.Location = new System.Drawing.Point(51, 892);
-            this.lblProgress.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(190, 37);
-            this.lblProgress.TabIndex = 6;
-            this.lblProgress.Text = "Đang upload...";
-            this.lblProgress.Visible = false;
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(51, 833);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(1269, 42);
-            this.progressBar.TabIndex = 5;
-            this.progressBar.Visible = false;
             // 
             // groupBoxCover
             // 
@@ -144,9 +144,9 @@
             this.groupBoxCover.Controls.Add(this.pictureBoxCover);
             this.groupBoxCover.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.groupBoxCover.Location = new System.Drawing.Point(874, 450);
-            this.groupBoxCover.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.groupBoxCover.Margin = new System.Windows.Forms.Padding(5);
             this.groupBoxCover.Name = "groupBoxCover";
-            this.groupBoxCover.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.groupBoxCover.Padding = new System.Windows.Forms.Padding(5);
             this.groupBoxCover.Size = new System.Drawing.Size(446, 373);
             this.groupBoxCover.TabIndex = 4;
             this.groupBoxCover.TabStop = false;
@@ -173,7 +173,7 @@
             this.btnClearCover.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClearCover.ForeColor = System.Drawing.Color.White;
             this.btnClearCover.Location = new System.Drawing.Point(231, 308);
-            this.btnClearCover.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnClearCover.Margin = new System.Windows.Forms.Padding(5);
             this.btnClearCover.Name = "btnClearCover";
             this.btnClearCover.Size = new System.Drawing.Size(171, 50);
             this.btnClearCover.TabIndex = 2;
@@ -189,7 +189,7 @@
             this.btnSelectCover.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSelectCover.ForeColor = System.Drawing.Color.White;
             this.btnSelectCover.Location = new System.Drawing.Point(34, 308);
-            this.btnSelectCover.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnSelectCover.Margin = new System.Windows.Forms.Padding(5);
             this.btnSelectCover.Name = "btnSelectCover";
             this.btnSelectCover.Size = new System.Drawing.Size(171, 50);
             this.btnSelectCover.TabIndex = 1;
@@ -202,7 +202,7 @@
             this.pictureBoxCover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.pictureBoxCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCover.Location = new System.Drawing.Point(94, 50);
-            this.pictureBoxCover.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.pictureBoxCover.Margin = new System.Windows.Forms.Padding(5);
             this.pictureBoxCover.Name = "pictureBoxCover";
             this.pictureBoxCover.Size = new System.Drawing.Size(256, 249);
             this.pictureBoxCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -219,9 +219,9 @@
             this.groupBoxSongInfo.Controls.Add(this.lblSongTitle);
             this.groupBoxSongInfo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.groupBoxSongInfo.Location = new System.Drawing.Point(51, 450);
-            this.groupBoxSongInfo.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.groupBoxSongInfo.Margin = new System.Windows.Forms.Padding(5);
             this.groupBoxSongInfo.Name = "groupBoxSongInfo";
-            this.groupBoxSongInfo.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.groupBoxSongInfo.Padding = new System.Windows.Forms.Padding(5);
             this.groupBoxSongInfo.Size = new System.Drawing.Size(789, 373);
             this.groupBoxSongInfo.TabIndex = 3;
             this.groupBoxSongInfo.TabStop = false;
@@ -231,7 +231,7 @@
             // 
             this.txtAlbum.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtAlbum.Location = new System.Drawing.Point(411, 217);
-            this.txtAlbum.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtAlbum.Margin = new System.Windows.Forms.Padding(5);
             this.txtAlbum.Name = "txtAlbum";
             this.txtAlbum.Size = new System.Drawing.Size(340, 43);
             this.txtAlbum.TabIndex = 5;
@@ -253,7 +253,7 @@
             this.cmbGenre.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbGenre.FormattingEnabled = true;
             this.cmbGenre.Location = new System.Drawing.Point(34, 217);
-            this.cmbGenre.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.cmbGenre.Margin = new System.Windows.Forms.Padding(5);
             this.cmbGenre.Name = "cmbGenre";
             this.cmbGenre.Size = new System.Drawing.Size(340, 45);
             this.cmbGenre.TabIndex = 3;
@@ -273,7 +273,7 @@
             // 
             this.txtTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtTitle.Location = new System.Drawing.Point(34, 108);
-            this.txtTitle.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtTitle.Margin = new System.Windows.Forms.Padding(5);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(717, 43);
             this.txtTitle.TabIndex = 1;
@@ -299,9 +299,9 @@
             this.groupBoxAudioFile.Controls.Add(this.txtAudioFile);
             this.groupBoxAudioFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.groupBoxAudioFile.Location = new System.Drawing.Point(51, 183);
-            this.groupBoxAudioFile.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.groupBoxAudioFile.Margin = new System.Windows.Forms.Padding(5);
             this.groupBoxAudioFile.Name = "groupBoxAudioFile";
-            this.groupBoxAudioFile.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.groupBoxAudioFile.Padding = new System.Windows.Forms.Padding(5);
             this.groupBoxAudioFile.Size = new System.Drawing.Size(1269, 233);
             this.groupBoxAudioFile.TabIndex = 2;
             this.groupBoxAudioFile.TabStop = false;
@@ -350,7 +350,7 @@
             this.btnSelectAudio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnSelectAudio.ForeColor = System.Drawing.Color.White;
             this.btnSelectAudio.Location = new System.Drawing.Point(1011, 58);
-            this.btnSelectAudio.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnSelectAudio.Margin = new System.Windows.Forms.Padding(5);
             this.btnSelectAudio.Name = "btnSelectAudio";
             this.btnSelectAudio.Size = new System.Drawing.Size(223, 58);
             this.btnSelectAudio.TabIndex = 1;
@@ -362,7 +362,7 @@
             // 
             this.txtAudioFile.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtAudioFile.Location = new System.Drawing.Point(34, 67);
-            this.txtAudioFile.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtAudioFile.Margin = new System.Windows.Forms.Padding(5);
             this.txtAudioFile.Name = "txtAudioFile";
             this.txtAudioFile.ReadOnly = true;
             this.txtAudioFile.Size = new System.Drawing.Size(940, 43);
@@ -397,10 +397,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1371, 1167);
+            this.ClientSize = new System.Drawing.Size(1356, 1057);
             this.Controls.Add(this.panelMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.Name = "frmUploadSong";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -442,10 +442,10 @@
         private System.Windows.Forms.Button btnSelectCover;
         private System.Windows.Forms.Button btnClearCover;
         private System.Windows.Forms.Label lblCoverStatus;
-        private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblInstructions;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label lblProgress;
     }
 }

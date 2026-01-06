@@ -148,6 +148,7 @@
     <Compile Include="DAL\Interfaces\IPostRepository.cs" />
     <Compile Include="DAL\Interfaces\ISongRepository.cs" />
     <Compile Include="DAL\Interfaces\IUserRepository.cs" />
+    <Compile Include="DAL\Repositories\AlbumRepository.cs" />
     <Compile Include="DAL\Repositories\CommentRepository.cs" />
     <Compile Include="DAL\Repositories\ConcertRepository.cs" />
     <Compile Include="DAL\Repositories\PlaylistRepository.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="DTO\Enums\MediaType.cs" />
     <Compile Include="DTO\Enums\TicketStatus.cs" />
     <Compile Include="DTO\Enums\UserRole.cs" />
+    <Compile Include="DTO\Models\Album.cs" />
     <Compile Include="DTO\Models\Comment.cs" />
     <Compile Include="DTO\Models\Concert.cs" />
     <Compile Include="DTO\Models\Playlist.cs" />
@@ -208,23 +210,17 @@
     <Compile Include="GUI\Forms\Main\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Forms\Music\frmMusicPlayer.cs">
+    <Compile Include="GUI\Forms\Music\frmPlaylistEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Forms\Music\frmMusicPlayer.Designer.cs">
-      <DependentUpon>frmMusicPlayer.cs</DependentUpon>
+    <Compile Include="GUI\Forms\Music\frmPlaylistEditor.Designer.cs">
+      <DependentUpon>frmPlaylistEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Forms\Music\frmPlaylistManager.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\Forms\Music\frmPlaylistManager.Designer.cs">
       <DependentUpon>frmPlaylistManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Forms\Music\frmSongLibrary.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Music\frmSongLibrary.Designer.cs">
-      <DependentUpon>frmSongLibrary.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Forms\Music\frmUploadSong.cs">
       <SubType>Form</SubType>
@@ -292,11 +288,23 @@
     <Compile Include="GUI\UserControls\ucPersonalPage.Designer.cs">
       <DependentUpon>ucPersonalPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserControls\ucPlaylistItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucPlaylistItem.Designer.cs">
+      <DependentUpon>ucPlaylistItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\ucPostCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\UserControls\ucPostCard.Designer.cs">
       <DependentUpon>ucPostCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSongDetailPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSongDetailPage.Designer.cs">
+      <DependentUpon>ucSongDetailPage.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserControls\ucSongItem.cs">
       <SubType>UserControl</SubType>
@@ -323,6 +331,9 @@
     <EmbeddedResource Include="GUI\UserControls\ucPersonalPage.resx">
       <DependentUpon>ucPersonalPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucSongDetailPage.resx">
+      <DependentUpon>ucSongDetailPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucSongItem.resx">
       <DependentUpon>ucSongItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -345,8 +356,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="STOP_FEATURE_GUIDE.md" />
-    <None Include="STOP_FEATURE_SUMMARY.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

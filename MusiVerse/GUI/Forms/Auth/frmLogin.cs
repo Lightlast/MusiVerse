@@ -53,11 +53,14 @@ namespace MusiVerse.GUI.Forms.Auth
                     MessageBox.Show(message, "Thông báo",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Mở form chính
-                    this.Hide();
-                    frmMain mainForm = new frmMain();
-                    mainForm.FormClosed += (s, args) => this.Close();
-                    mainForm.Show();
+                    // Mở form chính - sử dụng BeginInvoke để defer transition
+                    this.BeginInvoke(new Action(() =>
+                    {
+                        frmMain mainForm = new frmMain();
+                        mainForm.FormClosed += (s, args) => this.Close();
+                        this.Hide();
+                        mainForm.Show();
+                    }));
                 }
                 else
                 {
@@ -65,16 +68,17 @@ namespace MusiVerse.GUI.Forms.Auth
                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPassword.Clear();
                     txtUsername.Focus();
+
+                    // Reset button immediately on error
+                    btnLogin.Enabled = true;
+                    btnLogin.Text = "Đăng nhập";
+                    this.Cursor = Cursors.Default;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                // Reset button
                 btnLogin.Enabled = true;
                 btnLogin.Text = "Đăng nhập";
                 this.Cursor = Cursors.Default;
@@ -83,11 +87,21 @@ namespace MusiVerse.GUI.Forms.Auth
 
         private void lblRegister_Click(object sender, EventArgs e)
         {
-            // Mở form đăng ký
-            frmRegister registerForm = new frmRegister();
-            this.Hide();
-            registerForm.FormClosed += (s, args) => this.Show();
-            registerForm.ShowDialog();
+            // Defer the form navigation to avoid disposal race condition
+            this.BeginInvoke(new Action(() =>
+            {
+                frmRegister registerForm = new frmRegister();
+                this.Hide();
+                DialogResult result = registerForm.ShowDialog(this);
+                if (result != DialogResult.OK)
+                {
+                    this.Show();
+                }
+                else
+                {
+                    this.Show();
+                }
+            }));
         }
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)

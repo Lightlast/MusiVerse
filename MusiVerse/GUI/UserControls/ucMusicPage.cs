@@ -14,6 +14,9 @@ namespace MusiVerse.GUI.UserControls
         private SongRepository songRepository;
         private System.Windows.Forms.Button currentFilterButton;
 
+        // Event để thông báo cho frmMain khi play song
+        public event EventHandler<Song> OnSongRequested;
+
         public ucMusicPage()
         {
             InitializeComponent();
@@ -336,6 +339,8 @@ namespace MusiVerse.GUI.UserControls
             if (isPlaying)
             {
                 songRepository.IncrementPlayCount(song.SongID);
+                // Phát event cho parent form biết có bài hát được play
+                OnSongRequested?.Invoke(this, song);
             }
         }
 

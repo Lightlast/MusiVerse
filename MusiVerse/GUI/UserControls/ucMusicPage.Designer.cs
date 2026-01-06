@@ -18,11 +18,12 @@
         private void InitializeComponent()
         {
             this.btnUpload = new System.Windows.Forms.Panel();
-            this.cmbSort = new System.Windows.Forms.ComboBox();
+            this.btnUploadMS = new System.Windows.Forms.Button();
             this.panelSearch = new System.Windows.Forms.Panel();
             this.lblSearchIcon = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.cmbSort = new System.Windows.Forms.ComboBox();
             this.cmbGenre = new System.Windows.Forms.ComboBox();
             this.panelFilters = new System.Windows.Forms.Panel();
             this.btnRecentPlayed = new System.Windows.Forms.Button();
@@ -32,7 +33,6 @@
             this.panelContent = new System.Windows.Forms.Panel();
             this.flowPanelSongs = new System.Windows.Forms.FlowLayoutPanel();
             this.lblSongCount = new System.Windows.Forms.Label();
-            this.btnUploadMS = new System.Windows.Forms.Button();
             this.btnUpload.SuspendLayout();
             this.panelSearch.SuspendLayout();
             this.panelFilters.SuspendLayout();
@@ -52,23 +52,17 @@
             this.btnUpload.Size = new System.Drawing.Size(1714, 167);
             this.btnUpload.TabIndex = 0;
             // 
-            // cmbSort
+            // btnUploadMS
             // 
-            this.cmbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSort.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbSort.FormattingEnabled = true;
-            this.cmbSort.Items.AddRange(new object[] {
-            "Mới nhất",
-            "Cũ nhất",
-            "Tên A-Z",
-            "Tên Z-A",
-            "Nhiều lượt nghe"});
-            this.cmbSort.Location = new System.Drawing.Point(1413, 29);
-            this.cmbSort.Margin = new System.Windows.Forms.Padding(5);
-            this.cmbSort.Name = "cmbSort";
-            this.cmbSort.Size = new System.Drawing.Size(190, 45);
-            this.cmbSort.TabIndex = 3;
-            this.cmbSort.SelectedIndexChanged += new System.EventHandler(this.cmbSort_SelectedIndexChanged);
+            this.btnUploadMS.ForeColor = System.Drawing.Color.Black;
+            this.btnUploadMS.Location = new System.Drawing.Point(1475, 55);
+            this.btnUploadMS.Name = "btnUploadMS";
+            this.btnUploadMS.Size = new System.Drawing.Size(205, 59);
+            this.btnUploadMS.TabIndex = 2;
+            this.btnUploadMS.Text = "UpLoad nhạc";
+            this.btnUploadMS.UseVisualStyleBackColor = true;
+            this.btnUploadMS.Visible = false;
+            this.btnUploadMS.Click += new System.EventHandler(this.btnUploadMS_Click);
             // 
             // panelSearch
             // 
@@ -119,6 +113,24 @@
             this.lblTitle.Size = new System.Drawing.Size(476, 72);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "🎵 Thư viện nhạc";
+            // 
+            // cmbSort
+            // 
+            this.cmbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSort.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbSort.FormattingEnabled = true;
+            this.cmbSort.Items.AddRange(new object[] {
+            "Mới nhất",
+            "Cũ nhất",
+            "Tên A-Z",
+            "Tên Z-A",
+            "Nhiều lượt nghe"});
+            this.cmbSort.Location = new System.Drawing.Point(1413, 29);
+            this.cmbSort.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbSort.Name = "cmbSort";
+            this.cmbSort.Size = new System.Drawing.Size(190, 45);
+            this.cmbSort.TabIndex = 3;
+            this.cmbSort.SelectedIndexChanged += new System.EventHandler(this.cmbSort_SelectedIndexChanged);
             // 
             // cmbGenre
             // 
@@ -264,18 +276,6 @@
             this.lblSongCount.Size = new System.Drawing.Size(121, 37);
             this.lblSongCount.TabIndex = 0;
             this.lblSongCount.Text = "0 bài hát";
-            // 
-            // btnUploadMS
-            // 
-            this.btnUploadMS.ForeColor = System.Drawing.Color.Black;
-            this.btnUploadMS.Location = new System.Drawing.Point(1444, 42);
-            this.btnUploadMS.Name = "btnUploadMS";
-            this.btnUploadMS.Size = new System.Drawing.Size(205, 59);
-            this.btnUploadMS.TabIndex = 2;
-            this.btnUploadMS.Text = "UpLoad nhạc";
-            this.btnUploadMS.UseVisualStyleBackColor = true;
-            this.btnUploadMS.Visible = false;
-            this.btnUploadMS.Click += new System.EventHandler(this.btnUploadMS_Click);
             // 
             // ucMusicPage
             // 

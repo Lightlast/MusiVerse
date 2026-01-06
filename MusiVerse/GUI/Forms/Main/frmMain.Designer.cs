@@ -35,14 +35,12 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.panelBottom = new System.Windows.Forms.Panel();
-            this.musicPlayerBar = new MusiVerse.GUI.UserControls.ucMusicPlayer();
+            this.ucMusicPlayer1 = new MusiVerse.GUI.UserControls.ucMusicPlayer();
             this.panelLeft.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelSearchBar.SuspendLayout();
             this.panelContent.SuspendLayout();
-            this.panelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelLeft
@@ -313,38 +311,28 @@
             // 
             this.panelContent.AutoScroll = true;
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
+            this.panelContent.Controls.Add(this.ucMusicPlayer1);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.Location = new System.Drawing.Point(377, 133);
             this.panelContent.Margin = new System.Windows.Forms.Padding(5);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(2023, 1000);
+            this.panelContent.Size = new System.Drawing.Size(2023, 1200);
             this.panelContent.TabIndex = 2;
             // 
-            // panelBottom
+            // ucMusicPlayer1
             // 
-            this.panelBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.panelBottom.Controls.Add(this.musicPlayerBar);
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(377, 1133);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(2023, 200);
-            this.panelBottom.TabIndex = 3;
-            // 
-            // musicPlayerBar
-            // 
-            this.musicPlayerBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.musicPlayerBar.Location = new System.Drawing.Point(0, 0);
-            this.musicPlayerBar.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.musicPlayerBar.Name = "musicPlayerBar";
-            this.musicPlayerBar.Size = new System.Drawing.Size(2023, 200);
-            this.musicPlayerBar.TabIndex = 0;
+            this.ucMusicPlayer1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucMusicPlayer1.Location = new System.Drawing.Point(0, 1000);
+            this.ucMusicPlayer1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ucMusicPlayer1.Name = "ucMusicPlayer1";
+            this.ucMusicPlayer1.Size = new System.Drawing.Size(2023, 200);
+            this.ucMusicPlayer1.TabIndex = 0;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2400, 1333);
-            this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.panelLeft);
@@ -363,7 +351,6 @@
             this.panelSearchBar.ResumeLayout(false);
             this.panelSearchBar.PerformLayout();
             this.panelContent.ResumeLayout(false);
-            this.panelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -388,7 +375,6 @@
         private System.Windows.Forms.Label lblAccountInfo;
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.Button btnUpRole;
-        private System.Windows.Forms.Panel panelBottom;
-        private UserControls.ucMusicPlayer musicPlayerBar;
+        private UserControls.ucMusicPlayer ucMusicPlayer1;
     }
 }
