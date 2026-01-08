@@ -327,6 +327,7 @@
             this.ucMusicPlayer1.Name = "ucMusicPlayer1";
             this.ucMusicPlayer1.Size = new System.Drawing.Size(2023, 200);
             this.ucMusicPlayer1.TabIndex = 0;
+            this.ucMusicPlayer1.Visible = false;
             // 
             // frmMain
             // 

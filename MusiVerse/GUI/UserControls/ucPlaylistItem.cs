@@ -89,5 +89,10 @@ namespace MusiVerse.GUI.UserControls
         {
             this.BackColor = Color.White;
         }
+
+        private void pbCover_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

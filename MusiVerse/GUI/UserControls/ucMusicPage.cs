@@ -4,6 +4,7 @@ using MusiVerse.DTO.Models;
 using MusiVerse.GUI.Forms.Music;
 using MusiVerse.GUI.Utils;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace MusiVerse.GUI.UserControls
     public partial class ucMusicPage : System.Windows.Forms.UserControl
     {
         private SongRepository songRepository;
+        private PlaylistService playlistService;
         private System.Windows.Forms.Button currentFilterButton;
 
         // Event để thông báo cho frmMain khi play song
@@ -21,6 +23,7 @@ namespace MusiVerse.GUI.UserControls
         {
             InitializeComponent();
             songRepository = new SongRepository();
+            playlistService = new PlaylistService();
         }
 
         private void ucMusicPage_Load(object sender, EventArgs e)
@@ -44,6 +47,10 @@ namespace MusiVerse.GUI.UserControls
             {
                 btnUploadMS.Visible = false;
             }
+
+            // Hide btnNewPlaylist by default
+            btnNewPlaylist.Visible = false;
+            btnNewPlaylist.Click += btnNewPlaylist_Click;
         }
 
         private void OpenUploadForm()
@@ -67,24 +74,28 @@ namespace MusiVerse.GUI.UserControls
         private void btnAllSongs_Click(object sender, EventArgs e)
         {
             SelectFilterButton(btnAllSongs);
+            btnNewPlaylist.Visible = false;
             LoadAllSongs();
         }
 
         private void btnLikedSongs_Click(object sender, EventArgs e)
         {
             SelectFilterButton(btnLikedSongs);
+            btnNewPlaylist.Visible = false;
             LoadLikedSongs();
         }
 
         private void btnMyPlaylists_Click(object sender, EventArgs e)
         {
             SelectFilterButton(btnMyPlaylists);
+            btnNewPlaylist.Visible = true;
             LoadMyPlaylists();
         }
 
         private void btnRecentPlayed_Click(object sender, EventArgs e)
         {
             SelectFilterButton(btnRecentPlayed);
+            btnNewPlaylist.Visible = false;
             LoadRecentPlayed();
         }
 
@@ -194,12 +205,33 @@ namespace MusiVerse.GUI.UserControls
         private void LoadMyPlaylists()
         {
             ClearSongList();
-            ShowEmptyMessage("Tính năng Playlist đang được phát triển");
+
+            try
+            {
+                int currentUserID = SessionManager.GetCurrentUserID();
+                List<Playlist> playlists = playlistService.GetUserPlaylists(currentUserID);
+
+                if (playlists.Count == 0)
+                {
+                    ShowEmptyMessage("Bạn chưa có playlist nào. Tạo playlist mới để bắt đầu!");
+                    lblSongCount.Text = "0 playlist";
+                    return;
+                }
+
+                PopulatePlaylistList(playlists);
+                lblSongCount.Text = $"{playlists.Count} playlist";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load playlist: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadRecentPlayed()
         {
             ClearSongList();
+            btnNewPlaylist.Visible = false;
             ShowEmptyMessage("Tính năng Lịch sử nghe đang được phát triển");
         }
 
@@ -265,6 +297,20 @@ namespace MusiVerse.GUI.UserControls
                 item.OnPlayClicked += OnSongPlayClicked;
                 item.OnLikeClicked += (s, e) => OnSongLikeClicked(item, song);
                 item.OnMoreClicked += (s, e) => ShowSongOptions(song, item.btnMore);
+
+                flowPanelSongs.Controls.Add(item);
+            }
+        }
+
+        private void PopulatePlaylistList(List<Playlist> playlists)
+        {
+            foreach (var playlist in playlists)
+            {
+                ucPlaylistItem item = new ucPlaylistItem(playlist);
+
+                item.OnPlayClicked += (s, e) => PlayPlaylist(playlist);
+                item.OnEditClicked += (s, e) => EditPlaylist(playlist);
+                item.OnDeleteClicked += (s, e) => DeletePlaylist(playlist);
 
                 flowPanelSongs.Controls.Add(item);
             }
@@ -339,8 +385,75 @@ namespace MusiVerse.GUI.UserControls
             if (isPlaying)
             {
                 songRepository.IncrementPlayCount(song.SongID);
-                // Phát event cho parent form biết có bài hát được play
                 OnSongRequested?.Invoke(this, song);
+            }
+        }
+
+        private void PlayPlaylist(Playlist playlist)
+        {
+            try
+            {
+                List<Song> playlistSongs = playlistService.GetPlaylistSongs(playlist.PlaylistID);
+                if (playlistSongs.Count > 0)
+                {
+                    PlaySong(playlistSongs[0]);
+                    MessageBox.Show($"Đang phát playlist '{playlist.Name}'", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Playlist này không có bài hát nào", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void EditPlaylist(Playlist playlist)
+        {
+            try
+            {
+                frmPlaylistEditor editor = new frmPlaylistEditor();
+                editor.LoadPlaylistForEdit(playlist, SessionManager.GetCurrentUserID());
+
+                if (editor.ShowDialog() == DialogResult.OK)
+                {
+                    LoadMyPlaylists();
+                    MessageBox.Show("Playlist đã được cập nhật thành công!", "Thành công",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi chỉnh sửa playlist: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DeletePlaylist(Playlist playlist)
+        {
+            try
+            {
+                if (playlistService.DeletePlaylist(playlist.PlaylistID))
+                {
+                    LoadMyPlaylists();
+                    MessageBox.Show("Playlist đã được xóa!", "Thành công",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể xóa playlist", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xóa playlist: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -402,6 +515,27 @@ namespace MusiVerse.GUI.UserControls
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadAllSongs();
                 }
+            }
+        }
+
+        private void btnNewPlaylist_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmPlaylistEditor editor = new frmPlaylistEditor();
+                editor.Initialize(SessionManager.GetCurrentUserID());
+
+                if (editor.ShowDialog() == DialogResult.OK)
+                {
+                    LoadMyPlaylists();
+                    MessageBox.Show("Playlist mới đã được tạo thành công!", "Thành công",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tạo playlist: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

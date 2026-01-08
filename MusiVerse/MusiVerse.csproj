@@ -216,12 +216,6 @@
     <Compile Include="GUI\Forms\Music\frmPlaylistEditor.Designer.cs">
       <DependentUpon>frmPlaylistEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Forms\Music\frmPlaylistManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Music\frmPlaylistManager.Designer.cs">
-      <DependentUpon>frmPlaylistManager.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Forms\Music\frmUploadSong.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucPersonalPage.resx">
       <DependentUpon>ucPersonalPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucPlaylistItem.resx">
+      <DependentUpon>ucPlaylistItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucSongDetailPage.resx">
       <DependentUpon>ucSongDetailPage.cs</DependentUpon>

@@ -33,6 +33,7 @@
             this.panelContent = new System.Windows.Forms.Panel();
             this.flowPanelSongs = new System.Windows.Forms.FlowLayoutPanel();
             this.lblSongCount = new System.Windows.Forms.Label();
+            this.btnNewPlaylist = new System.Windows.Forms.Button();
             this.btnUpload.SuspendLayout();
             this.panelSearch.SuspendLayout();
             this.panelFilters.SuspendLayout();
@@ -42,6 +43,7 @@
             // btnUpload
             // 
             this.btnUpload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(50)))));
+            this.btnUpload.Controls.Add(this.btnNewPlaylist);
             this.btnUpload.Controls.Add(this.btnUploadMS);
             this.btnUpload.Controls.Add(this.panelSearch);
             this.btnUpload.Controls.Add(this.lblTitle);
@@ -277,6 +279,15 @@
             this.lblSongCount.TabIndex = 0;
             this.lblSongCount.Text = "0 bài hát";
             // 
+            // btnNewPlaylist
+            // 
+            this.btnNewPlaylist.Location = new System.Drawing.Point(1248, 55);
+            this.btnNewPlaylist.Name = "btnNewPlaylist";
+            this.btnNewPlaylist.Size = new System.Drawing.Size(159, 59);
+            this.btnNewPlaylist.TabIndex = 3;
+            this.btnNewPlaylist.Text = "Tạo playlist";
+            this.btnNewPlaylist.UseVisualStyleBackColor = true;
+            // 
             // ucMusicPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -317,5 +328,6 @@
         private System.Windows.Forms.Label lblSongCount;
         private System.Windows.Forms.FlowLayoutPanel flowPanelSongs;
         private System.Windows.Forms.Button btnUploadMS;
+        private System.Windows.Forms.Button btnNewPlaylist;
     }
 }
