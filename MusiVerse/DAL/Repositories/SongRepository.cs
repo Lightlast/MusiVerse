@@ -228,6 +228,34 @@ namespace MusiVerse.DAL.Repositories
             return result > 0;
         }
 
+        // Lấy bài hát được nghe gần đây (Top 20 bài hát được phát nhiều nhất trong 30 ngày gần đây)
+        public List<Song> GetRecentPlayedSongs(int userID)
+        {
+            string query = @"SELECT TOP 20 s.SongID, s.Title, s.ArtistID, u.FullName AS ArtistName, 
+                                   s.Duration, s.FilePath, s.CoverImage, s.Genre, 
+                                   s.ReleaseDate, s.PlayCount, s.IsActive,
+                                   CASE WHEN ls.LikedSongID IS NOT NULL THEN 1 ELSE 0 END AS IsLiked
+                           FROM Songs s
+                           INNER JOIN Users u ON s.ArtistID = u.UserID
+                           LEFT JOIN LikedSongs ls ON s.SongID = ls.SongID AND ls.UserID = @UserID
+                           WHERE s.IsActive = 1
+                           ORDER BY s.PlayCount DESC, s.ReleaseDate DESC";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@UserID", userID)
+            };
+
+            DataTable dt = DatabaseConnection.ExecuteQuery(query, parameters);
+            List<Song> songs = new List<Song>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                songs.Add(MapRowToSong(row));
+            }
+
+            return songs;
+        }
+
         // Helper method
         private Song MapRowToSong(DataRow row)
         {

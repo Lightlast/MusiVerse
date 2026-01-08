@@ -232,7 +232,27 @@ namespace MusiVerse.GUI.UserControls
         {
             ClearSongList();
             btnNewPlaylist.Visible = false;
-            ShowEmptyMessage("Tính năng Lịch sử nghe đang được phát triển");
+
+            try
+            {
+                int currentUserID = SessionManager.GetCurrentUserID();
+                var songs = songRepository.GetRecentPlayedSongs(currentUserID);
+
+                if (songs.Count == 0)
+                {
+                    ShowEmptyMessage("Bạn chưa nghe bài hát nào gần đây");
+                    lblSongCount.Text = "0 bài hát";
+                    return;
+                }
+
+                PopulateSongList(songs);
+                lblSongCount.Text = $"{songs.Count} bài hát được nghe gần đây";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load lịch sử nghe: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SearchSongs(string keyword)
