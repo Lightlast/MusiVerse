@@ -246,18 +246,6 @@
     <Compile Include="GUI\Forms\Social\frmCreatePost.Designer.cs">
       <DependentUpon>frmCreatePost.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Forms\Social\frmNewsFeed.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmNewsFeed.Designer.cs">
-      <DependentUpon>frmNewsFeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmProfile.Designer.cs">
-      <DependentUpon>frmProfile.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\UserControls\ucConcertCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -288,11 +276,17 @@
     <Compile Include="GUI\UserControls\ucPlaylistItem.Designer.cs">
       <DependentUpon>ucPlaylistItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\UserControls\ucPostCard.cs">
+    <Compile Include="GUI\UserControls\ucPostItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\UserControls\ucPostCard.Designer.cs">
-      <DependentUpon>ucPostCard.cs</DependentUpon>
+    <Compile Include="GUI\UserControls\ucPostItem.Designer.cs">
+      <DependentUpon>ucPostItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\UcSocialPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\UcSocialPage.Designer.cs">
+      <DependentUpon>UcSocialPage.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserControls\ucSongDetailPage.cs">
       <SubType>UserControl</SubType>
