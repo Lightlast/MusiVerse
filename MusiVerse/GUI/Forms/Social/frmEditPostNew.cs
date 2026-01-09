@@ -1,4 +1,4 @@
-﻿using MusiVerse.BLL.Services;
+using MusiVerse.BLL.Services;
 using MusiVerse.DTO.Models;
 using MusiVerse.GUI.Utils;
 using System;
@@ -7,23 +7,27 @@ using System.Windows.Forms;
 
 namespace MusiVerse.GUI.Forms.Social
 {
-    public partial class frmCreatePost : Form
+    public partial class frmEditPost : Form
     {
         private PostService _postService;
+        private Post _post;
         private TextBox _txtContent;
         private PictureBox _pbMedia;
-        private string _selectedMediaPath = "";
+        private string _selectedMediaPath;
+        private Button _btnRemoveMedia;
 
-        public frmCreatePost()
+        public frmEditPost(Post post)
         {
             InitializeComponent();
+            _post = post;
             _postService = new PostService();
+            _selectedMediaPath = post.MediaPath ?? "";
             SetupUI();
         }
 
         private void SetupUI()
         {
-            this.Text = "Tạo bài viết";
+            this.Text = "Ch?nh s?a b�i vi?t";
             this.Size = new System.Drawing.Size(700, 600);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -41,7 +45,7 @@ namespace MusiVerse.GUI.Forms.Social
             // Title
             Label lblTitle = new Label
             {
-                Text = "✍️ Tạo bài viết mới",
+                Text = "?? Ch?nh s?a b�i vi?t",
                 Font = new Font("Segoe UI", 14, FontStyle.Bold),
                 AutoSize = true,
                 Location = new Point(20, 20)
@@ -59,15 +63,15 @@ namespace MusiVerse.GUI.Forms.Social
 
             Label lblUsername = new Label
             {
-                Text = SessionManager.GetCurrentUsername(),
+                Text = _post.Username,
                 Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 AutoSize = true,
                 Location = new Point(10, 10)
             };
 
-            Label lblRole = new Label
+            Label lblDate = new Label
             {
-                Text = SessionManager.IsArtist() ? "🎤 Nghệ sĩ" : "👤 Người dùng",
+                Text = $"T?o l�c: {_post.CreatedDate:dd/MM/yyyy HH:mm}",
                 Font = new Font("Segoe UI", 9),
                 ForeColor = Color.Gray,
                 AutoSize = true,
@@ -75,12 +79,12 @@ namespace MusiVerse.GUI.Forms.Social
             };
 
             pnlUserInfo.Controls.Add(lblUsername);
-            pnlUserInfo.Controls.Add(lblRole);
+            pnlUserInfo.Controls.Add(lblDate);
 
             // Content textarea
             Label lblContent = new Label
             {
-                Text = "Nội dung:",
+                Text = "N?i dung:",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 AutoSize = true,
                 Location = new Point(20, 140)
@@ -92,14 +96,14 @@ namespace MusiVerse.GUI.Forms.Social
                 Size = new System.Drawing.Size(660, 150),
                 Multiline = true,
                 ScrollBars = ScrollBars.Vertical,
-                Font = new Font("Segoe UI", 10)
+                Font = new Font("Segoe UI", 10),
+                Text = _post.Content ?? ""
             };
-            _txtContent.Text = "Chia sẻ điều gì đó với cộng đồng...";
 
             // Media section
             Label lblMedia = new Label
             {
-                Text = "Hình ảnh/Video:",
+                Text = "H�nh ?nh/Video:",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 AutoSize = true,
                 Location = new Point(20, 330)
@@ -111,13 +115,21 @@ namespace MusiVerse.GUI.Forms.Social
                 Size = new System.Drawing.Size(200, 150),
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 BorderStyle = BorderStyle.FixedSingle,
-                BackColor = Color.FromArgb(240, 240, 240),
-                Image = null
+                BackColor = Color.FromArgb(240, 240, 240)
             };
+
+            if (!string.IsNullOrWhiteSpace(_post.MediaPath) && System.IO.File.Exists(_post.MediaPath))
+            {
+                try
+                {
+                    _pbMedia.Image = Image.FromFile(_post.MediaPath);
+                }
+                catch { }
+            }
 
             Button btnSelectMedia = new Button
             {
-                Text = "📁 Chọn hình ảnh",
+                Text = "?? Ch?n h�nh ?nh",
                 Location = new Point(240, 360),
                 Size = new System.Drawing.Size(140, 35),
                 BackColor = Color.FromArgb(100, 149, 237),
@@ -129,9 +141,9 @@ namespace MusiVerse.GUI.Forms.Social
             btnSelectMedia.FlatAppearance.BorderSize = 0;
             btnSelectMedia.Click += (s, e) => SelectMedia();
 
-            Button btnRemoveMedia = new Button
+            _btnRemoveMedia = new Button
             {
-                Text = "❌ Xóa",
+                Text = "? X�a",
                 Location = new Point(240, 410),
                 Size = new System.Drawing.Size(140, 35),
                 BackColor = Color.FromArgb(220, 20, 60),
@@ -139,14 +151,14 @@ namespace MusiVerse.GUI.Forms.Social
                 Font = new Font("Segoe UI", 10),
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
-                Enabled = false
+                Enabled = !string.IsNullOrWhiteSpace(_post.MediaPath)
             };
-            btnRemoveMedia.FlatAppearance.BorderSize = 0;
-            btnRemoveMedia.Click += (s, e) =>
+            _btnRemoveMedia.FlatAppearance.BorderSize = 0;
+            _btnRemoveMedia.Click += (s, e) =>
             {
                 _selectedMediaPath = "";
                 _pbMedia.Image = null;
-                btnRemoveMedia.Enabled = false;
+                _btnRemoveMedia.Enabled = false;
             };
 
             // Buttons panel
@@ -157,9 +169,9 @@ namespace MusiVerse.GUI.Forms.Social
                 BackColor = Color.FromArgb(250, 250, 250)
             };
 
-            Button btnPublish = new Button
+            Button btnSave = new Button
             {
-                Text = "📤 Đăng bài",
+                Text = "?? L?u",
                 Location = new Point(480, 10),
                 Size = new System.Drawing.Size(200, 35),
                 BackColor = Color.FromArgb(0, 150, 136),
@@ -168,12 +180,12 @@ namespace MusiVerse.GUI.Forms.Social
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
-            btnPublish.FlatAppearance.BorderSize = 0;
-            btnPublish.Click += (s, e) => PublishPost();
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.Click += (s, e) => SavePost();
 
             Button btnCancel = new Button
             {
-                Text = "Hủy",
+                Text = "H?y",
                 Location = new Point(20, 10),
                 Size = new System.Drawing.Size(100, 35),
                 BackColor = Color.FromArgb(200, 200, 200),
@@ -185,7 +197,7 @@ namespace MusiVerse.GUI.Forms.Social
             };
             btnCancel.FlatAppearance.BorderSize = 0;
 
-            pnlButtons.Controls.Add(btnPublish);
+            pnlButtons.Controls.Add(btnSave);
             pnlButtons.Controls.Add(btnCancel);
 
             pnlMain.Controls.Add(lblTitle);
@@ -195,7 +207,7 @@ namespace MusiVerse.GUI.Forms.Social
             pnlMain.Controls.Add(lblMedia);
             pnlMain.Controls.Add(_pbMedia);
             pnlMain.Controls.Add(btnSelectMedia);
-            pnlMain.Controls.Add(btnRemoveMedia);
+            pnlMain.Controls.Add(_btnRemoveMedia);
 
             this.Controls.Add(pnlMain);
             this.Controls.Add(pnlButtons);
@@ -206,7 +218,7 @@ namespace MusiVerse.GUI.Forms.Social
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif|Video Files|*.mp4;*.avi;*.mkv|All Files|*.*";
-                ofd.Title = "Chọn hình ảnh hoặc video";
+                ofd.Title = "Ch?n h�nh ?nh ho?c video";
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -214,73 +226,53 @@ namespace MusiVerse.GUI.Forms.Social
                     try
                     {
                         _pbMedia.Image = Image.FromFile(_selectedMediaPath);
-                        ((Button)this.Controls.Find("btnRemoveMedia", true)[0]).Enabled = true;
+                        _btnRemoveMedia.Enabled = true;
                     }
                     catch
                     {
-                        MessageBox.Show("Không thể tải hình ảnh", "Lỗi");
-                        _selectedMediaPath = "";
+                        MessageBox.Show("Kh�ng th? t?i h�nh ?nh", "L?i");
+                        _selectedMediaPath = _post.MediaPath;
                     }
                 }
             }
         }
 
-        private void PublishPost()
+        private void SavePost()
         {
             string content = _txtContent.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(content) && string.IsNullOrWhiteSpace(_selectedMediaPath))
             {
-                MessageBox.Show("Bài viết phải có nội dung hoặc hình ảnh/video", "Cảnh báo",
+                MessageBox.Show("B�i vi?t ph?i c� n?i dung ho?c h�nh ?nh/video", "C?nh b�o",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                var post = new Post
-                {
-                    UserID = SessionManager.GetCurrentUserID(),
-                    Content = content,
-                    MediaPath = _selectedMediaPath,
-                    MediaType = GetMediaType(_selectedMediaPath)
-                };
+                _post.Content = content;
+                _post.MediaPath = _selectedMediaPath;
 
-                var result = _postService.CreatePost(post);
+                var result = _postService.UpdatePost(_post);
 
                 if (result.Item1)
                 {
-                    MessageBox.Show(result.Item2, "Thành công",
+                    MessageBox.Show(result.Item2, "Th�nh c�ng",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show(result.Item2, "Lỗi",
+                    MessageBox.Show(result.Item2, "L?i",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
+                MessageBox.Show("L?i: " + ex.Message, "L?i",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private string GetMediaType(string filePath)
-        {
-            if (string.IsNullOrWhiteSpace(filePath))
-                return "";
-
-            string ext = System.IO.Path.GetExtension(filePath).ToLower();
-
-            if (".jpg.jpeg.png.gif.bmp".Contains(ext))
-                return "image";
-            else if (".mp4.avi.mkv.mov.flv".Contains(ext))
-                return "video";
-
-            return "unknown";
         }
     }
 }

@@ -240,12 +240,6 @@
     <Compile Include="GUI\Forms\Shopping\frmMyTickets.Designer.cs">
       <DependentUpon>frmMyTickets.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Forms\Social\frmCreatePost.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmCreatePost.Designer.cs">
-      <DependentUpon>frmCreatePost.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\UserControls\ucConcertCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -281,12 +275,6 @@
     </Compile>
     <Compile Include="GUI\UserControls\ucPostItem.Designer.cs">
       <DependentUpon>ucPostItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\UserControls\UcSocialPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\UserControls\UcSocialPage.Designer.cs">
-      <DependentUpon>UcSocialPage.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserControls\ucSongDetailPage.cs">
       <SubType>UserControl</SubType>
@@ -352,6 +340,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="GUI\Forms\Social\" />
     <Folder Include="GUI\Resources\Fonts\" />
     <Folder Include="GUI\Resources\Icons\" />
     <Folder Include="GUI\Resources\Images\" />
