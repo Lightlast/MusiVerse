@@ -13,14 +13,12 @@ namespace MusiVerse.GUI.Forms.Social
     public partial class frmSavedPosts : Form
     {
         private PostService _postService;
-        private ShareService _shareService;
         private Panel _pnlPosts;
 
         public frmSavedPosts()
         {
             InitializeComponent();
             _postService = new PostService();
-            _shareService = new ShareService();
             SetupUI();
             LoadSavedPosts();
         }
@@ -140,7 +138,7 @@ namespace MusiVerse.GUI.Forms.Social
             postCard.OnSaveClicked += (s, e) => HandleRemoveFromSaved(post, postCard);
             postCard.OnDeleteClicked += (s, e) => HandleDeletePost(post, postCard);
             postCard.OnEditClicked += (s, e) => HandleEditPost(post, postCard);
-            postCard.OnShareClicked += (s, e) => HandleSharePost(post);
+            // postCard.OnShareClicked += (s, e) => HandleSharePost(post);
 
             _pnlPosts.Controls.Add(postCard);
         }
@@ -213,27 +211,32 @@ namespace MusiVerse.GUI.Forms.Social
             }
         }
 
-        private void HandleSharePost(Post post)
-        {
-            int userID = SessionManager.GetCurrentUserID();
-            var result = _shareService.SharePost(userID, post.PostID);
-            if (result.Item1)
-            {
-                post.ShareCount++;
-                MessageBox.Show(result.Item2, "Thành công",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show(result.Item2, "L?i",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        // private void HandleSharePost(Post post)
+        // {
+        //     int userID = SessionManager.GetCurrentUserID();
+        //     var result = _shareService.SharePost(userID, post.PostID);
+        //     if (result.Item1)
+        //     {
+        //         post.ShareCount++;
+        //         MessageBox.Show(result.Item2, "Thành công",
+        //             MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //     }
+        //     else
+        //     {
+        //         MessageBox.Show(result.Item2, "L?i",
+        //             MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //     }
+        // }
 
         private void ShowCommentForm(Post post)
         {
             frmCommentSection commentForm = new frmCommentSection(post);
             commentForm.ShowDialog();
+        }
+
+        private void lblSubtitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

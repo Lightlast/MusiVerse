@@ -30,6 +30,25 @@ namespace MusiVerse.DAL.Repositories
             }
         }
 
+        public bool UnsharePost(int userID, int postID)
+        {
+            string query = "DELETE FROM PostShares WHERE UserID = @UserID AND PostID = @PostID";
+            SqlParameter[] parameters = {
+                new SqlParameter("@UserID", userID),
+                new SqlParameter("@PostID", postID)
+            };
+
+            try
+            {
+                int result = DatabaseConnection.ExecuteNonQuery(query, parameters);
+                return result > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public int GetShareCount(int postID)
         {
             string query = "SELECT COUNT(*) FROM PostShares WHERE PostID = @PostID";

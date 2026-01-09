@@ -29,10 +29,19 @@ namespace MusiVerse.GUI.Forms.Social
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(800, 700);
             this.Name = "frmCommentDialog";
-            this.Text = "frmCommentDialog";
+            this.Text = "?? Bình lu?n";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.BackColor = System.Drawing.Color.FromArgb(245, 245, 245);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            
+            this.Load += new System.EventHandler(this.frmCommentDialog_Load);
         }
 
         #endregion

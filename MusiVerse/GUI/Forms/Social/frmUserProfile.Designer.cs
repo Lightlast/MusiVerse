@@ -70,7 +70,7 @@
             this.lblPostCount.AutoSize = true;
             this.lblPostCount.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblPostCount.ForeColor = System.Drawing.Color.Gray;
-            this.lblPostCount.Location = new System.Drawing.Point(180, 20);
+            this.lblPostCount.Location = new System.Drawing.Point(224, 10);
             this.lblPostCount.Name = "lblPostCount";
             this.lblPostCount.Size = new System.Drawing.Size(200, 37);
             this.lblPostCount.TabIndex = 0;

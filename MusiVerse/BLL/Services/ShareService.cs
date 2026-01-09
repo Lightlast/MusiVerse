@@ -29,6 +29,23 @@ namespace MusiVerse.BLL.Services
             }
         }
 
+        // Unshare post
+        public (bool, string) UnsharePost(int userID, int postID)
+        {
+            try
+            {
+                if (userID <= 0 || postID <= 0)
+                    return (false, "D? li?u không h?p l?");
+
+                bool success = _shareRepository.UnsharePost(userID, postID);
+                return (success, success ? "?ã b? chia s? bài vi?t" : "L?i b? chia s? bài vi?t");
+            }
+            catch (Exception ex)
+            {
+                return (false, "L?i: " + ex.Message);
+            }
+        }
+
         // Get share count
         public int GetShareCount(int postID)
         {

@@ -16,6 +16,8 @@ namespace MusiVerse.GUI.UserControls
         public event EventHandler OnCommentClicked;
         public event EventHandler OnSaveClicked;
         public event EventHandler OnDeleteClicked;
+        public event EventHandler OnEditClicked;
+        public event EventHandler OnShareClicked;
         public event EventHandler OnProfileClicked;
         public event EventHandler OnPlaySongClicked;
 
@@ -78,10 +80,10 @@ namespace MusiVerse.GUI.UserControls
                 AutoSize = true
             };
 
-            // Delete button (for post owner)
+            // Menu button (for post owner)
             if (_currentUserID == _post.UserID)
             {
-                Button btnDelete = new Button
+                Button btnMenu = new Button
                 {
                     Text = "⋮",
                     Width = 40,
@@ -90,11 +92,12 @@ namespace MusiVerse.GUI.UserControls
                     FlatStyle = FlatStyle.Flat,
                     BackColor = Color.White,
                     ForeColor = Color.Gray,
-                    Font = new Font("Arial", 14)
+                    Font = new Font("Arial", 14),
+                    Cursor = Cursors.Hand
                 };
-                btnDelete.FlatAppearance.BorderSize = 0;
-                btnDelete.Click += (s, e) => OnDeleteClicked?.Invoke(this, EventArgs.Empty);
-                pnlHeader.Controls.Add(btnDelete);
+                btnMenu.FlatAppearance.BorderSize = 0;
+                btnMenu.Click += (s, e) => ShowPostMenu();
+                pnlHeader.Controls.Add(btnMenu);
             }
 
             pnlHeader.Controls.Add(pbAvatar);
@@ -193,7 +196,8 @@ namespace MusiVerse.GUI.UserControls
                 FlatStyle = FlatStyle.Flat,
                 BackColor = _post.IsLiked ? Color.FromArgb(220, 20, 60) : Color.White,
                 ForeColor = _post.IsLiked ? Color.White : Color.Black,
-                Font = new Font("Segoe UI", 9)
+                Font = new Font("Segoe UI", 9),
+                Cursor = Cursors.Hand
             };
             btnLike.FlatAppearance.BorderSize = 0;
             btnLike.Click += (s, e) => OnLikeClicked?.Invoke(this, EventArgs.Empty);
@@ -205,28 +209,52 @@ namespace MusiVerse.GUI.UserControls
                 Size = new Size(100, 30),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.White,
-                Font = new Font("Segoe UI", 9)
+                Font = new Font("Segoe UI", 9),
+                Cursor = Cursors.Hand
             };
             btnComment.FlatAppearance.BorderSize = 0;
             btnComment.Click += (s, e) => OnCommentClicked?.Invoke(this, EventArgs.Empty);
 
+            Button btnShare = new Button
+            {
+                Text = "📤 Chia sẻ",
+                Location = new Point(210, 8),
+                Size = new Size(80, 30),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.White,
+                Font = new Font("Segoe UI", 9),
+                Cursor = Cursors.Hand
+            };
+            btnShare.FlatAppearance.BorderSize = 0;
+            btnShare.Click += (s, e) => OnShareClicked?.Invoke(this, EventArgs.Empty);
+
             Button btnSave = new Button
             {
                 Text = _post.IsSaved ? "📌 Đã lưu" : "📌 Lưu",
-                Location = new Point(210, 8),
+                Location = new Point(300, 8),
                 Size = new Size(80, 30),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = _post.IsSaved ? Color.FromArgb(100, 149, 237) : Color.White,
                 ForeColor = _post.IsSaved ? Color.White : Color.Black,
-                Font = new Font("Segoe UI", 9)
+                Font = new Font("Segoe UI", 9),
+                Cursor = Cursors.Hand
             };
             btnSave.FlatAppearance.BorderSize = 0;
             btnSave.Click += (s, e) => OnSaveClicked?.Invoke(this, EventArgs.Empty);
 
             pnlActions.Controls.Add(btnLike);
             pnlActions.Controls.Add(btnComment);
+            pnlActions.Controls.Add(btnShare);
             pnlActions.Controls.Add(btnSave);
             this.Controls.Add(pnlActions);
+        }
+
+        private void ShowPostMenu()
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
+            menu.Items.Add("✏️ Chỉnh sửa", null, (s, e) => OnEditClicked?.Invoke(this, EventArgs.Empty));
+            menu.Items.Add("🗑️ Xóa", null, (s, e) => OnDeleteClicked?.Invoke(this, EventArgs.Empty));
+            menu.Show(Cursor.Position);
         }
 
         private Image LoadUserAvatar(string avatarPath)
@@ -270,12 +298,26 @@ namespace MusiVerse.GUI.UserControls
         {
             _post.IsLiked = isLiked;
             _post.LikeCount = newLikeCount;
-            // Refresh UI
+        }
+
+        public void UpdateCommentCount(int newCount)
+        {
+            _post.CommentCount = newCount;
+        }
+
+        public void UpdateShareCount(int newCount)
+        {
+            _post.ShareCount = newCount;
         }
 
         public void UpdateSaveStatus(bool isSaved)
         {
             _post.IsSaved = isSaved;
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

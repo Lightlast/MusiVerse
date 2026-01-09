@@ -151,6 +151,7 @@
     <Compile Include="DAL\Repositories\AlbumRepository.cs" />
     <Compile Include="DAL\Repositories\CommentRepository.cs" />
     <Compile Include="DAL\Repositories\ConcertRepository.cs" />
+    <Compile Include="DAL\Repositories\DatabaseHelper.cs" />
     <Compile Include="DAL\Repositories\PlaylistRepository.cs" />
     <Compile Include="DAL\Repositories\PostRepository.cs" />
     <Compile Include="DAL\Repositories\SongRepository.cs" />
@@ -240,6 +241,66 @@
     <Compile Include="GUI\Forms\Shopping\frmMyTickets.Designer.cs">
       <DependentUpon>frmMyTickets.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Forms\Social\frmCommentDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCommentDialog.Designer.cs">
+      <DependentUpon>frmCommentDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCommentSection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCommentSection.Designer.cs">
+      <DependentUpon>frmCommentSection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCreateEditPost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCreateEditPost.Designer.cs">
+      <DependentUpon>frmCreateEditPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmDirectMessages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmDirectMessages.Designer.cs">
+      <DependentUpon>frmDirectMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmEditPost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmEditPost.Designer.cs">
+      <DependentUpon>frmEditPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmMyPosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmMyPosts.Designer.cs">
+      <DependentUpon>frmMyPosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmNotifications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmNotifications.Designer.cs">
+      <DependentUpon>frmNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmSavedPosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmSavedPosts.Designer.cs">
+      <DependentUpon>frmSavedPosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmTrendingPosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmTrendingPosts.Designer.cs">
+      <DependentUpon>frmTrendingPosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmUserProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmUserProfile.Designer.cs">
+      <DependentUpon>frmUserProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\ucConcertCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -276,6 +337,12 @@
     <Compile Include="GUI\UserControls\ucPostItem.Designer.cs">
       <DependentUpon>ucPostItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserControls\ucSocialNetworkPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSocialNetworkPage.Designer.cs">
+      <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\ucSongDetailPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -288,6 +355,13 @@
     <Compile Include="GUI\UserControls\ucSongItem.Designer.cs">
       <DependentUpon>ucSongItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserControls\ucUserProfile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucUserProfile.Designer.cs">
+      <DependentUpon>ucUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Utils\MediaHelper.cs" />
     <Compile Include="GUI\Utils\SessionManager.cs" />
     <Compile Include="GUI\Utils\UIHelper.cs" />
     <Compile Include="Program.cs" />
@@ -301,6 +375,24 @@
     <EmbeddedResource Include="GUI\Forms\Music\frmUploadSong.resx">
       <DependentUpon>frmUploadSong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Social\frmCommentSection.resx">
+      <DependentUpon>frmCommentSection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Social\frmDirectMessages.resx">
+      <DependentUpon>frmDirectMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Social\frmEditPost.resx">
+      <DependentUpon>frmEditPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Social\frmSavedPosts.resx">
+      <DependentUpon>frmSavedPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Social\frmTrendingPosts.resx">
+      <DependentUpon>frmTrendingPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Social\frmUserProfile.resx">
+      <DependentUpon>frmUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucMusicPage.resx">
       <DependentUpon>ucMusicPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -310,11 +402,20 @@
     <EmbeddedResource Include="GUI\UserControls\ucPlaylistItem.resx">
       <DependentUpon>ucPlaylistItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucPostItem.resx">
+      <DependentUpon>ucPostItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucSocialNetworkPage.resx">
+      <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucSongDetailPage.resx">
       <DependentUpon>ucSongDetailPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucSongItem.resx">
       <DependentUpon>ucSongItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucUserProfile.resx">
+      <DependentUpon>ucUserProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -325,6 +426,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="API_REFERENCE.md" />
+    <None Include="COMPLETION_SUMMARY.md" />
+    <None Include="FINAL_COMPLETION_REPORT.md" />
+    <None Include="FRMCOMMENTDIALOG_SUMMARY.md" />
+    <None Include="IMPLEMENTATION_SUMMARY.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -335,15 +441,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="QUICK_START_GUIDE.md" />
+    <None Include="SQL.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GUI\Forms\Social\" />
     <Folder Include="GUI\Resources\Fonts\" />
     <Folder Include="GUI\Resources\Icons\" />
     <Folder Include="GUI\Resources\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FINAL_SUMMARY.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
