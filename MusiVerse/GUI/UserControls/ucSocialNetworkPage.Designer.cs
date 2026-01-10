@@ -8,7 +8,6 @@
         private System.Windows.Forms.Button btnCreatePost;
         private System.Windows.Forms.Button btnSavedPosts;
         private System.Windows.Forms.Panel pnlFeed;
-        private System.Windows.Forms.Button btnLoadMore;
 
         protected override void Dispose(bool disposing)
         {
@@ -26,9 +25,7 @@
             this.btnCreatePost = new System.Windows.Forms.Button();
             this.btnSavedPosts = new System.Windows.Forms.Button();
             this.pnlFeed = new System.Windows.Forms.Panel();
-            this.btnLoadMore = new System.Windows.Forms.Button();
             this.pnlTopBar.SuspendLayout();
-            this.pnlFeed.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTopBar
@@ -92,29 +89,11 @@
             // 
             this.pnlFeed.AutoScroll = true;
             this.pnlFeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.pnlFeed.Controls.Add(this.btnLoadMore);
             this.pnlFeed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFeed.Location = new System.Drawing.Point(0, 95);
             this.pnlFeed.Name = "pnlFeed";
             this.pnlFeed.Size = new System.Drawing.Size(1500, 705);
             this.pnlFeed.TabIndex = 1;
-            // 
-            // btnLoadMore
-            // 
-            this.btnLoadMore.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(149)))), ((int)(((byte)(237)))));
-            this.btnLoadMore.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLoadMore.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnLoadMore.FlatAppearance.BorderSize = 0;
-            this.btnLoadMore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadMore.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnLoadMore.ForeColor = System.Drawing.Color.White;
-            this.btnLoadMore.Location = new System.Drawing.Point(0, 665);
-            this.btnLoadMore.Name = "btnLoadMore";
-            this.btnLoadMore.Size = new System.Drawing.Size(1500, 40);
-            this.btnLoadMore.TabIndex = 0;
-            this.btnLoadMore.Text = "📥 Tải thêm bài viết";
-            this.btnLoadMore.UseVisualStyleBackColor = false;
-            this.btnLoadMore.Click += new System.EventHandler(this.BtnLoadMore_Click);
             // 
             // ucSocialNetworkPage
             // 
@@ -128,7 +107,6 @@
             this.Load += new System.EventHandler(this.ucSocialNetworkPage_Load);
             this.pnlTopBar.ResumeLayout(false);
             this.pnlTopBar.PerformLayout();
-            this.pnlFeed.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

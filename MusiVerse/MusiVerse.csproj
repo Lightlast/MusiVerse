@@ -427,13 +427,19 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="API_REFERENCE.md" />
+    <None Include="ARCHITECTURE_WINFORMS_PROPER.md" />
     <None Include="COMPLETION_SUMMARY.md" />
     <None Include="DESIGNER_REFACTORING_COMPLETE.md" />
     <None Include="FINAL_COMPLETION_REPORT.md" />
     <None Include="FIX_DATABASE_ERROR.md" />
     <None Include="FIX_DOUBLE_HEADER.md" />
+    <None Include="FIX_DUPLICATE_CONTROLS_FINAL.md" />
+    <None Include="FIX_POSTCARD_COMPACT.md" />
     <None Include="FIX_POSTCARD_LAYOUT.md" />
+    <None Include="FIX_POST_CARD_WIDTH_COMPACT.md" />
     <None Include="FIX_UCPOSTCARD_CONTROL_ORDER.md" />
+    <None Include="FIX_UCPOSTCARD_SIZE_FINAL.md" />
+    <None Include="FIX_UCPOSTITEM_BLANK_REVERSED.md" />
     <None Include="FIX_UCPOSTITEM_LAYOUT.md" />
     <None Include="FRMCOMMENTDIALOG_SUMMARY.md" />
     <None Include="IMPLEMENTATION_SUMMARY.md" />
@@ -451,6 +457,8 @@
     </Compile>
     <None Include="QUICK_START_GUIDE.md" />
     <None Include="REFACTORING_UCSOCIALNETWORKPAGE.md" />
+    <None Include="REFACTOR_UI_CODE_TO_UCPOSTITEM.md" />
+    <None Include="REFACTOR_UI_TO_SOCIAL_PAGE.md" />
     <None Include="SQL.md" />
   </ItemGroup>
   <ItemGroup>

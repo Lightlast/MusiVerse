@@ -34,7 +34,6 @@ namespace MusiVerse.GUI.UserControls
             try
             {
                 pnlFeed.Controls.Clear();
-                pnlFeed.Controls.Add(btnLoadMore);
 
                 List<Post> posts = _postService.GetNewsFeed(_currentUserID, _currentPage, 10);
 
@@ -56,31 +55,25 @@ namespace MusiVerse.GUI.UserControls
                 foreach (var post in posts)
                 {
                     ucPostCard postCard = new ucPostCard();
-                    postCard.Width = 700;  // Fixed width
-                    postCard.Height = 600; // Approximate height
-                    postCard.Margin = new Padding(0, 0, 0, 10);
+                    postCard.LoadPost(post, _currentUserID);
                     
                     // Center horizontally
                     int centerX = (pnlFeed.Width - postCard.Width) / 2;
                     postCard.Location = new Point(centerX, yPos);
-                    
-                    postCard.LoadPost(post, _currentUserID);
                     postCard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
                     // Wire up events
-                    postCard.OnLikeClicked += (s, e) => HandleLike(post, postCard);
+                    postCard.OnLikeClicked += (s, e) => HandleLike(post);
                     postCard.OnCommentClicked += (s, e) => ShowCommentDialog(post);
-                    postCard.OnSaveClicked += (s, e) => HandleSave(post, postCard);
+                    postCard.OnSaveClicked += (s, e) => HandleSave(post);
                     postCard.OnDeleteClicked += (s, e) => DeletePost(post);
                     postCard.OnEditClicked += (s, e) => ShowEditPostForm(post);
                     postCard.OnShareClicked += (s, e) => HandleShare(post);
-                    postCard.OnProfileClicked += (s, e) => ShowUserProfile(post.UserID);
+                    postCard.OnProfileClicked += (s, e) => ShowUserProfile((int)s);
 
                     pnlFeed.Controls.Add(postCard);
-                    yPos += postCard.Height + 15;
+                    yPos += postCard.Height + 8;
                 }
-
-                btnLoadMore.BringToFront();
             }
             catch (Exception ex)
             {
@@ -88,95 +81,12 @@ namespace MusiVerse.GUI.UserControls
             }
         }
 
-        private void HandleLike(Post post, ucPostCard postCard)
+        private void ShowPostMenu(Post post)
         {
-            try
-            {
-                if (post.IsLiked)
-                {
-                    var result = _postService.UnlikePost(_currentUserID, post.PostID);
-                    if (result.Item1)
-                    {
-                        post.IsLiked = false;
-                        post.LikeCount--;
-                        postCard.UpdateLikeStatus(false, post.LikeCount);
-                    }
-                }
-                else
-                {
-                    var result = _postService.LikePost(_currentUserID, post.PostID);
-                    if (result.Item1)
-                    {
-                        post.IsLiked = true;
-                        post.LikeCount++;
-                        postCard.UpdateLikeStatus(true, post.LikeCount);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
-            }
-        }
-
-        private void HandleSave(Post post, ucPostCard postCard)
-        {
-            try
-            {
-                if (post.IsSaved)
-                {
-                    var result = _postService.UnsavePost(_currentUserID, post.PostID);
-                    if (result.Item1)
-                    {
-                        post.IsSaved = false;
-                        postCard.UpdateSaveStatus(false);
-                    }
-                }
-                else
-                {
-                    var result = _postService.SavePost(_currentUserID, post.PostID);
-                    if (result.Item1)
-                    {
-                        post.IsSaved = true;
-                        postCard.UpdateSaveStatus(true);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
-            }
-        }
-
-        private void HandleShare(Post post)
-        {
-            try
-            {
-                // var result = _shareService.SharePost(_currentUserID, post.PostID);
-                // if (result.Item1)
-                // {
-                //     post.ShareCount++;
-                //     MessageBox.Show(
-                //         "Bài viết đã được chia sẻ!\n\n" +
-                //         $"Tác giả: {post.Username}\n" +
-                //         $"Nội dung: {post.Content.Substring(0, Math.Min(50, post.Content.Length))}...",
-                //         "Chia sẻ bài viết",
-                //         MessageBoxButtons.OK,
-                //         MessageBoxIcon.Information
-                //     );
-                // }
-                // else
-                // {
-                //     MessageBox.Show(result.Item2, "Lỗi");
-                // }
-                
-                MessageBox.Show("Tính năng chia sẻ đang được phát triển", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
-            }
+            ContextMenuStrip menu = new ContextMenuStrip();
+            menu.Items.Add("✏️ Chỉnh sửa", null, (s, e) => ShowEditPostForm(post));
+            menu.Items.Add("🗑️ Xóa", null, (s, e) => DeletePost(post));
+            menu.Show(Cursor.Position);
         }
 
         private void ShowCommentDialog(Post post)
@@ -218,6 +128,89 @@ namespace MusiVerse.GUI.UserControls
             }
         }
 
+        private void HandleShare(Post post)
+        {
+            try
+            {
+                MessageBox.Show("Tính năng chia sẻ đang được phát triển", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+            }
+        }
+
+        private void ShowUserProfile(int userID)
+        {
+            MessageBox.Show(
+                "Tính năng xem profile đang được phát triển",
+                "Thông báo",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
+
+        private void HandleLike(Post post)
+        {
+            try
+            {
+                if (post.IsLiked)
+                {
+                    var result = _postService.UnlikePost(_currentUserID, post.PostID);
+                    if (result.Item1)
+                    {
+                        post.IsLiked = false;
+                        post.LikeCount--;
+                        LoadFeed();
+                    }
+                }
+                else
+                {
+                    var result = _postService.LikePost(_currentUserID, post.PostID);
+                    if (result.Item1)
+                    {
+                        post.IsLiked = true;
+                        post.LikeCount++;
+                        LoadFeed();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+            }
+        }
+
+        private void HandleSave(Post post)
+        {
+            try
+            {
+                if (post.IsSaved)
+                {
+                    var result = _postService.UnsavePost(_currentUserID, post.PostID);
+                    if (result.Item1)
+                    {
+                        post.IsSaved = false;
+                        LoadFeed();
+                    }
+                }
+                else
+                {
+                    var result = _postService.SavePost(_currentUserID, post.PostID);
+                    if (result.Item1)
+                    {
+                        post.IsSaved = true;
+                        LoadFeed();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+            }
+        }
+
         private void BtnCreatePost_Click(object sender, EventArgs e)
         {
             frmCreateEditPost createForm = new frmCreateEditPost(null, _currentUserID);
@@ -238,16 +231,6 @@ namespace MusiVerse.GUI.UserControls
         {
             frmSavedPosts savedPostsForm = new frmSavedPosts();
             savedPostsForm.ShowDialog();
-        }
-
-        private void ShowUserProfile(int userID)
-        {
-            MessageBox.Show(
-                "Tính năng xem profile đang được phát triển",
-                "Thông báo",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
         }
 
         private void pnlTopBar_Paint(object sender, PaintEventArgs e)

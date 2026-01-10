@@ -18,6 +18,7 @@
         private void InitializeComponent()
         {
             this.btnUpload = new System.Windows.Forms.Panel();
+            this.btnNewPlaylist = new System.Windows.Forms.Button();
             this.btnUploadMS = new System.Windows.Forms.Button();
             this.panelSearch = new System.Windows.Forms.Panel();
             this.lblSearchIcon = new System.Windows.Forms.Label();
@@ -33,7 +34,6 @@
             this.panelContent = new System.Windows.Forms.Panel();
             this.flowPanelSongs = new System.Windows.Forms.FlowLayoutPanel();
             this.lblSongCount = new System.Windows.Forms.Label();
-            this.btnNewPlaylist = new System.Windows.Forms.Button();
             this.btnUpload.SuspendLayout();
             this.panelSearch.SuspendLayout();
             this.panelFilters.SuspendLayout();
@@ -53,6 +53,16 @@
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(1714, 167);
             this.btnUpload.TabIndex = 0;
+            // 
+            // btnNewPlaylist
+            // 
+            this.btnNewPlaylist.Location = new System.Drawing.Point(1248, 55);
+            this.btnNewPlaylist.Name = "btnNewPlaylist";
+            this.btnNewPlaylist.Size = new System.Drawing.Size(159, 59);
+            this.btnNewPlaylist.TabIndex = 3;
+            this.btnNewPlaylist.Text = "Tạo playlist";
+            this.btnNewPlaylist.UseVisualStyleBackColor = true;
+            this.btnNewPlaylist.Click += new System.EventHandler(this.btnNewPlaylist_Click_1);
             // 
             // btnUploadMS
             // 
@@ -278,15 +288,6 @@
             this.lblSongCount.Size = new System.Drawing.Size(121, 37);
             this.lblSongCount.TabIndex = 0;
             this.lblSongCount.Text = "0 bài hát";
-            // 
-            // btnNewPlaylist
-            // 
-            this.btnNewPlaylist.Location = new System.Drawing.Point(1248, 55);
-            this.btnNewPlaylist.Name = "btnNewPlaylist";
-            this.btnNewPlaylist.Size = new System.Drawing.Size(159, 59);
-            this.btnNewPlaylist.TabIndex = 3;
-            this.btnNewPlaylist.Text = "Tạo playlist";
-            this.btnNewPlaylist.UseVisualStyleBackColor = true;
             // 
             // ucMusicPage
             // 

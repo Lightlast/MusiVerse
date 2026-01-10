@@ -19,238 +19,76 @@ namespace MusiVerse.GUI.UserControls
         public event EventHandler OnEditClicked;
         public event EventHandler OnShareClicked;
         public event EventHandler OnProfileClicked;
-        public event EventHandler OnPlaySongClicked;
 
         public ucPostCard()
         {
             InitializeComponent();
-            this.BackColor = Color.White;
-            this.BorderStyle = BorderStyle.FixedSingle;
-            this.Padding = new Padding(15);
-            this.Margin = new Padding(0, 0, 0, 10);
         }
 
         public void LoadPost(Post post, int currentUserID)
         {
             _post = post;
             _currentUserID = currentUserID;
-            DisplayPostData();
+            DisplayPost();
         }
 
-        private void DisplayPostData()
+        private void DisplayPost()
         {
             if (_post == null) return;
 
-            // ✅ ADD CONTROLS IN REVERSE ORDER (because Dock = DockStyle.Top)
-            // Last added = appears at bottom
-            // First added = appears at top
+            // Update Header
+            pbAvatar.Image = LoadUserAvatar(_post.UserAvatar);
+            lblUsername.Text = _post.Username;
+            lblDate.Text = GetTimeAgo(_post.CreatedDate);
+            pbAvatar.Click += (s, e) => OnProfileClicked?.Invoke(_post.UserID, EventArgs.Empty);
 
-            // 1. Action buttons (add last, appears at bottom)
-            Panel pnlActions = new Panel
+            // Show/Hide menu button
+            btnMenu.Visible = (_currentUserID == _post.UserID);
+            if (btnMenu.Visible)
             {
-                Dock = DockStyle.Top,
-                Height = 45,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Margin = new Padding(0, 10, 0, 0)
-            };
+                btnMenu.Click += (s, e) => ShowPostMenu();
+            }
 
-            Button btnLike = new Button
-            {
-                Text = _post.IsLiked ? "❤️ Thích" : "🤍 Thích",
-                Location = new Point(10, 8),
-                Size = new Size(80, 30),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = _post.IsLiked ? Color.FromArgb(220, 20, 60) : Color.White,
-                ForeColor = _post.IsLiked ? Color.White : Color.Black,
-                Font = new Font("Segoe UI", 9),
-                Cursor = Cursors.Hand
-            };
-            btnLike.FlatAppearance.BorderSize = 0;
-            btnLike.Click += (s, e) => OnLikeClicked?.Invoke(this, EventArgs.Empty);
+            // Update Content
+            lblContent.Text = !string.IsNullOrWhiteSpace(_post.Content) ? _post.Content : "";
+            lblContent.Visible = !string.IsNullOrWhiteSpace(_post.Content);
 
-            Button btnComment = new Button
-            {
-                Text = "💬 Bình luận",
-                Location = new Point(100, 8),
-                Size = new Size(100, 30),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.White,
-                Font = new Font("Segoe UI", 9),
-                Cursor = Cursors.Hand
-            };
-            btnComment.FlatAppearance.BorderSize = 0;
-            btnComment.Click += (s, e) => OnCommentClicked?.Invoke(this, EventArgs.Empty);
-
-            Button btnShare = new Button
-            {
-                Text = "📤 Chia sẻ",
-                Location = new Point(210, 8),
-                Size = new Size(80, 30),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.White,
-                Font = new Font("Segoe UI", 9),
-                Cursor = Cursors.Hand
-            };
-            btnShare.FlatAppearance.BorderSize = 0;
-            btnShare.Click += (s, e) => OnShareClicked?.Invoke(this, EventArgs.Empty);
-
-            Button btnSave = new Button
-            {
-                Text = _post.IsSaved ? "📌 Đã lưu" : "📌 Lưu",
-                Location = new Point(300, 8),
-                Size = new Size(80, 30),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = _post.IsSaved ? Color.FromArgb(100, 149, 237) : Color.White,
-                ForeColor = _post.IsSaved ? Color.White : Color.Black,
-                Font = new Font("Segoe UI", 9),
-                Cursor = Cursors.Hand
-            };
-            btnSave.FlatAppearance.BorderSize = 0;
-            btnSave.Click += (s, e) => OnSaveClicked?.Invoke(this, EventArgs.Empty);
-
-            pnlActions.Controls.Add(btnLike);
-            pnlActions.Controls.Add(btnComment);
-            pnlActions.Controls.Add(btnShare);
-            pnlActions.Controls.Add(btnSave);
-            this.Controls.Add(pnlActions);
-
-            // 2. Stats (add 2nd last, appears above actions)
-            Panel pnlStats = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 30,
-                BackColor = Color.WhiteSmoke,
-                Margin = new Padding(0, 10, 0, 0)
-            };
-
-            Label lblLikes = new Label
-            {
-                Text = $"❤️ {_post.LikeCount}",
-                Location = new Point(10, 5),
-                Font = new Font("Segoe UI", 9),
-                AutoSize = true
-            };
-
-            Label lblComments = new Label
-            {
-                Text = $"💬 {_post.CommentCount}",
-                Location = new Point(80, 5),
-                Font = new Font("Segoe UI", 9),
-                AutoSize = true
-            };
-
-            Label lblShares = new Label
-            {
-                Text = $"📤 {_post.ShareCount}",
-                Location = new Point(150, 5),
-                Font = new Font("Segoe UI", 9),
-                AutoSize = true
-            };
-
-            pnlStats.Controls.Add(lblLikes);
-            pnlStats.Controls.Add(lblComments);
-            pnlStats.Controls.Add(lblShares);
-            this.Controls.Add(pnlStats);
-
-            // 3. Media (add 3rd last, appears above stats)
+            // Update Media
             if (!string.IsNullOrWhiteSpace(_post.MediaPath) && System.IO.File.Exists(_post.MediaPath))
             {
-                PictureBox pbMedia = new PictureBox
-                {
-                    Dock = DockStyle.Top,
-                    Height = 250,
-                    SizeMode = PictureBoxSizeMode.Zoom,
-                    Margin = new Padding(0, 0, 0, 10)
-                };
-
                 try
                 {
                     pbMedia.Image = Image.FromFile(_post.MediaPath);
+                    pbMedia.Visible = true;
                 }
-                catch { }
-
-                this.Controls.Add(pbMedia);
-            }
-
-            // 4. Content (add 4th last, appears above media)
-            if (!string.IsNullOrWhiteSpace(_post.Content))
-            {
-                Label lblContent = new Label
+                catch
                 {
-                    Text = _post.Content,
-                    Dock = DockStyle.Top,
-                    Font = new Font("Segoe UI", 10),
-                    AutoSize = true,
-                    MaximumSize = new Size(this.Width - 30, 0),
-                    Margin = new Padding(0, 0, 0, 10)
-                };
-                this.Controls.Add(lblContent);
+                    pbMedia.Visible = false;
+                }
+            }
+            else
+            {
+                pbMedia.Visible = false;
             }
 
-            // 5. Header (add first, appears at top)
-            Panel pnlHeader = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.White,
-                Margin = new Padding(0, 0, 0, 10)
-            };
+            // Update Stats
+            lblLikes.Text = $"❤️ {_post.LikeCount}";
+            lblComments.Text = $"💬 {_post.CommentCount}";
+            lblShares.Text = $"📤 {_post.ShareCount}";
 
-            // User avatar
-            PictureBox pbAvatar = new PictureBox
-            {
-                Width = 48,
-                Height = 48,
-                Location = new Point(0, 0),
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = LoadUserAvatar(_post.UserAvatar),
-                Cursor = Cursors.Hand
-            };
-            pbAvatar.Click += (s, e) => OnProfileClicked?.Invoke(_post.UserID, EventArgs.Empty);
+            // Update Action Buttons
+            btnLike.Text = _post.IsLiked ? "❤️ Thích" : "🤍 Thích";
+            btnLike.BackColor = _post.IsLiked ? Color.FromArgb(220, 20, 60) : Color.White;
+            btnLike.ForeColor = _post.IsLiked ? Color.White : Color.Black;
+            btnLike.Click += (s, e) => OnLikeClicked?.Invoke(this, EventArgs.Empty);
 
-            // User info
-            Label lblUsername = new Label
-            {
-                Text = _post.Username,
-                Location = new Point(60, 5),
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                AutoSize = true
-            };
+            btnComment.Click += (s, e) => OnCommentClicked?.Invoke(this, EventArgs.Empty);
+            btnShare.Click += (s, e) => OnShareClicked?.Invoke(this, EventArgs.Empty);
 
-            Label lblDate = new Label
-            {
-                Text = GetTimeAgo(_post.CreatedDate),
-                Location = new Point(60, 28),
-                Font = new Font("Segoe UI", 9),
-                ForeColor = Color.Gray,
-                AutoSize = true
-            };
-
-            // Menu button (for post owner)
-            if (_currentUserID == _post.UserID)
-            {
-                Button btnMenu = new Button
-                {
-                    Text = "⋮",
-                    Width = 40,
-                    Height = 40,
-                    Location = new Point(this.Width - 55, 10),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = Color.White,
-                    ForeColor = Color.Gray,
-                    Font = new Font("Arial", 14),
-                    Cursor = Cursors.Hand
-                };
-                btnMenu.FlatAppearance.BorderSize = 0;
-                btnMenu.Click += (s, e) => ShowPostMenu();
-                pnlHeader.Controls.Add(btnMenu);
-            }
-
-            pnlHeader.Controls.Add(pbAvatar);
-            pnlHeader.Controls.Add(lblUsername);
-            pnlHeader.Controls.Add(lblDate);
-            this.Controls.Add(pnlHeader);
+            btnSave.Text = _post.IsSaved ? "📌 Đã lưu" : "📌 Lưu";
+            btnSave.BackColor = _post.IsSaved ? Color.FromArgb(100, 149, 237) : Color.White;
+            btnSave.ForeColor = _post.IsSaved ? Color.White : Color.Black;
+            btnSave.Click += (s, e) => OnSaveClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void ShowPostMenu()
@@ -272,12 +110,11 @@ namespace MusiVerse.GUI.UserControls
                 catch { }
             }
 
-            // Default avatar
-            Bitmap bmp = new Bitmap(48, 48);
+            Bitmap bmp = new Bitmap(40, 40);
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.FromArgb(100, 100, 120));
-                g.DrawString("👤", new Font("Arial", 20), Brushes.White, new PointF(10, 10));
+                g.DrawString("👤", new Font("Arial", 18), Brushes.White, new PointF(8, 8));
             }
             return bmp;
         }
@@ -302,31 +139,40 @@ namespace MusiVerse.GUI.UserControls
         {
             _post.IsLiked = isLiked;
             _post.LikeCount = newLikeCount;
+            lblLikes.Text = $"❤️ {_post.LikeCount}";
+            btnLike.Text = isLiked ? "❤️ Thích" : "🤍 Thích";
+            btnLike.BackColor = isLiked ? Color.FromArgb(220, 20, 60) : Color.White;
+            btnLike.ForeColor = isLiked ? Color.White : Color.Black;
         }
 
         public void UpdateCommentCount(int newCount)
         {
             _post.CommentCount = newCount;
+            lblComments.Text = $"💬 {_post.CommentCount}";
         }
 
         public void UpdateShareCount(int newCount)
         {
             _post.ShareCount = newCount;
+            lblShares.Text = $"📤 {_post.ShareCount}";
         }
 
         public void UpdateSaveStatus(bool isSaved)
         {
             _post.IsSaved = isSaved;
+            btnSave.Text = isSaved ? "📌 Đã lưu" : "📌 Lưu";
+            btnSave.BackColor = isSaved ? Color.FromArgb(100, 149, 237) : Color.White;
+            btnSave.ForeColor = isSaved ? Color.White : Color.Black;
         }
 
-        private void lblUsername_Click(object sender, EventArgs e)
+        private void lblDate_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void lblContent_Click(object sender, EventArgs e)
+        private void btnComment_Click(object sender, EventArgs e)
         {
-
+            OpenCommentSection();
         }
     }
 }

@@ -587,5 +587,10 @@ namespace MusiVerse.GUI.UserControls
         private void lblSearchIcon_Click(object sender, EventArgs e)
         {
         }
+
+        private void btnNewPlaylist_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

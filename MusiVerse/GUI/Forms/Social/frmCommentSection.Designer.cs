@@ -6,7 +6,6 @@
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblCommentCount;
-        private System.Windows.Forms.Panel pnlPostPreview;
         private System.Windows.Forms.Panel pnlComments;
         private System.Windows.Forms.Panel pnlCommentInput;
         private System.Windows.Forms.TextBox txtComment;
@@ -36,7 +35,6 @@
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblCommentCount = new System.Windows.Forms.Label();
-            this.pnlPostPreview = new System.Windows.Forms.Panel();
             this.pnlComments = new System.Windows.Forms.Panel();
             this.pnlCommentInput = new System.Windows.Forms.Panel();
             this.btnSendComment = new System.Windows.Forms.Button();
@@ -80,28 +78,15 @@
             this.lblCommentCount.TabIndex = 1;
             this.lblCommentCount.Text = "T?ng: 0 bình lu?n";
             // 
-            // pnlPostPreview
-            // 
-            this.pnlPostPreview.AutoScroll = true;
-            this.pnlPostPreview.BackColor = System.Drawing.Color.White;
-            this.pnlPostPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPostPreview.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlPostPreview.Location = new System.Drawing.Point(0, 80);
-            this.pnlPostPreview.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.pnlPostPreview.Name = "pnlPostPreview";
-            this.pnlPostPreview.Padding = new System.Windows.Forms.Padding(20);
-            this.pnlPostPreview.Size = new System.Drawing.Size(900, 150);
-            this.pnlPostPreview.TabIndex = 2;
-            // 
             // pnlComments
             // 
             this.pnlComments.AutoScroll = true;
             this.pnlComments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
             this.pnlComments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlComments.Location = new System.Drawing.Point(0, 230);
+            this.pnlComments.Location = new System.Drawing.Point(0, 80);
             this.pnlComments.Name = "pnlComments";
             this.pnlComments.Padding = new System.Windows.Forms.Padding(20);
-            this.pnlComments.Size = new System.Drawing.Size(900, 390);
+            this.pnlComments.Size = new System.Drawing.Size(900, 540);
             this.pnlComments.TabIndex = 0;
             // 
             // pnlCommentInput
@@ -127,7 +112,7 @@
             this.btnSendComment.ForeColor = System.Drawing.Color.White;
             this.btnSendComment.Location = new System.Drawing.Point(630, 20);
             this.btnSendComment.Name = "btnSendComment";
-            this.btnSendComment.Size = new System.Drawing.Size(80, 30);
+            this.btnSendComment.Size = new System.Drawing.Size(80, 47);
             this.btnSendComment.TabIndex = 0;
             this.btnSendComment.Text = "G?i";
             this.btnSendComment.UseVisualStyleBackColor = false;
@@ -150,7 +135,6 @@
             this.ClientSize = new System.Drawing.Size(900, 700);
             this.Controls.Add(this.pnlComments);
             this.Controls.Add(this.pnlCommentInput);
-            this.Controls.Add(this.pnlPostPreview);
             this.Controls.Add(this.pnlHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
