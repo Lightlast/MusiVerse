@@ -35,8 +35,8 @@
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pbAvatar = new System.Windows.Forms.PictureBox();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
             this.btnMenu = new System.Windows.Forms.Button();
+            this.lblDate = new System.Windows.Forms.Label();
             this.lblContent = new System.Windows.Forms.Label();
             this.pbMedia = new System.Windows.Forms.PictureBox();
             this.pnlStats = new System.Windows.Forms.Panel();
@@ -65,7 +65,7 @@
             this.pnlHeader.Location = new System.Drawing.Point(15, 15);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlHeader.Size = new System.Drawing.Size(916, 60);
+            this.pnlHeader.Size = new System.Drawing.Size(1052, 66);
             this.pnlHeader.TabIndex = 4;
             // 
             // pbAvatar
@@ -82,23 +82,12 @@
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblUsername.Location = new System.Drawing.Point(70, 10);
+            this.lblUsername.Location = new System.Drawing.Point(76, 13);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(158, 41);
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Username";
             this.lblUsername.Click += new System.EventHandler(this.lblUsername_Click);
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblDate.ForeColor = System.Drawing.Color.Gray;
-            this.lblDate.Location = new System.Drawing.Point(86, 55);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(64, 32);
-            this.lblDate.TabIndex = 2;
-            this.lblDate.Text = "Date";
             // 
             // btnMenu
             // 
@@ -108,32 +97,44 @@
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenu.Font = new System.Drawing.Font("Arial", 14F);
             this.btnMenu.ForeColor = System.Drawing.Color.Gray;
-            this.btnMenu.Location = new System.Drawing.Point(650, 10);
+            this.btnMenu.Location = new System.Drawing.Point(884, 14);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(40, 40);
             this.btnMenu.TabIndex = 3;
             this.btnMenu.Text = "⋮";
             this.btnMenu.UseVisualStyleBackColor = false;
             // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDate.ForeColor = System.Drawing.Color.Gray;
+            this.lblDate.Location = new System.Drawing.Point(954, 117);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(64, 32);
+            this.lblDate.TabIndex = 2;
+            this.lblDate.Text = "Date";
+            // 
             // lblContent
             // 
             this.lblContent.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblContent.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblContent.ForeColor = System.Drawing.Color.Black;
-            this.lblContent.Location = new System.Drawing.Point(15, 75);
+            this.lblContent.Location = new System.Drawing.Point(15, 81);
             this.lblContent.Name = "lblContent";
             this.lblContent.Padding = new System.Windows.Forms.Padding(15);
-            this.lblContent.Size = new System.Drawing.Size(916, 60);
+            this.lblContent.Size = new System.Drawing.Size(1052, 68);
             this.lblContent.TabIndex = 3;
             this.lblContent.Text = "Post Content";
+            this.lblContent.Click += new System.EventHandler(this.lblContent_Click);
             // 
             // pbMedia
             // 
             this.pbMedia.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbMedia.Location = new System.Drawing.Point(15, 135);
+            this.pbMedia.Location = new System.Drawing.Point(15, 149);
             this.pbMedia.Name = "pbMedia";
-            this.pbMedia.Size = new System.Drawing.Size(916, 300);
-            this.pbMedia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMedia.Size = new System.Drawing.Size(1052, 250);
+            this.pbMedia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbMedia.TabIndex = 2;
             this.pbMedia.TabStop = false;
             // 
@@ -144,17 +145,17 @@
             this.pnlStats.Controls.Add(this.lblComments);
             this.pnlStats.Controls.Add(this.lblShares);
             this.pnlStats.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlStats.Location = new System.Drawing.Point(15, 435);
+            this.pnlStats.Location = new System.Drawing.Point(15, 399);
             this.pnlStats.Name = "pnlStats";
             this.pnlStats.Padding = new System.Windows.Forms.Padding(15, 5, 15, 5);
-            this.pnlStats.Size = new System.Drawing.Size(916, 30);
+            this.pnlStats.Size = new System.Drawing.Size(1052, 62);
             this.pnlStats.TabIndex = 1;
             // 
             // lblLikes
             // 
             this.lblLikes.AutoSize = true;
             this.lblLikes.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblLikes.Location = new System.Drawing.Point(7, -2);
+            this.lblLikes.Location = new System.Drawing.Point(3, 5);
             this.lblLikes.Name = "lblLikes";
             this.lblLikes.Size = new System.Drawing.Size(67, 32);
             this.lblLikes.TabIndex = 0;
@@ -164,7 +165,7 @@
             // 
             this.lblComments.AutoSize = true;
             this.lblComments.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblComments.Location = new System.Drawing.Point(80, -2);
+            this.lblComments.Location = new System.Drawing.Point(77, 5);
             this.lblComments.Name = "lblComments";
             this.lblComments.Size = new System.Drawing.Size(67, 32);
             this.lblComments.TabIndex = 1;
@@ -174,7 +175,7 @@
             // 
             this.lblShares.AutoSize = true;
             this.lblShares.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblShares.Location = new System.Drawing.Point(153, -2);
+            this.lblShares.Location = new System.Drawing.Point(150, 5);
             this.lblShares.Name = "lblShares";
             this.lblShares.Size = new System.Drawing.Size(67, 32);
             this.lblShares.TabIndex = 2;
@@ -189,10 +190,10 @@
             this.pnlActions.Controls.Add(this.btnShare);
             this.pnlActions.Controls.Add(this.btnSave);
             this.pnlActions.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlActions.Location = new System.Drawing.Point(15, 465);
+            this.pnlActions.Location = new System.Drawing.Point(15, 461);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlActions.Size = new System.Drawing.Size(916, 57);
+            this.pnlActions.Size = new System.Drawing.Size(1052, 50);
             this.pnlActions.TabIndex = 0;
             // 
             // btnLike
@@ -268,7 +269,7 @@
             this.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.Name = "ucPostCard";
             this.Padding = new System.Windows.Forms.Padding(15);
-            this.Size = new System.Drawing.Size(946, 633);
+            this.Size = new System.Drawing.Size(1082, 511);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAvatar)).EndInit();

@@ -41,144 +41,11 @@ namespace MusiVerse.GUI.UserControls
         {
             if (_post == null) return;
 
-            // Header: User info and date
-            Panel pnlHeader = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.White,
-                Margin = new Padding(0, 0, 0, 10)
-            };
+            // ✅ ADD CONTROLS IN REVERSE ORDER (because Dock = DockStyle.Top)
+            // Last added = appears at bottom
+            // First added = appears at top
 
-            // User avatar
-            PictureBox pbAvatar = new PictureBox
-            {
-                Width = 48,
-                Height = 48,
-                Location = new Point(0, 0),
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = LoadUserAvatar(_post.UserAvatar),
-                Cursor = Cursors.Hand
-            };
-            pbAvatar.Click += (s, e) => OnProfileClicked?.Invoke(_post.UserID, EventArgs.Empty);
-
-            // User info
-            Label lblUsername = new Label
-            {
-                Text = _post.Username,
-                Location = new Point(60, 5),
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                AutoSize = true
-            };
-
-            Label lblDate = new Label
-            {
-                Text = GetTimeAgo(_post.CreatedDate),
-                Location = new Point(60, 28),
-                Font = new Font("Segoe UI", 9),
-                ForeColor = Color.Gray,
-                AutoSize = true
-            };
-
-            // Menu button (for post owner)
-            if (_currentUserID == _post.UserID)
-            {
-                Button btnMenu = new Button
-                {
-                    Text = "⋮",
-                    Width = 40,
-                    Height = 40,
-                    Location = new Point(this.Width - 55, 10),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = Color.White,
-                    ForeColor = Color.Gray,
-                    Font = new Font("Arial", 14),
-                    Cursor = Cursors.Hand
-                };
-                btnMenu.FlatAppearance.BorderSize = 0;
-                btnMenu.Click += (s, e) => ShowPostMenu();
-                pnlHeader.Controls.Add(btnMenu);
-            }
-
-            pnlHeader.Controls.Add(pbAvatar);
-            pnlHeader.Controls.Add(lblUsername);
-            pnlHeader.Controls.Add(lblDate);
-            this.Controls.Add(pnlHeader);
-
-            // Content
-            if (!string.IsNullOrWhiteSpace(_post.Content))
-            {
-                Label lblContent = new Label
-                {
-                    Text = _post.Content,
-                    Dock = DockStyle.Top,
-                    Font = new Font("Segoe UI", 10),
-                    AutoSize = true,
-                    MaximumSize = new Size(this.Width - 30, 0),
-                    Margin = new Padding(0, 0, 0, 10)
-                };
-                this.Controls.Add(lblContent);
-            }
-
-            // Media (image/video)
-            if (!string.IsNullOrWhiteSpace(_post.MediaPath) && System.IO.File.Exists(_post.MediaPath))
-            {
-                PictureBox pbMedia = new PictureBox
-                {
-                    Dock = DockStyle.Top,
-                    Height = 300,
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Margin = new Padding(0, 0, 0, 10)
-                };
-
-                try
-                {
-                    pbMedia.Image = Image.FromFile(_post.MediaPath);
-                }
-                catch { }
-
-                this.Controls.Add(pbMedia);
-            }
-
-            // Engagement stats
-            Panel pnlStats = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 30,
-                BackColor = Color.WhiteSmoke,
-                Margin = new Padding(0, 10, 0, 0)
-            };
-
-            Label lblLikes = new Label
-            {
-                Text = $"❤️ {_post.LikeCount}",
-                Location = new Point(10, 5),
-                Font = new Font("Segoe UI", 9),
-                AutoSize = true
-            };
-
-            Label lblComments = new Label
-            {
-                Text = $"💬 {_post.CommentCount}",
-                Location = new Point(80, 5),
-                Font = new Font("Segoe UI", 9),
-                AutoSize = true
-            };
-
-            Label lblShares = new Label
-            {
-                Text = $"📤 {_post.ShareCount}",
-                Location = new Point(150, 5),
-                Font = new Font("Segoe UI", 9),
-                AutoSize = true
-            };
-
-            pnlStats.Controls.Add(lblLikes);
-            pnlStats.Controls.Add(lblComments);
-            pnlStats.Controls.Add(lblShares);
-            this.Controls.Add(pnlStats);
-
-            // Action buttons
+            // 1. Action buttons (add last, appears at bottom)
             Panel pnlActions = new Panel
             {
                 Dock = DockStyle.Top,
@@ -247,6 +114,143 @@ namespace MusiVerse.GUI.UserControls
             pnlActions.Controls.Add(btnShare);
             pnlActions.Controls.Add(btnSave);
             this.Controls.Add(pnlActions);
+
+            // 2. Stats (add 2nd last, appears above actions)
+            Panel pnlStats = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 30,
+                BackColor = Color.WhiteSmoke,
+                Margin = new Padding(0, 10, 0, 0)
+            };
+
+            Label lblLikes = new Label
+            {
+                Text = $"❤️ {_post.LikeCount}",
+                Location = new Point(10, 5),
+                Font = new Font("Segoe UI", 9),
+                AutoSize = true
+            };
+
+            Label lblComments = new Label
+            {
+                Text = $"💬 {_post.CommentCount}",
+                Location = new Point(80, 5),
+                Font = new Font("Segoe UI", 9),
+                AutoSize = true
+            };
+
+            Label lblShares = new Label
+            {
+                Text = $"📤 {_post.ShareCount}",
+                Location = new Point(150, 5),
+                Font = new Font("Segoe UI", 9),
+                AutoSize = true
+            };
+
+            pnlStats.Controls.Add(lblLikes);
+            pnlStats.Controls.Add(lblComments);
+            pnlStats.Controls.Add(lblShares);
+            this.Controls.Add(pnlStats);
+
+            // 3. Media (add 3rd last, appears above stats)
+            if (!string.IsNullOrWhiteSpace(_post.MediaPath) && System.IO.File.Exists(_post.MediaPath))
+            {
+                PictureBox pbMedia = new PictureBox
+                {
+                    Dock = DockStyle.Top,
+                    Height = 250,
+                    SizeMode = PictureBoxSizeMode.Zoom,
+                    Margin = new Padding(0, 0, 0, 10)
+                };
+
+                try
+                {
+                    pbMedia.Image = Image.FromFile(_post.MediaPath);
+                }
+                catch { }
+
+                this.Controls.Add(pbMedia);
+            }
+
+            // 4. Content (add 4th last, appears above media)
+            if (!string.IsNullOrWhiteSpace(_post.Content))
+            {
+                Label lblContent = new Label
+                {
+                    Text = _post.Content,
+                    Dock = DockStyle.Top,
+                    Font = new Font("Segoe UI", 10),
+                    AutoSize = true,
+                    MaximumSize = new Size(this.Width - 30, 0),
+                    Margin = new Padding(0, 0, 0, 10)
+                };
+                this.Controls.Add(lblContent);
+            }
+
+            // 5. Header (add first, appears at top)
+            Panel pnlHeader = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.White,
+                Margin = new Padding(0, 0, 0, 10)
+            };
+
+            // User avatar
+            PictureBox pbAvatar = new PictureBox
+            {
+                Width = 48,
+                Height = 48,
+                Location = new Point(0, 0),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Image = LoadUserAvatar(_post.UserAvatar),
+                Cursor = Cursors.Hand
+            };
+            pbAvatar.Click += (s, e) => OnProfileClicked?.Invoke(_post.UserID, EventArgs.Empty);
+
+            // User info
+            Label lblUsername = new Label
+            {
+                Text = _post.Username,
+                Location = new Point(60, 5),
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                AutoSize = true
+            };
+
+            Label lblDate = new Label
+            {
+                Text = GetTimeAgo(_post.CreatedDate),
+                Location = new Point(60, 28),
+                Font = new Font("Segoe UI", 9),
+                ForeColor = Color.Gray,
+                AutoSize = true
+            };
+
+            // Menu button (for post owner)
+            if (_currentUserID == _post.UserID)
+            {
+                Button btnMenu = new Button
+                {
+                    Text = "⋮",
+                    Width = 40,
+                    Height = 40,
+                    Location = new Point(this.Width - 55, 10),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.White,
+                    ForeColor = Color.Gray,
+                    Font = new Font("Arial", 14),
+                    Cursor = Cursors.Hand
+                };
+                btnMenu.FlatAppearance.BorderSize = 0;
+                btnMenu.Click += (s, e) => ShowPostMenu();
+                pnlHeader.Controls.Add(btnMenu);
+            }
+
+            pnlHeader.Controls.Add(pbAvatar);
+            pnlHeader.Controls.Add(lblUsername);
+            pnlHeader.Controls.Add(lblDate);
+            this.Controls.Add(pnlHeader);
         }
 
         private void ShowPostMenu()
@@ -316,6 +320,11 @@ namespace MusiVerse.GUI.UserControls
         }
 
         private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblContent_Click(object sender, EventArgs e)
         {
 
         }

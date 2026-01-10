@@ -432,6 +432,9 @@
     <None Include="FINAL_COMPLETION_REPORT.md" />
     <None Include="FIX_DATABASE_ERROR.md" />
     <None Include="FIX_DOUBLE_HEADER.md" />
+    <None Include="FIX_POSTCARD_LAYOUT.md" />
+    <None Include="FIX_UCPOSTCARD_CONTROL_ORDER.md" />
+    <None Include="FIX_UCPOSTITEM_LAYOUT.md" />
     <None Include="FRMCOMMENTDIALOG_SUMMARY.md" />
     <None Include="IMPLEMENTATION_SUMMARY.md" />
     <None Include="INTEGRATION_COMPLETE_REPORT.md" />
@@ -447,6 +450,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="QUICK_START_GUIDE.md" />
+    <None Include="REFACTORING_UCSOCIALNETWORKPAGE.md" />
     <None Include="SQL.md" />
   </ItemGroup>
   <ItemGroup>
