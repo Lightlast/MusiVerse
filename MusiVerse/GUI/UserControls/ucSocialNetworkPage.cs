@@ -1,4 +1,4 @@
-using MusiVerse.BLL.Services;
+Ôªøusing MusiVerse.BLL.Services;
 using MusiVerse.DTO.Models;
 using MusiVerse.GUI.Forms.Social;
 using MusiVerse.GUI.Utils;
@@ -12,106 +12,20 @@ namespace MusiVerse.GUI.UserControls
     public partial class ucSocialNetworkPage : UserControl
     {
         private PostService _postService;
-        // private ShareService _shareService;  // T?m comment l?i
+        // private ShareService _shareService;  // T·∫°m comment l·∫°i
         private int _currentUserID;
         private int _currentPage = 1;
-        private Panel _pnlFeed;
-        private Button _btnLoadMore;
 
         public ucSocialNetworkPage()
         {
             InitializeComponent();
             _postService = new PostService();
-            // _shareService = new ShareService();  // T?m comment l?i
+            // _shareService = new ShareService();  // T·∫°m comment l·∫°i
             _currentUserID = SessionManager.GetCurrentUserID();
-            SetupUI();
         }
 
-        private void SetupUI()
+        private void ucSocialNetworkPage_Load(object sender, EventArgs e)
         {
-            this.BackColor = Color.FromArgb(245, 245, 245);
-            this.Padding = new Padding(0);
-
-            // Top bar with create post button
-            Panel pnlTopBar = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 80,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(15)
-            };
-
-            Label lblTitle = new Label
-            {
-                Text = "?? MUSIVERSE SOCIAL FEED",
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                ForeColor = Color.FromArgb(30, 144, 255),
-                AutoSize = true,
-                Location = new Point(15, 15)
-            };
-
-            Button btnCreatePost = new Button
-            {
-                Text = "?? T?o b‡i vi?t",
-                Location = new Point(this.Width - 380, 20),
-                Size = new Size(160, 40),
-                BackColor = Color.FromArgb(30, 144, 255),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnCreatePost.FlatAppearance.BorderSize = 0;
-            btnCreatePost.Click += BtnCreatePost_Click;
-
-            Button btnSavedPosts = new Button
-            {
-                Text = "?? B‡i vi?t ?„ l?u",
-                Location = new Point(this.Width - 200, 20),
-                Size = new Size(180, 40),
-                BackColor = Color.FromArgb(100, 149, 237),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnSavedPosts.FlatAppearance.BorderSize = 0;
-            btnSavedPosts.Click += BtnSavedPosts_Click;
-
-            pnlTopBar.Controls.Add(lblTitle);
-            pnlTopBar.Controls.Add(btnCreatePost);
-            pnlTopBar.Controls.Add(btnSavedPosts);
-
-            // Feed panel
-            _pnlFeed = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(245, 245, 245),
-                AutoScroll = true,
-                Padding = new Padding(0)
-            };
-
-            // Load More button
-            _btnLoadMore = new Button
-            {
-                Text = "?? T?i thÍm b‡i vi?t",
-                Location = new Point(0, 0),
-                Size = new Size(800, 40),
-                BackColor = Color.FromArgb(100, 149, 237),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                Dock = DockStyle.Bottom
-            };
-            _btnLoadMore.FlatAppearance.BorderSize = 0;
-            _btnLoadMore.Click += BtnLoadMore_Click;
-            _pnlFeed.Controls.Add(_btnLoadMore);
-
-            this.Controls.Add(_pnlFeed);
-            this.Controls.Add(pnlTopBar);
-
             LoadFeed();
         }
 
@@ -119,8 +33,8 @@ namespace MusiVerse.GUI.UserControls
         {
             try
             {
-                _pnlFeed.Controls.Clear();
-                _pnlFeed.Controls.Add(_btnLoadMore);
+                pnlFeed.Controls.Clear();
+                pnlFeed.Controls.Add(btnLoadMore);
 
                 List<Post> posts = _postService.GetNewsFeed(_currentUserID, _currentPage, 10);
 
@@ -128,13 +42,13 @@ namespace MusiVerse.GUI.UserControls
                 {
                     Label lblEmpty = new Label
                     {
-                        Text = "Ch?a cÛ b‡i vi?t n‡o. H„y t?o b‡i vi?t ??u tiÍn! ??",
+                        Text = "Ch∆∞a c√≥ b√†i vi·∫øt n√†o. H√£y t·∫°o b√†i vi·∫øt ƒë·∫ßu ti√™n! üìù",
                         Font = new Font("Segoe UI", 12),
                         ForeColor = Color.Gray,
                         AutoSize = true,
                         Location = new Point(250, 100)
                     };
-                    _pnlFeed.Controls.Add(lblEmpty);
+                    pnlFeed.Controls.Add(lblEmpty);
                     return;
                 }
 
@@ -143,15 +57,15 @@ namespace MusiVerse.GUI.UserControls
                 {
                     Panel postCard = CreatePostCard(post);
                     postCard.Location = new Point(50, yPos);
-                    _pnlFeed.Controls.Add(postCard);
+                    pnlFeed.Controls.Add(postCard);
                     yPos += postCard.Height + 15;
                 }
 
-                _btnLoadMore.BringToFront();
+                btnLoadMore.BringToFront();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i t?i feed: " + ex.Message, "L?i");
+                MessageBox.Show("L·ªói t·∫£i feed: " + ex.Message, "L·ªói");
             }
         }
 
@@ -298,7 +212,7 @@ namespace MusiVerse.GUI.UserControls
 
             Button btnLike = new Button
             {
-                Text = post.IsLiked ? "?? ThÌch" : "?? ThÌch",
+                Text = post.IsLiked ? "?? Th√≠ch" : "?? Th√≠ch",
                 Location = new Point(10, 8),
                 Size = new Size(80, 30),
                 BackColor = post.IsLiked ? Color.FromArgb(220, 20, 60) : Color.White,
@@ -312,7 +226,7 @@ namespace MusiVerse.GUI.UserControls
 
             Button btnComment = new Button
             {
-                Text = "?? BÏnh lu?n",
+                Text = "?? B√¨nh lu?n",
                 Location = new Point(100, 8),
                 Size = new Size(100, 30),
                 BackColor = Color.White,
@@ -338,7 +252,7 @@ namespace MusiVerse.GUI.UserControls
 
             Button btnSave = new Button
             {
-                Text = post.IsSaved ? "?? ?„ l?u" : "?? L?u",
+                Text = post.IsSaved ? "?? ?√£ l?u" : "?? L?u",
                 Location = new Point(300, 8),
                 Size = new Size(80, 30),
                 BackColor = post.IsSaved ? Color.FromArgb(100, 149, 237) : Color.White,
@@ -372,7 +286,7 @@ namespace MusiVerse.GUI.UserControls
                     {
                         post.IsLiked = false;
                         post.LikeCount--;
-                        btnLike.Text = "?? ThÌch";
+                        btnLike.Text = "?? Th√≠ch";
                         btnLike.BackColor = Color.White;
                         btnLike.ForeColor = Color.Black;
                     }
@@ -384,7 +298,7 @@ namespace MusiVerse.GUI.UserControls
                     {
                         post.IsLiked = true;
                         post.LikeCount++;
-                        btnLike.Text = "?? ThÌch";
+                        btnLike.Text = "?? Th√≠ch";
                         btnLike.BackColor = Color.FromArgb(220, 20, 60);
                         btnLike.ForeColor = Color.White;
                     }
@@ -417,7 +331,7 @@ namespace MusiVerse.GUI.UserControls
                     if (result.Item1)
                     {
                         post.IsSaved = true;
-                        btnSave.Text = "?? ?„ l?u";
+                        btnSave.Text = "?? ?√£ l?u";
                         btnSave.BackColor = Color.FromArgb(100, 149, 237);
                         btnSave.ForeColor = Color.White;
                     }
@@ -438,25 +352,25 @@ namespace MusiVerse.GUI.UserControls
                 // {
                 //     post.ShareCount++;
                 //     MessageBox.Show(
-                //         "B‡i vi?t ?„ ???c chia s?!\n\n" +
-                //         $"T·c gi?: {post.Username}\n" +
-                //         $"N?i dung: {post.Content.Substring(0, Math.Min(50, post.Content.Length))}...",
-                //         "Chia s? b‡i vi?t",
+                //         "B√†i vi·∫øt ƒë√£ ƒë∆∞·ª£c chia s·∫ª!\n\n" +
+                //         $"T√°c gi·∫£: {post.Username}\n" +
+                //         $"N·ªôi dung: {post.Content.Substring(0, Math.Min(50, post.Content.Length))}...",
+                //         "Chia s·∫ª b√†i vi·∫øt",
                 //         MessageBoxButtons.OK,
                 //         MessageBoxIcon.Information
                 //     );
                 // }
                 // else
                 // {
-                //     MessageBox.Show(result.Item2, "L?i");
+                //     MessageBox.Show(result.Item2, "L·ªói");
                 // }
                 
-                MessageBox.Show("TÌnh n?ng chia s? ?ang ???c ph·t tri?n", "ThÙng b·o",
+                MessageBox.Show("T√≠nh nƒÉng chia s·∫ª ƒëang ƒë∆∞·ª£c ph√°t tri·ªÉn", "Th√¥ng b√°o",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i: " + ex.Message, "L?i");
+                MessageBox.Show("L·ªói: " + ex.Message, "L·ªói");
             }
         }
 
@@ -471,7 +385,7 @@ namespace MusiVerse.GUI.UserControls
             ContextMenuStrip menu = new ContextMenuStrip();
 
             menu.Items.Add("?? Ch?nh s?a", null, (s, e) => ShowEditPostForm(post));
-            menu.Items.Add("??? XÛa", null, (s, e) => DeletePost(post));
+            menu.Items.Add("??? X√≥a", null, (s, e) => DeletePost(post));
 
             menu.Show(btnMenu, new Point(0, btnMenu.Height));
         }
@@ -488,8 +402,8 @@ namespace MusiVerse.GUI.UserControls
         private void DeletePost(Post post)
         {
             var result = MessageBox.Show(
-                "B?n cÛ ch?c mu?n xÛa b‡i vi?t n‡y?",
-                "X·c nh?n",
+                "B?n c√≥ ch?c mu?n x√≥a b√†i vi?t n√†y?",
+                "X√°c nh?n",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -499,7 +413,7 @@ namespace MusiVerse.GUI.UserControls
                 var deleteResult = _postService.DeletePost(post.PostID, _currentUserID);
                 if (deleteResult.Item1)
                 {
-                    MessageBox.Show(deleteResult.Item2, "Th‡nh cÙng");
+                    MessageBox.Show(deleteResult.Item2, "Th√†nh c√¥ng");
                     LoadFeed();
                 }
                 else
@@ -554,8 +468,8 @@ namespace MusiVerse.GUI.UserControls
         private void ShowUserProfile(int userID)
         {
             MessageBox.Show(
-                "TÌnh n?ng xem profile ?ang ???c ph·t tri?n",
-                "ThÙng b·o",
+                "T√≠nh n?ng xem profile ?ang ???c ph√°t tri?n",
+                "Th√¥ng b√°o",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
@@ -568,13 +482,18 @@ namespace MusiVerse.GUI.UserControls
             if (timeSpan.TotalSeconds < 60)
                 return "v?a xong";
             else if (timeSpan.TotalMinutes < 60)
-                return $"{(int)timeSpan.TotalMinutes} ph˙t tr??c";
+                return $"{(int)timeSpan.TotalMinutes} ph√∫t tr??c";
             else if (timeSpan.TotalHours < 24)
                 return $"{(int)timeSpan.TotalHours} gi? tr??c";
             else if (timeSpan.TotalDays < 7)
-                return $"{(int)timeSpan.TotalDays} ng‡y tr??c";
+                return $"{(int)timeSpan.TotalDays} ng√†y tr??c";
             else
                 return date.ToString("dd/MM/yyyy");
+        }
+
+        private void pnlTopBar_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

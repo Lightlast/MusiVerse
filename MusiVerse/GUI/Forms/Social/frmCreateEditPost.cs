@@ -14,6 +14,7 @@ namespace MusiVerse.GUI.Forms.Social
         private int _currentUserID;
         private PostService _postService;
         private string _selectedMediaPath = "";
+        private GroupBox _gbMedia;
 
         public frmCreateEditPost(Post post, int userID)
         {
@@ -78,7 +79,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.Controls.Add(txtContent);
 
             // Media section
-            GroupBox gbMedia = new GroupBox
+            _gbMedia = new GroupBox
             {
                 Text = "?? ?nh/Video",
                 Location = new Point(20, 240),
@@ -127,10 +128,10 @@ namespace MusiVerse.GUI.Forms.Social
             btnRemoveMedia.FlatAppearance.BorderSize = 0;
             btnRemoveMedia.Click += BtnRemoveMedia_Click;
 
-            gbMedia.Controls.Add(lblMediaPath);
-            gbMedia.Controls.Add(btnBrowseMedia);
-            gbMedia.Controls.Add(btnRemoveMedia);
-            this.Controls.Add(gbMedia);
+            _gbMedia.Controls.Add(lblMediaPath);
+            _gbMedia.Controls.Add(btnBrowseMedia);
+            _gbMedia.Controls.Add(btnRemoveMedia);
+            this.Controls.Add(_gbMedia);
 
             // Buttons
             Button btnPost = new Button
@@ -182,7 +183,7 @@ namespace MusiVerse.GUI.Forms.Social
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 _selectedMediaPath = openFileDialog.FileName;
-                Label lblMediaPath = this.Controls["lblMediaPath"] as Label;
+                Label lblMediaPath = _gbMedia.Controls["lblMediaPath"] as Label;
                 lblMediaPath.Text = Path.GetFileName(_selectedMediaPath);
             }
         }
@@ -190,7 +191,7 @@ namespace MusiVerse.GUI.Forms.Social
         private void BtnRemoveMedia_Click(object sender, EventArgs e)
         {
             _selectedMediaPath = "";
-            Label lblMediaPath = this.Controls["lblMediaPath"] as Label;
+            Label lblMediaPath = _gbMedia.Controls["lblMediaPath"] as Label;
             lblMediaPath.Text = "Ch?a ch?n ?nh/video";
         }
 

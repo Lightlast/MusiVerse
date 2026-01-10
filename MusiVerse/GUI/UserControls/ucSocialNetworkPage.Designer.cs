@@ -1,9 +1,8 @@
-namespace MusiVerse.GUI.UserControls
+﻿namespace MusiVerse.GUI.UserControls
 {
     partial class ucSocialNetworkPage
     {
         private System.ComponentModel.IContainer components = null;
-        
         private System.Windows.Forms.Panel pnlTopBar;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnCreatePost;
@@ -29,6 +28,7 @@ namespace MusiVerse.GUI.UserControls
             this.pnlFeed = new System.Windows.Forms.Panel();
             this.btnLoadMore = new System.Windows.Forms.Button();
             this.pnlTopBar.SuspendLayout();
+            this.pnlFeed.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTopBar
@@ -42,19 +42,19 @@ namespace MusiVerse.GUI.UserControls
             this.pnlTopBar.Location = new System.Drawing.Point(0, 0);
             this.pnlTopBar.Name = "pnlTopBar";
             this.pnlTopBar.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlTopBar.Size = new System.Drawing.Size(1500, 80);
-            this.pnlTopBar.TabIndex = 1;
+            this.pnlTopBar.Size = new System.Drawing.Size(1500, 95);
+            this.pnlTopBar.TabIndex = 0;
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
-            this.lblTitle.Location = new System.Drawing.Point(15, 15);
+            this.lblTitle.Location = new System.Drawing.Point(30, 30);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(586, 59);
+            this.lblTitle.Size = new System.Drawing.Size(588, 59);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "?? MUSIVERSE SOCIAL FEED";
+            this.lblTitle.Text = "📱 MUSIVERSE SOCIAL FEED";
             // 
             // btnCreatePost
             // 
@@ -64,12 +64,13 @@ namespace MusiVerse.GUI.UserControls
             this.btnCreatePost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreatePost.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCreatePost.ForeColor = System.Drawing.Color.White;
-            this.btnCreatePost.Location = new System.Drawing.Point(1100, 20);
+            this.btnCreatePost.Location = new System.Drawing.Point(1120, 20);
             this.btnCreatePost.Name = "btnCreatePost";
-            this.btnCreatePost.Size = new System.Drawing.Size(160, 40);
+            this.btnCreatePost.Size = new System.Drawing.Size(160, 55);
             this.btnCreatePost.TabIndex = 1;
-            this.btnCreatePost.Text = "?? T?o b�i vi?t";
+            this.btnCreatePost.Text = "✏️ Tạo bài viết";
             this.btnCreatePost.UseVisualStyleBackColor = false;
+            this.btnCreatePost.Click += new System.EventHandler(this.BtnCreatePost_Click);
             // 
             // btnSavedPosts
             // 
@@ -79,22 +80,24 @@ namespace MusiVerse.GUI.UserControls
             this.btnSavedPosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSavedPosts.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnSavedPosts.ForeColor = System.Drawing.Color.White;
-            this.btnSavedPosts.Location = new System.Drawing.Point(1270, 20);
+            this.btnSavedPosts.Location = new System.Drawing.Point(1290, 20);
             this.btnSavedPosts.Name = "btnSavedPosts";
-            this.btnSavedPosts.Size = new System.Drawing.Size(180, 40);
+            this.btnSavedPosts.Size = new System.Drawing.Size(180, 55);
             this.btnSavedPosts.TabIndex = 2;
-            this.btnSavedPosts.Text = "?? B�i vi?t ?� l?u";
+            this.btnSavedPosts.Text = "📌 Bài viết đã lưu";
             this.btnSavedPosts.UseVisualStyleBackColor = false;
+            this.btnSavedPosts.Click += new System.EventHandler(this.BtnSavedPosts_Click);
             // 
             // pnlFeed
             // 
             this.pnlFeed.AutoScroll = true;
             this.pnlFeed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.pnlFeed.Controls.Add(this.btnLoadMore);
             this.pnlFeed.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFeed.Location = new System.Drawing.Point(0, 80);
+            this.pnlFeed.Location = new System.Drawing.Point(0, 95);
             this.pnlFeed.Name = "pnlFeed";
-            this.pnlFeed.Size = new System.Drawing.Size(1500, 720);
-            this.pnlFeed.TabIndex = 0;
+            this.pnlFeed.Size = new System.Drawing.Size(1500, 705);
+            this.pnlFeed.TabIndex = 1;
             // 
             // btnLoadMore
             // 
@@ -105,12 +108,13 @@ namespace MusiVerse.GUI.UserControls
             this.btnLoadMore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadMore.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnLoadMore.ForeColor = System.Drawing.Color.White;
-            this.btnLoadMore.Location = new System.Drawing.Point(0, 0);
+            this.btnLoadMore.Location = new System.Drawing.Point(0, 665);
             this.btnLoadMore.Name = "btnLoadMore";
-            this.btnLoadMore.Size = new System.Drawing.Size(75, 40);
+            this.btnLoadMore.Size = new System.Drawing.Size(1500, 40);
             this.btnLoadMore.TabIndex = 0;
-            this.btnLoadMore.Text = "?? T?i th�m b�i vi?t";
+            this.btnLoadMore.Text = "📥 Tải thêm bài viết";
             this.btnLoadMore.UseVisualStyleBackColor = false;
+            this.btnLoadMore.Click += new System.EventHandler(this.BtnLoadMore_Click);
             // 
             // ucSocialNetworkPage
             // 
@@ -121,8 +125,10 @@ namespace MusiVerse.GUI.UserControls
             this.Controls.Add(this.pnlTopBar);
             this.Name = "ucSocialNetworkPage";
             this.Size = new System.Drawing.Size(1500, 800);
+            this.Load += new System.EventHandler(this.ucSocialNetworkPage_Load);
             this.pnlTopBar.ResumeLayout(false);
             this.pnlTopBar.PerformLayout();
+            this.pnlFeed.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

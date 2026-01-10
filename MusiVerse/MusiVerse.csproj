@@ -428,9 +428,14 @@
     </Compile>
     <None Include="API_REFERENCE.md" />
     <None Include="COMPLETION_SUMMARY.md" />
+    <None Include="DESIGNER_REFACTORING_COMPLETE.md" />
     <None Include="FINAL_COMPLETION_REPORT.md" />
+    <None Include="FIX_DATABASE_ERROR.md" />
+    <None Include="FIX_DOUBLE_HEADER.md" />
     <None Include="FRMCOMMENTDIALOG_SUMMARY.md" />
     <None Include="IMPLEMENTATION_SUMMARY.md" />
+    <None Include="INTEGRATION_COMPLETE_REPORT.md" />
+    <None Include="KIỂM_TRA_KẾT_NỐI_HOÀN_THÀNH.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

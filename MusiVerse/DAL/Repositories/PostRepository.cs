@@ -17,12 +17,10 @@ namespace MusiVerse.DAL.Repositories
                        (SELECT COUNT(*) FROM PostLikes WHERE PostID = p.PostID) AS LikeCount,
                        (SELECT COUNT(*) FROM Comments WHERE PostID = p.PostID AND IsActive = 1) AS CommentCount,
                        (SELECT COUNT(*) FROM PostShares WHERE PostID = p.PostID) AS ShareCount,
-                       CASE WHEN pl.LikeID IS NOT NULL THEN 1 ELSE 0 END AS IsLiked,
-                       CASE WHEN ps.SaveID IS NOT NULL THEN 1 ELSE 0 END AS IsSaved
+                       CASE WHEN EXISTS (SELECT 1 FROM PostLikes WHERE PostID = p.PostID AND UserID = @CurrentUserID) THEN 1 ELSE 0 END AS IsLiked,
+                       CASE WHEN EXISTS (SELECT 1 FROM PostSaves WHERE PostID = p.PostID AND UserID = @CurrentUserID) THEN 1 ELSE 0 END AS IsSaved
                 FROM Posts p
                 INNER JOIN Users u ON p.UserID = u.UserID
-                LEFT JOIN PostLikes pl ON p.PostID = pl.PostID AND pl.UserID = @CurrentUserID
-                LEFT JOIN PostSaves ps ON p.PostID = ps.PostID AND ps.UserID = @CurrentUserID
                 WHERE p.IsActive = 1
                 ORDER BY p.CreatedDate DESC
                 OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
@@ -47,12 +45,10 @@ namespace MusiVerse.DAL.Repositories
                        (SELECT COUNT(*) FROM PostLikes WHERE PostID = p.PostID) AS LikeCount,
                        (SELECT COUNT(*) FROM Comments WHERE PostID = p.PostID AND IsActive = 1) AS CommentCount,
                        (SELECT COUNT(*) FROM PostShares WHERE PostID = p.PostID) AS ShareCount,
-                       CASE WHEN pl.LikeID IS NOT NULL THEN 1 ELSE 0 END AS IsLiked,
-                       CASE WHEN ps.SaveID IS NOT NULL THEN 1 ELSE 0 END AS IsSaved
+                       CASE WHEN EXISTS (SELECT 1 FROM PostLikes WHERE PostID = p.PostID AND UserID = @CurrentUserID) THEN 1 ELSE 0 END AS IsLiked,
+                       CASE WHEN EXISTS (SELECT 1 FROM PostSaves WHERE PostID = p.PostID AND UserID = @CurrentUserID) THEN 1 ELSE 0 END AS IsSaved
                 FROM Posts p
                 INNER JOIN Users u ON p.UserID = u.UserID
-                LEFT JOIN PostLikes pl ON p.PostID = pl.PostID AND pl.UserID = @CurrentUserID
-                LEFT JOIN PostSaves ps ON p.PostID = ps.PostID AND ps.UserID = @CurrentUserID
                 WHERE p.UserID = @UserID AND p.IsActive = 1
                 ORDER BY p.CreatedDate DESC";
 
@@ -74,11 +70,11 @@ namespace MusiVerse.DAL.Repositories
                        (SELECT COUNT(*) FROM PostLikes WHERE PostID = p.PostID) AS LikeCount,
                        (SELECT COUNT(*) FROM Comments WHERE PostID = p.PostID AND IsActive = 1) AS CommentCount,
                        (SELECT COUNT(*) FROM PostShares WHERE PostID = p.PostID) AS ShareCount,
-                       CASE WHEN pl.LikeID IS NOT NULL THEN 1 ELSE 0 END AS IsLiked, 1 AS IsSaved
+                       CASE WHEN EXISTS (SELECT 1 FROM PostLikes WHERE PostID = p.PostID AND UserID = @UserID) THEN 1 ELSE 0 END AS IsLiked,
+                       1 AS IsSaved
                 FROM Posts p
                 INNER JOIN Users u ON p.UserID = u.UserID
                 INNER JOIN PostSaves ps ON p.PostID = ps.PostID
-                LEFT JOIN PostLikes pl ON p.PostID = pl.PostID AND pl.UserID = @UserID
                 WHERE ps.UserID = @UserID AND p.IsActive = 1
                 ORDER BY ps.SaveDate DESC";
 

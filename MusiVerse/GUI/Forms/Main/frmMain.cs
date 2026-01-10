@@ -12,7 +12,7 @@ namespace MusiVerse.GUI.Forms.Main
     {
         private System.Windows.Forms.Button currentSelectedButton;
         private ucMusicPage currentMusicPage;
-
+        private ucSocialNetworkPage currentSocialNetworkPage;
         public frmMain()
         {
             InitializeComponent();
@@ -284,30 +284,18 @@ namespace MusiVerse.GUI.Forms.Main
         {
             ClearContentExceptMusicPlayer();
 
-            System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
+            try
             {
-                Text = "📱 SOCIAL NETWORK",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(30, 144, 255),
-                Location = new Point(20, 20),
-                AutoSize = true
-            };
-            panelContent.Controls.Add(lblTitle);
-
-            System.Windows.Forms.Label lblTemp = new System.Windows.Forms.Label
+                currentSocialNetworkPage = new ucSocialNetworkPage
+                {
+                    Dock = System.Windows.Forms.DockStyle.Fill
+                };
+                panelContent.Controls.Add(currentSocialNetworkPage);
+            }
+            catch (Exception ex)
             {
-                Text = "Tính năng Social Network đang được phát triển...\n\n" +
-                       "Sẽ có:\n" +
-                       "• News feed\n" +
-                       "• Đăng bài (Artist)\n" +
-                       "• Like, Comment, Share\n" +
-                       "• User profiles",
-                Font = new Font("Segoe UI", 12),
-                Location = new Point(20, 80),
-                AutoSize = true,
-                ForeColor = Color.Gray
-            };
-            panelContent.Controls.Add(lblTemp);
+                ShowErrorPage("📱 SOCIAL NETWORK", $"Lỗi: {ex.Message}");
+            }
         }
 
         private void LoadShoppingPage()
