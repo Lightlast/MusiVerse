@@ -21,5 +21,8 @@ namespace MusiVerse.DTO.Models
         public decimal Price { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsActive { get; set; }
+        
+        // Loại vé: 0 = Không sấp chỗ, 1 = Có sấp chỗ
+        public int TicketType { get; set; }
     }
 }

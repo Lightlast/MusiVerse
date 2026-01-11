@@ -223,6 +223,12 @@
     <Compile Include="GUI\Forms\Music\frmUploadSong.Designer.cs">
       <DependentUpon>frmUploadSong.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmBuying.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmBuying.Designer.cs">
+      <DependentUpon>frmBuying.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Forms\Shopping\frmConcertDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +240,12 @@
     </Compile>
     <Compile Include="GUI\Forms\Shopping\frmConcertList.Designer.cs">
       <DependentUpon>frmConcertList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmCreateTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Shopping\frmCreateTicket.Designer.cs">
+      <DependentUpon>frmCreateTicket.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Forms\Shopping\frmMyTickets.cs">
       <SubType>Form</SubType>
@@ -337,6 +349,12 @@
     <Compile Include="GUI\UserControls\ucPostItem.Designer.cs">
       <DependentUpon>ucPostItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserControls\ucShopping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucShopping.Designer.cs">
+      <DependentUpon>ucShopping.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserControls\ucSocialNetworkPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -405,6 +423,9 @@
     <EmbeddedResource Include="GUI\UserControls\ucPostItem.resx">
       <DependentUpon>ucPostItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucShopping.resx">
+      <DependentUpon>ucShopping.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucSocialNetworkPage.resx">
       <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -431,6 +452,7 @@
     <None Include="COMPLETION_SUMMARY.md" />
     <None Include="DESIGNER_REFACTORING_COMPLETE.md" />
     <None Include="FINAL_COMPLETION_REPORT.md" />
+    <None Include="FIX_BTNCOMMENT_DIRECT_CONNECTION.md" />
     <None Include="FIX_DATABASE_ERROR.md" />
     <None Include="FIX_DOUBLE_HEADER.md" />
     <None Include="FIX_DUPLICATE_CONTROLS_FINAL.md" />
@@ -459,6 +481,10 @@
     <None Include="REFACTORING_UCSOCIALNETWORKPAGE.md" />
     <None Include="REFACTOR_UI_CODE_TO_UCPOSTITEM.md" />
     <None Include="REFACTOR_UI_TO_SOCIAL_PAGE.md" />
+    <None Include="SHOPPING_API.md" />
+    <None Include="SHOPPING_FEATURE_GUIDE.md" />
+    <None Include="SHOPPING_README.md" />
+    <None Include="SHOPPING_TEST_CASES.md" />
     <None Include="SQL.md" />
   </ItemGroup>
   <ItemGroup>
@@ -471,6 +497,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FINAL_SUMMARY.txt" />
+    <Content Include="SQL_Scripts\CreateShoppingTables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

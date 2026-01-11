@@ -1,4 +1,5 @@
 ﻿using MusiVerse.DTO.Models;
+using MusiVerse.GUI.Forms.Social;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -80,9 +81,11 @@ namespace MusiVerse.GUI.UserControls
             btnLike.Text = _post.IsLiked ? "❤️ Thích" : "🤍 Thích";
             btnLike.BackColor = _post.IsLiked ? Color.FromArgb(220, 20, 60) : Color.White;
             btnLike.ForeColor = _post.IsLiked ? Color.White : Color.Black;
+            btnLike.FlatAppearance.BorderSize = 0;
             btnLike.Click += (s, e) => OnLikeClicked?.Invoke(this, EventArgs.Empty);
 
-            btnComment.Click += (s, e) => OnCommentClicked?.Invoke(this, EventArgs.Empty);
+            // btnComment không cần event - dùng btnComment_Click từ Designer
+
             btnShare.Click += (s, e) => OnShareClicked?.Invoke(this, EventArgs.Empty);
 
             btnSave.Text = _post.IsSaved ? "📌 Đã lưu" : "📌 Lưu";
@@ -172,7 +175,17 @@ namespace MusiVerse.GUI.UserControls
 
         private void btnComment_Click(object sender, EventArgs e)
         {
-            OpenCommentSection();
+            if (_post != null)
+            {
+                frmCommentSection commentForm = new frmCommentSection(_post);
+                commentForm.ShowDialog();
+                
+                // Refresh comment count after dialog closes
+                if (commentForm.DialogResult == DialogResult.OK)
+                {
+                    LoadPost(_post, _currentUserID);
+                }
+            }
         }
     }
 }

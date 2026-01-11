@@ -302,30 +302,18 @@ namespace MusiVerse.GUI.Forms.Main
         {
             ClearContentExceptMusicPlayer();
 
-            System.Windows.Forms.Label lblTitle = new System.Windows.Forms.Label
+            try
             {
-                Text = "🛍️ MUA VÉ CONCERT",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(30, 144, 255),
-                Location = new Point(20, 20),
-                AutoSize = true
-            };
-            panelContent.Controls.Add(lblTitle);
-
-            System.Windows.Forms.Label lblTemp = new System.Windows.Forms.Label
+                ucShopping shoppingPage = new ucShopping
+                {
+                    Dock = System.Windows.Forms.DockStyle.Fill
+                };
+                panelContent.Controls.Add(shoppingPage);
+            }
+            catch (Exception ex)
             {
-                Text = "Tính năng Shopping đang được phát triển...\n\n" +
-                       "Sẽ có:\n" +
-                       "• Danh sách concerts\n" +
-                       "• Chi tiết concert\n" +
-                       "• Mua vé online\n" +
-                       "• Quản lý vé đã mua",
-                Font = new Font("Segoe UI", 12),
-                Location = new Point(20, 80),
-                AutoSize = true,
-                ForeColor = Color.Gray
-            };
-            panelContent.Controls.Add(lblTemp);
+                ShowErrorPage("🛍️ MUA VÉ CONCERT", $"Lỗi: {ex.Message}");
+            }
         }
 
         private void LoadPersonalPage()
