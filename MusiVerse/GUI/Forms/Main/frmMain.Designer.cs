@@ -56,9 +56,8 @@
             this.panelLeft.Controls.Add(this.panelLogo);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
-            this.panelLeft.Margin = new System.Windows.Forms.Padding(5);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(377, 1333);
+            this.panelLeft.Size = new System.Drawing.Size(251, 675);
             this.panelLeft.TabIndex = 0;
             // 
             // btnVIP
@@ -69,10 +68,9 @@
             this.btnVIP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVIP.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnVIP.ForeColor = System.Drawing.Color.White;
-            this.btnVIP.Location = new System.Drawing.Point(14, 764);
-            this.btnVIP.Margin = new System.Windows.Forms.Padding(5);
+            this.btnVIP.Location = new System.Drawing.Point(9, 489);
             this.btnVIP.Name = "btnVIP";
-            this.btnVIP.Size = new System.Drawing.Size(343, 83);
+            this.btnVIP.Size = new System.Drawing.Size(229, 53);
             this.btnVIP.TabIndex = 6;
             this.btnVIP.Text = "⬆ VIP";
             this.btnVIP.UseVisualStyleBackColor = false;
@@ -81,9 +79,10 @@
             // 
             // btnUpRole
             // 
-            this.btnUpRole.Location = new System.Drawing.Point(14, 883);
+            this.btnUpRole.Location = new System.Drawing.Point(9, 565);
+            this.btnUpRole.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnUpRole.Name = "btnUpRole";
-            this.btnUpRole.Size = new System.Drawing.Size(343, 99);
+            this.btnUpRole.Size = new System.Drawing.Size(229, 63);
             this.btnUpRole.TabIndex = 0;
             this.btnUpRole.Text = "button1";
             this.btnUpRole.UseVisualStyleBackColor = true;
@@ -97,11 +96,10 @@
             this.btnPersonalPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPersonalPage.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnPersonalPage.ForeColor = System.Drawing.Color.White;
-            this.btnPersonalPage.Location = new System.Drawing.Point(0, 633);
-            this.btnPersonalPage.Margin = new System.Windows.Forms.Padding(5);
+            this.btnPersonalPage.Location = new System.Drawing.Point(0, 405);
             this.btnPersonalPage.Name = "btnPersonalPage";
-            this.btnPersonalPage.Padding = new System.Windows.Forms.Padding(34, 0, 0, 0);
-            this.btnPersonalPage.Size = new System.Drawing.Size(377, 92);
+            this.btnPersonalPage.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
+            this.btnPersonalPage.Size = new System.Drawing.Size(251, 59);
             this.btnPersonalPage.TabIndex = 5;
             this.btnPersonalPage.Text = "👤  personal page";
             this.btnPersonalPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -116,11 +114,10 @@
             this.btnShopping.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShopping.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnShopping.ForeColor = System.Drawing.Color.White;
-            this.btnShopping.Location = new System.Drawing.Point(0, 525);
-            this.btnShopping.Margin = new System.Windows.Forms.Padding(5);
+            this.btnShopping.Location = new System.Drawing.Point(0, 336);
             this.btnShopping.Name = "btnShopping";
-            this.btnShopping.Padding = new System.Windows.Forms.Padding(34, 0, 0, 0);
-            this.btnShopping.Size = new System.Drawing.Size(377, 92);
+            this.btnShopping.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
+            this.btnShopping.Size = new System.Drawing.Size(251, 59);
             this.btnShopping.TabIndex = 4;
             this.btnShopping.Text = "🛍️  shopping";
             this.btnShopping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -135,11 +132,10 @@
             this.btnSocialNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSocialNetwork.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnSocialNetwork.ForeColor = System.Drawing.Color.White;
-            this.btnSocialNetwork.Location = new System.Drawing.Point(0, 417);
-            this.btnSocialNetwork.Margin = new System.Windows.Forms.Padding(5);
+            this.btnSocialNetwork.Location = new System.Drawing.Point(0, 267);
             this.btnSocialNetwork.Name = "btnSocialNetwork";
-            this.btnSocialNetwork.Padding = new System.Windows.Forms.Padding(34, 0, 0, 0);
-            this.btnSocialNetwork.Size = new System.Drawing.Size(377, 92);
+            this.btnSocialNetwork.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
+            this.btnSocialNetwork.Size = new System.Drawing.Size(251, 59);
             this.btnSocialNetwork.TabIndex = 3;
             this.btnSocialNetwork.Text = "📱  social network";
             this.btnSocialNetwork.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -154,11 +150,10 @@
             this.btnMusic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMusic.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnMusic.ForeColor = System.Drawing.Color.White;
-            this.btnMusic.Location = new System.Drawing.Point(0, 308);
-            this.btnMusic.Margin = new System.Windows.Forms.Padding(5);
+            this.btnMusic.Location = new System.Drawing.Point(0, 197);
             this.btnMusic.Name = "btnMusic";
-            this.btnMusic.Padding = new System.Windows.Forms.Padding(34, 0, 0, 0);
-            this.btnMusic.Size = new System.Drawing.Size(377, 92);
+            this.btnMusic.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
+            this.btnMusic.Size = new System.Drawing.Size(251, 59);
             this.btnMusic.TabIndex = 2;
             this.btnMusic.Text = "🎵  music";
             this.btnMusic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -173,11 +168,10 @@
             this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHome.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnHome.ForeColor = System.Drawing.Color.White;
-            this.btnHome.Location = new System.Drawing.Point(0, 200);
-            this.btnHome.Margin = new System.Windows.Forms.Padding(5);
+            this.btnHome.Location = new System.Drawing.Point(0, 128);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Padding = new System.Windows.Forms.Padding(34, 0, 0, 0);
-            this.btnHome.Size = new System.Drawing.Size(377, 92);
+            this.btnHome.Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
+            this.btnHome.Size = new System.Drawing.Size(251, 59);
             this.btnHome.TabIndex = 1;
             this.btnHome.Text = "🏠  home";
             this.btnHome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -189,9 +183,8 @@
             this.panelLogo.Controls.Add(this.lblLogoText);
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Margin = new System.Windows.Forms.Padding(5);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(377, 167);
+            this.panelLogo.Size = new System.Drawing.Size(251, 107);
             this.panelLogo.TabIndex = 0;
             // 
             // lblLogoText
@@ -200,9 +193,8 @@
             this.lblLogoText.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblLogoText.ForeColor = System.Drawing.Color.Cyan;
             this.lblLogoText.Location = new System.Drawing.Point(0, 0);
-            this.lblLogoText.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblLogoText.Name = "lblLogoText";
-            this.lblLogoText.Size = new System.Drawing.Size(377, 167);
+            this.lblLogoText.Size = new System.Drawing.Size(251, 107);
             this.lblLogoText.TabIndex = 0;
             this.lblLogoText.Text = "🎵\r\nMUSIVERSE";
             this.lblLogoText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -215,10 +207,9 @@
             this.panelTop.Controls.Add(this.btnNotification);
             this.panelTop.Controls.Add(this.panelSearchBar);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(377, 0);
-            this.panelTop.Margin = new System.Windows.Forms.Padding(5);
+            this.panelTop.Location = new System.Drawing.Point(251, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(2023, 133);
+            this.panelTop.Size = new System.Drawing.Size(1673, 85);
             this.panelTop.TabIndex = 1;
             // 
             // lblAccountInfo
@@ -227,10 +218,9 @@
             this.lblAccountInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblAccountInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblAccountInfo.ForeColor = System.Drawing.Color.White;
-            this.lblAccountInfo.Location = new System.Drawing.Point(1800, 50);
-            this.lblAccountInfo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAccountInfo.Location = new System.Drawing.Point(1535, 29);
             this.lblAccountInfo.Name = "lblAccountInfo";
-            this.lblAccountInfo.Size = new System.Drawing.Size(201, 45);
+            this.lblAccountInfo.Size = new System.Drawing.Size(126, 28);
             this.lblAccountInfo.TabIndex = 3;
             this.lblAccountInfo.Text = "Tài khoản ▼";
             this.lblAccountInfo.Click += new System.EventHandler(this.lblAccountInfo_Click);
@@ -243,10 +233,9 @@
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 18F);
             this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Location = new System.Drawing.Point(1663, 25);
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(5);
+            this.btnSettings.Location = new System.Drawing.Point(1444, 13);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(103, 83);
+            this.btnSettings.Size = new System.Drawing.Size(69, 53);
             this.btnSettings.TabIndex = 2;
             this.btnSettings.Text = "⚙️";
             this.btnSettings.UseVisualStyleBackColor = false;
@@ -260,10 +249,9 @@
             this.btnNotification.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNotification.Font = new System.Drawing.Font("Segoe UI", 18F);
             this.btnNotification.ForeColor = System.Drawing.Color.White;
-            this.btnNotification.Location = new System.Drawing.Point(1543, 25);
-            this.btnNotification.Margin = new System.Windows.Forms.Padding(5);
+            this.btnNotification.Location = new System.Drawing.Point(1364, 13);
             this.btnNotification.Name = "btnNotification";
-            this.btnNotification.Size = new System.Drawing.Size(103, 83);
+            this.btnNotification.Size = new System.Drawing.Size(69, 53);
             this.btnNotification.TabIndex = 1;
             this.btnNotification.Text = "🔔";
             this.btnNotification.UseVisualStyleBackColor = false;
@@ -274,10 +262,9 @@
             this.panelSearchBar.BackColor = System.Drawing.Color.White;
             this.panelSearchBar.Controls.Add(this.btnSearch);
             this.panelSearchBar.Controls.Add(this.txtSearch);
-            this.panelSearchBar.Location = new System.Drawing.Point(51, 33);
-            this.panelSearchBar.Margin = new System.Windows.Forms.Padding(5);
+            this.panelSearchBar.Location = new System.Drawing.Point(34, 21);
             this.panelSearchBar.Name = "panelSearchBar";
-            this.panelSearchBar.Size = new System.Drawing.Size(1114, 67);
+            this.panelSearchBar.Size = new System.Drawing.Size(743, 43);
             this.panelSearchBar.TabIndex = 0;
             // 
             // btnSearch
@@ -287,10 +274,9 @@
             this.btnSearch.FlatAppearance.BorderSize = 0;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.btnSearch.Location = new System.Drawing.Point(1020, 0);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(5);
+            this.btnSearch.Location = new System.Drawing.Point(680, 0);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(94, 67);
+            this.btnSearch.Size = new System.Drawing.Size(63, 43);
             this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "🔍";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -300,10 +286,9 @@
             // 
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtSearch.Location = new System.Drawing.Point(26, 17);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(5);
+            this.txtSearch.Location = new System.Drawing.Point(17, 11);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(986, 43);
+            this.txtSearch.Size = new System.Drawing.Size(657, 27);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
@@ -313,32 +298,29 @@
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
             this.panelContent.Controls.Add(this.ucMusicPlayer1);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContent.Location = new System.Drawing.Point(377, 133);
-            this.panelContent.Margin = new System.Windows.Forms.Padding(5);
+            this.panelContent.Location = new System.Drawing.Point(251, 85);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(2023, 1200);
+            this.panelContent.Size = new System.Drawing.Size(1673, 590);
             this.panelContent.TabIndex = 2;
             // 
             // ucMusicPlayer1
             // 
             this.ucMusicPlayer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ucMusicPlayer1.Location = new System.Drawing.Point(0, 1000);
-            this.ucMusicPlayer1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ucMusicPlayer1.Location = new System.Drawing.Point(0, 462);
             this.ucMusicPlayer1.Name = "ucMusicPlayer1";
-            this.ucMusicPlayer1.Size = new System.Drawing.Size(2023, 200);
+            this.ucMusicPlayer1.Size = new System.Drawing.Size(1673, 128);
             this.ucMusicPlayer1.TabIndex = 0;
             this.ucMusicPlayer1.Visible = false;
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2400, 1333);
+            this.ClientSize = new System.Drawing.Size(1924, 675);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.panelLeft);
-            this.Margin = new System.Windows.Forms.Padding(5);
-            this.MinimumSize = new System.Drawing.Size(2039, 1119);
+            this.MinimumSize = new System.Drawing.Size(1285, 668);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Musiverse - Music Universe";

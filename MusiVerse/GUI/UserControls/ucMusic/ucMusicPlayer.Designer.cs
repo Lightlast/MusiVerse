@@ -50,7 +50,7 @@
             this.panelPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelPlayer.Location = new System.Drawing.Point(0, 0);
             this.panelPlayer.Name = "panelPlayer";
-            this.panelPlayer.Size = new System.Drawing.Size(1150, 128);
+            this.panelPlayer.Size = new System.Drawing.Size(1720, 128);
             this.panelPlayer.TabIndex = 0;
             // 
             // panelRight
@@ -59,7 +59,7 @@
             this.panelRight.Controls.Add(this.trackBarVolume);
             this.panelRight.Controls.Add(this.btnMute);
             this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRight.Location = new System.Drawing.Point(921, 0);
+            this.panelRight.Location = new System.Drawing.Point(1491, 0);
             this.panelRight.Name = "panelRight";
             this.panelRight.Size = new System.Drawing.Size(229, 128);
             this.panelRight.TabIndex = 2;
@@ -112,7 +112,7 @@
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCenter.Location = new System.Drawing.Point(343, 0);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(807, 128);
+            this.panelCenter.Size = new System.Drawing.Size(1377, 128);
             this.panelCenter.TabIndex = 1;
             // 
             // panelProgress
@@ -120,14 +120,14 @@
             this.panelProgress.Controls.Add(this.lblCurrentTime);
             this.panelProgress.Controls.Add(this.trackBarSeek);
             this.panelProgress.Controls.Add(this.lblTotalTime);
-            this.panelProgress.Location = new System.Drawing.Point(11, 75);
+            this.panelProgress.Location = new System.Drawing.Point(166, 76);
             this.panelProgress.Name = "panelProgress";
-            this.panelProgress.Size = new System.Drawing.Size(549, 43);
+            this.panelProgress.Size = new System.Drawing.Size(810, 43);
             this.panelProgress.TabIndex = 1;
             // 
             // lblCurrentTime
             // 
-            this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentTime.ForeColor = System.Drawing.Color.White;
             this.lblCurrentTime.Location = new System.Drawing.Point(6, 11);
             this.lblCurrentTime.Name = "lblCurrentTime";
@@ -141,7 +141,7 @@
             this.trackBarSeek.Location = new System.Drawing.Point(63, 5);
             this.trackBarSeek.Maximum = 1000;
             this.trackBarSeek.Name = "trackBarSeek";
-            this.trackBarSeek.Size = new System.Drawing.Size(423, 56);
+            this.trackBarSeek.Size = new System.Drawing.Size(648, 56);
             this.trackBarSeek.TabIndex = 1;
             this.trackBarSeek.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarSeek.Scroll += new System.EventHandler(this.trackBarSeek_Scroll);
@@ -150,9 +150,9 @@
             // 
             // lblTotalTime
             // 
-            this.lblTotalTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblTotalTime.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalTime.ForeColor = System.Drawing.Color.White;
-            this.lblTotalTime.Location = new System.Drawing.Point(491, 11);
+            this.lblTotalTime.Location = new System.Drawing.Point(733, 11);
             this.lblTotalTime.Name = "lblTotalTime";
             this.lblTotalTime.Size = new System.Drawing.Size(51, 21);
             this.lblTotalTime.TabIndex = 2;
@@ -168,9 +168,9 @@
             this.panelControls.Controls.Add(this.btnForward);
             this.panelControls.Controls.Add(this.btnNext);
             this.panelControls.Controls.Add(this.btnRepeat);
-            this.panelControls.Location = new System.Drawing.Point(57, 11);
+            this.panelControls.Location = new System.Drawing.Point(284, 16);
             this.panelControls.Name = "panelControls";
-            this.panelControls.Size = new System.Drawing.Size(457, 53);
+            this.panelControls.Size = new System.Drawing.Size(568, 53);
             this.panelControls.TabIndex = 0;
             // 
             // btnShuffle
@@ -180,7 +180,7 @@
             this.btnShuffle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShuffle.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.btnShuffle.ForeColor = System.Drawing.Color.White;
-            this.btnShuffle.Location = new System.Drawing.Point(0, 11);
+            this.btnShuffle.Location = new System.Drawing.Point(13, 12);
             this.btnShuffle.Name = "btnShuffle";
             this.btnShuffle.Size = new System.Drawing.Size(46, 43);
             this.btnShuffle.TabIndex = 0;
@@ -195,7 +195,7 @@
             this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrevious.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnPrevious.ForeColor = System.Drawing.Color.White;
-            this.btnPrevious.Location = new System.Drawing.Point(57, 11);
+            this.btnPrevious.Location = new System.Drawing.Point(89, 11);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(46, 43);
             this.btnPrevious.TabIndex = 1;
@@ -210,7 +210,7 @@
             this.btnBackward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBackward.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnBackward.ForeColor = System.Drawing.Color.White;
-            this.btnBackward.Location = new System.Drawing.Point(114, 11);
+            this.btnBackward.Location = new System.Drawing.Point(169, 8);
             this.btnBackward.Name = "btnBackward";
             this.btnBackward.Size = new System.Drawing.Size(46, 43);
             this.btnBackward.TabIndex = 2;
@@ -225,7 +225,7 @@
             this.btnPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlayPause.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.btnPlayPause.ForeColor = System.Drawing.Color.White;
-            this.btnPlayPause.Location = new System.Drawing.Point(171, 5);
+            this.btnPlayPause.Location = new System.Drawing.Point(246, 8);
             this.btnPlayPause.Name = "btnPlayPause";
             this.btnPlayPause.Size = new System.Drawing.Size(57, 53);
             this.btnPlayPause.TabIndex = 3;
@@ -240,7 +240,7 @@
             this.btnForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnForward.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnForward.ForeColor = System.Drawing.Color.White;
-            this.btnForward.Location = new System.Drawing.Point(240, 11);
+            this.btnForward.Location = new System.Drawing.Point(337, 7);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(46, 43);
             this.btnForward.TabIndex = 4;
@@ -255,7 +255,7 @@
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(297, 11);
+            this.btnNext.Location = new System.Drawing.Point(413, 8);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(46, 43);
             this.btnNext.TabIndex = 5;
@@ -270,7 +270,7 @@
             this.btnRepeat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRepeat.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.btnRepeat.ForeColor = System.Drawing.Color.White;
-            this.btnRepeat.Location = new System.Drawing.Point(354, 11);
+            this.btnRepeat.Location = new System.Drawing.Point(493, 8);
             this.btnRepeat.Name = "btnRepeat";
             this.btnRepeat.Size = new System.Drawing.Size(46, 43);
             this.btnRepeat.TabIndex = 6;
@@ -324,7 +324,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelPlayer);
             this.Name = "ucMusicPlayer";
-            this.Size = new System.Drawing.Size(1150, 128);
+            this.Size = new System.Drawing.Size(1720, 128);
             this.Load += new System.EventHandler(this.ucMusicPlayer_Load);
             this.panelPlayer.ResumeLayout(false);
             this.panelRight.ResumeLayout(false);
