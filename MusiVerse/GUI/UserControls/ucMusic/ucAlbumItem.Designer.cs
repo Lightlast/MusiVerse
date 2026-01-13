@@ -1,4 +1,4 @@
-namespace MusiVerse.GUI.UserControls
+﻿namespace MusiVerse.GUI.UserControls
 {
     partial class ucAlbumItem
     {
@@ -43,10 +43,10 @@ namespace MusiVerse.GUI.UserControls
             // pbCover
             // 
             this.pbCover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(120)))));
-            this.pbCover.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.pbCover.Location = new System.Drawing.Point(10, 10);
+            this.pbCover.Location = new System.Drawing.Point(20, 19);
+            this.pbCover.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pbCover.Name = "pbCover";
-            this.pbCover.Size = new System.Drawing.Size(180, 180);
+            this.pbCover.Size = new System.Drawing.Size(360, 346);
             this.pbCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCover.TabIndex = 0;
             this.pbCover.TabStop = false;
@@ -54,48 +54,48 @@ namespace MusiVerse.GUI.UserControls
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = false;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.Black;
-            this.lblTitle.Location = new System.Drawing.Point(10, 195);
+            this.lblTitle.Location = new System.Drawing.Point(20, 375);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(180, 40);
+            this.lblTitle.Size = new System.Drawing.Size(360, 77);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // lblArtist
             // 
-            this.lblArtist.AutoSize = false;
-            this.lblArtist.Font = new System.Drawing.Font("Segoe UI", 9);
+            this.lblArtist.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblArtist.ForeColor = System.Drawing.Color.Gray;
-            this.lblArtist.Location = new System.Drawing.Point(10, 235);
+            this.lblArtist.Location = new System.Drawing.Point(20, 452);
+            this.lblArtist.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblArtist.Name = "lblArtist";
-            this.lblArtist.Size = new System.Drawing.Size(180, 20);
+            this.lblArtist.Size = new System.Drawing.Size(360, 38);
             this.lblArtist.TabIndex = 2;
             this.lblArtist.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblArtist.Click += new System.EventHandler(this.lblArtist_Click);
             // 
             // lblSongCount
             // 
-            this.lblSongCount.AutoSize = false;
-            this.lblSongCount.Font = new System.Drawing.Font("Segoe UI", 8);
+            this.lblSongCount.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblSongCount.ForeColor = System.Drawing.Color.Gray;
-            this.lblSongCount.Location = new System.Drawing.Point(10, 255);
+            this.lblSongCount.Location = new System.Drawing.Point(20, 490);
+            this.lblSongCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblSongCount.Name = "lblSongCount";
-            this.lblSongCount.Size = new System.Drawing.Size(180, 15);
+            this.lblSongCount.Size = new System.Drawing.Size(360, 29);
             this.lblSongCount.TabIndex = 3;
             this.lblSongCount.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblSongCount.Click += new System.EventHandler(this.lblSongCount_Click);
             // 
             // lblReleaseDate
             // 
-            this.lblReleaseDate.AutoSize = false;
-            this.lblReleaseDate.Font = new System.Drawing.Font("Segoe UI", 8);
+            this.lblReleaseDate.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblReleaseDate.ForeColor = System.Drawing.Color.LightGray;
-            this.lblReleaseDate.Location = new System.Drawing.Point(10, 270);
+            this.lblReleaseDate.Location = new System.Drawing.Point(20, 519);
+            this.lblReleaseDate.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblReleaseDate.Name = "lblReleaseDate";
-            this.lblReleaseDate.Size = new System.Drawing.Size(180, 15);
+            this.lblReleaseDate.Size = new System.Drawing.Size(360, 29);
             this.lblReleaseDate.TabIndex = 4;
             this.lblReleaseDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblReleaseDate.Click += new System.EventHandler(this.lblReleaseDate_Click);
@@ -106,13 +106,14 @@ namespace MusiVerse.GUI.UserControls
             this.btnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPlay.FlatAppearance.BorderSize = 0;
             this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold);
+            this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnPlay.ForeColor = System.Drawing.Color.White;
-            this.btnPlay.Location = new System.Drawing.Point(10, 290);
+            this.btnPlay.Location = new System.Drawing.Point(20, 558);
+            this.btnPlay.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(40, 30);
+            this.btnPlay.Size = new System.Drawing.Size(80, 58);
             this.btnPlay.TabIndex = 5;
-            this.btnPlay.Text = "?";
+            this.btnPlay.Text = "▶";
             this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
@@ -122,13 +123,14 @@ namespace MusiVerse.GUI.UserControls
             this.btnView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnView.FlatAppearance.BorderSize = 0;
             this.btnView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnView.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold);
+            this.btnView.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnView.ForeColor = System.Drawing.Color.White;
-            this.btnView.Location = new System.Drawing.Point(55, 290);
+            this.btnView.Location = new System.Drawing.Point(110, 558);
+            this.btnView.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(40, 30);
+            this.btnView.Size = new System.Drawing.Size(80, 58);
             this.btnView.TabIndex = 6;
-            this.btnView.Text = "??";
+            this.btnView.Text = "👁️‍🗨️";
             this.btnView.UseVisualStyleBackColor = false;
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
@@ -138,13 +140,14 @@ namespace MusiVerse.GUI.UserControls
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEdit.FlatAppearance.BorderSize = 0;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold);
+            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnEdit.ForeColor = System.Drawing.Color.White;
-            this.btnEdit.Location = new System.Drawing.Point(100, 290);
+            this.btnEdit.Location = new System.Drawing.Point(200, 558);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(40, 30);
+            this.btnEdit.Size = new System.Drawing.Size(80, 58);
             this.btnEdit.TabIndex = 7;
-            this.btnEdit.Text = "?";
+            this.btnEdit.Text = "✎";
             this.btnEdit.UseVisualStyleBackColor = false;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -154,19 +157,20 @@ namespace MusiVerse.GUI.UserControls
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold);
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(145, 290);
+            this.btnDelete.Location = new System.Drawing.Point(290, 558);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(40, 30);
+            this.btnDelete.Size = new System.Drawing.Size(80, 58);
             this.btnDelete.TabIndex = 8;
-            this.btnDelete.Text = "??";
+            this.btnDelete.Text = "X";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // ucAlbumItem
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -180,11 +184,12 @@ namespace MusiVerse.GUI.UserControls
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pbCover);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "ucAlbumItem";
-            this.Size = new System.Drawing.Size(200, 330);
+            this.Size = new System.Drawing.Size(400, 635);
+            this.Load += new System.EventHandler(this.ucAlbumItem_Load);
             this.MouseEnter += new System.EventHandler(this.ucAlbumItem_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ucAlbumItem_MouseLeave);
-            this.Load += new System.EventHandler(this.ucAlbumItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
             this.ResumeLayout(false);
 

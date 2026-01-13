@@ -1,6 +1,6 @@
 ﻿namespace MusiVerse.GUI.Forms.Social
 {
-    partial class frmCreateEditPost
+    partial class frmCreatePost
     {
         private System.ComponentModel.IContainer components = null;
 

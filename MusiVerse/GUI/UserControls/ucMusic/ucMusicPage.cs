@@ -826,7 +826,22 @@ namespace MusiVerse.GUI.UserControls
 
         private void EditAlbum(Album album)
         {
-            MessageBox.Show("Tính năng chỉnh sửa album đang được phát triển", "Thông báo");
+            try
+            {
+                frmCreateAlbum editForm = new frmCreateAlbum(album.AlbumID);
+
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    btnLoadAlbum_Click(null, null);
+                    MessageBox.Show("Album đã được cập nhật thành công!", "Thành công",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi chỉnh sửa album: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void DeleteAlbum(Album album)

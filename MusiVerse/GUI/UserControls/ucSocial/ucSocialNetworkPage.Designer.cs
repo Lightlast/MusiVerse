@@ -61,7 +61,7 @@
             this.btnCreatePost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreatePost.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCreatePost.ForeColor = System.Drawing.Color.White;
-            this.btnCreatePost.Location = new System.Drawing.Point(1120, 20);
+            this.btnCreatePost.Location = new System.Drawing.Point(1099, 20);
             this.btnCreatePost.Name = "btnCreatePost";
             this.btnCreatePost.Size = new System.Drawing.Size(160, 55);
             this.btnCreatePost.TabIndex = 1;

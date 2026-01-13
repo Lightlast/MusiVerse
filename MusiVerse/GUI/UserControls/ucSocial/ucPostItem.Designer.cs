@@ -21,15 +21,6 @@
         private System.Windows.Forms.Button btnShare;
         private System.Windows.Forms.Button btnSave;
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private void InitializeComponent()
         {
             this.pnlHeader = new System.Windows.Forms.Panel();

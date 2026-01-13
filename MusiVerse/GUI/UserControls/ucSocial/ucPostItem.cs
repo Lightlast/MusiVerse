@@ -35,7 +35,7 @@ namespace MusiVerse.GUI.UserControls
             pbAvatar.Click -= (s, e) => OnProfileClicked?.Invoke(_post.UserID, EventArgs.Empty);
             btnMenu.Click -= (s, e) => ShowPostMenu();
             btnLike.Click -= (s, e) => OnLikeClicked?.Invoke(this, EventArgs.Empty);
-            if (pbMedia.Image != null) pbMedia.Click -= PlayVideoHandler;
+            pbMedia.Click -= PlayVideoHandler;
             btnShare.Click -= (s, e) => OnShareClicked?.Invoke(this, EventArgs.Empty);
             btnSave.Click -= (s, e) => OnSaveClicked?.Invoke(this, EventArgs.Empty);
             
@@ -64,37 +64,7 @@ namespace MusiVerse.GUI.UserControls
             lblContent.Visible = !string.IsNullOrWhiteSpace(_post.Content);
 
             // Update Media - Support both Image and Video
-            if (!string.IsNullOrWhiteSpace(_post.MediaPath) && System.IO.File.Exists(_post.MediaPath))
-            {
-                try
-                {
-                    string fileExtension = System.IO.Path.GetExtension(_post.MediaPath).ToLower();
-                    bool isVideo = fileExtension == ".mp4" || fileExtension == ".avi" || fileExtension == ".mov";
-
-                    if (isVideo)
-                    {
-                        // Display video icon/thumbnail
-                        pbMedia.Image = CreateVideoThumbnail();
-                        // Allow clicking to play video
-                        pbMedia.Cursor = Cursors.Hand;
-                        pbMedia.Click += PlayVideoHandler;
-                    }
-                    else
-                    {
-                        // Display image
-                        pbMedia.Image = Image.FromFile(_post.MediaPath);
-                    }
-                    pbMedia.Visible = true;
-                }
-                catch
-                {
-                    pbMedia.Visible = false;
-                }
-            }
-            else
-            {
-                pbMedia.Visible = false;
-            }
+            DisplayMedia();
 
             // Update Stats
             lblLikes.Text = $"❤️ {_post.LikeCount}";
@@ -117,6 +87,38 @@ namespace MusiVerse.GUI.UserControls
             btnSave.Click += (s, e) => OnSaveClicked?.Invoke(this, EventArgs.Empty);
         }
 
+        private void DisplayMedia()
+        {
+            pbMedia.Visible = false;
+
+            if (!string.IsNullOrWhiteSpace(_post.MediaPath) && System.IO.File.Exists(_post.MediaPath))
+            {
+                try
+                {
+                    string fileExtension = System.IO.Path.GetExtension(_post.MediaPath).ToLower();
+                    bool isVideo = fileExtension == ".mp4" || fileExtension == ".avi" || fileExtension == ".mov";
+
+                    if (isVideo)
+                    {
+                        // Display video thumbnail with play button
+                        pbMedia.Image = CreateVideoThumbnail();
+                        pbMedia.Cursor = Cursors.Hand;
+                        pbMedia.Click += PlayVideoHandler;
+                    }
+                    else
+                    {
+                        // Display image
+                        pbMedia.Image = Image.FromFile(_post.MediaPath);
+                    }
+                    pbMedia.Visible = true;
+                }
+                catch
+                {
+                    pbMedia.Visible = false;
+                }
+            }
+        }
+
         private Image CreateVideoThumbnail()
         {
             // Create a video icon thumbnail
@@ -124,7 +126,7 @@ namespace MusiVerse.GUI.UserControls
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.FromArgb(50, 50, 50));
-                g.DrawString("▶️ VIDEO", new Font("Arial", 24, FontStyle.Bold), Brushes.White, new PointF(50, 130));
+                g.DrawString("▶️ VIDEO\nBấm để phát", new Font("Arial", 16, FontStyle.Bold), Brushes.White, new PointF(40, 100));
             }
             return bmp;
         }

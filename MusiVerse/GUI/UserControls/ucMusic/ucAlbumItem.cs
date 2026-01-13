@@ -97,6 +97,13 @@ namespace MusiVerse.GUI.UserControls
         // Sự kiện Click nút Edit
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (AlbumData == null)
+            {
+                MessageBox.Show("Album không hợp lệ!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             OnEditClicked?.Invoke(this, EventArgs.Empty);
         }
 

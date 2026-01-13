@@ -1,4 +1,4 @@
-using MusiVerse.DAL.Repositories;
+Ôªøusing MusiVerse.DAL.Repositories;
 using MusiVerse.DTO.Models;
 using MusiVerse.GUI.Utils;
 using System;
@@ -18,8 +18,8 @@ namespace MusiVerse.GUI.UserControls
         public event EventHandler OnPlaySongClicked;
         public event EventHandler OnLikeSongClicked;
         public event EventHandler OnEditSongClicked;
-        public event EventHandler<Song> OnSongSelected; // Event khi click v‡o b‡i h·t trong featured songs
-        public event EventHandler<Album> OnAlbumSelected; // Event khi click v‡o album
+        public event EventHandler<Song> OnSongSelected; // Event khi click v√†o b√†i h√°t trong featured songs
+        public event EventHandler<Album> OnAlbumSelected; // Event khi click v√†o album
 
         public ucSongDetail()
         {
@@ -36,8 +36,8 @@ namespace MusiVerse.GUI.UserControls
             currentSong = song;
             
             // Set section titles
-            lblFeaturedSongsTitle.Text = "?? B‡i h·t n?i b?t c?a " + currentSong.ArtistName;
-            lblAlbumsTitle.Text = "?? Album n?i b?t c?a " + currentSong.ArtistName;
+            lblFeaturedSongsTitle.Text = " B√†i h√°t n·ªïi b·∫≠t c·ªßa" + currentSong.ArtistName;
+            lblAlbumsTitle.Text = " Album n·ªïi b·∫≠t c·ªßa" + currentSong.ArtistName;
             
             LoadSongInfo();
             LoadArtistFeaturedSongs();
@@ -67,14 +67,14 @@ namespace MusiVerse.GUI.UserControls
 
             // Song information
             lblTitle.Text = currentSong.Title;
-            lblArtist.Text = $"Ngh? s?: {currentSong.ArtistName}";
-            lblGenre.Text = $"Th? lo?i: {currentSong.Genre}";
-            lblReleaseDate.Text = $"Ng‡y ph·t h‡nh: {currentSong.ReleaseDate:dd/MM/yyyy}";
-            lblDuration.Text = $"Th?i l??ng: {FormatDuration(currentSong.Duration)}";
-            lblPlayCount.Text = $"? {currentSong.PlayCount:N0} l??t nghe";
+            lblArtist.Text = $"Ngh·ªá sƒ©: {currentSong.ArtistName}";
+            lblGenre.Text = $"Th·ªÉ lo·∫°i: {currentSong.Genre}";
+            lblReleaseDate.Text = $"Ng√†y ph√°t h√†nh: {currentSong.ReleaseDate:dd/MM/yyyy}";
+            lblDuration.Text = $"Th·ªùi l∆∞·ª£ng: {FormatDuration(currentSong.Duration)}";
+            lblPlayCount.Text = $"{currentSong.PlayCount:N0} l∆∞·ª£t nghe";
 
             // Update like button
-            btnLike.Text = currentSong.IsLiked ? "?? YÍu thÌch" : "?? YÍu thÌch";
+            btnLike.Text = currentSong.IsLiked ? " Y√™u th√≠ch" : "Y√™u th√≠ch";
             btnLike.BackColor = currentSong.IsLiked ? Color.FromArgb(220, 53, 69) : Color.FromArgb(108, 117, 125);
 
             // Show/hide edit button
@@ -102,7 +102,7 @@ namespace MusiVerse.GUI.UserControls
             {
                 Label lblEmpty = new Label
                 {
-                    Text = "KhÙng cÛ b‡i h·t n?i b?t n‡o",
+                    Text = "Kh√¥ng c√≥ b√†i h√°t n·ªïi b·∫≠t n√†o",
                     Font = new Font("Segoe UI", 11),
                     ForeColor = Color.Gray,
                     AutoSize = true
@@ -167,7 +167,7 @@ namespace MusiVerse.GUI.UserControls
             
             Label lblPlayCount = new Label
             {
-                Text = $"? {song.PlayCount:N0}",
+                Text = $"{song.PlayCount:N0}",
                 Font = new Font("Segoe UI", 9),
                 Location = new Point(5, 210),
                 Size = new Size(170, 20),
@@ -209,7 +209,7 @@ namespace MusiVerse.GUI.UserControls
             {
                 Label lblEmpty = new Label
                 {
-                    Text = "KhÙng cÛ album n?i b?t n‡o",
+                    Text = "Kh√¥ng c√≥ album n·ªïi b·∫≠t  n√†o",
                     Font = new Font("Segoe UI", 11),
                     ForeColor = Color.Gray,
                     AutoSize = true
@@ -274,7 +274,7 @@ namespace MusiVerse.GUI.UserControls
 
             Label lblSongCount = new Label
             {
-                Text = $"?? {album.SongCount} b‡i h·t",
+                Text = $"{album.SongCount} b√†i h√°t",
                 Font = new Font("Segoe UI", 9),
                 Location = new Point(5, 240),
                 Size = new Size(190, 20),
@@ -320,7 +320,7 @@ namespace MusiVerse.GUI.UserControls
         private void btnLike_Click(object sender, EventArgs e)
         {
             currentSong.IsLiked = !currentSong.IsLiked;
-            btnLike.Text = currentSong.IsLiked ? "?? YÍu thÌch" : "?? YÍu thÌch";
+            btnLike.Text = currentSong.IsLiked ? "Y√™u th√≠ch" : "Y√™u th√≠ch";
             btnLike.BackColor = currentSong.IsLiked ? Color.FromArgb(220, 53, 69) : Color.FromArgb(108, 117, 125);
             OnLikeSongClicked?.Invoke(this, EventArgs.Empty);
         }

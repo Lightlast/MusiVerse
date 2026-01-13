@@ -307,14 +307,11 @@
     <Compile Include="GUI\Forms\Social\frmCommentSection.Designer.cs">
       <DependentUpon>frmCommentSection.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Forms\Social\frmCreateEditPost.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmCreateEditPost.Designer.cs">
-      <DependentUpon>frmCreateEditPost.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Forms\Social\frmCreatePost.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Forms\Social\frmCreatePost.Designer.cs">
+      <DependentUpon>frmCreatePost.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Forms\Social\frmEditComment.cs">
       <SubType>Form</SubType>
@@ -435,6 +432,9 @@
     <Compile Include="GUI\Utils\UIHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\Forms\Auth\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Auth\frmUpgradeToArtist.resx">
       <DependentUpon>frmUpgradeToArtist.cs</DependentUpon>
     </EmbeddedResource>
@@ -443,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Music\frmCreateAlbum.resx">
       <DependentUpon>frmCreateAlbum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\Music\frmEditSong.resx">
+      <DependentUpon>frmEditSong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Music\frmUploadSong.resx">
       <DependentUpon>frmUploadSong.cs</DependentUpon>
@@ -459,8 +462,8 @@
     <EmbeddedResource Include="GUI\Forms\Social\frmCommentSection.resx">
       <DependentUpon>frmCommentSection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Forms\Social\frmCreateEditPost.resx">
-      <DependentUpon>frmCreateEditPost.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Forms\Social\frmCreatePost.resx">
+      <DependentUpon>frmCreatePost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Social\frmEditPost.resx">
       <DependentUpon>frmEditPost.cs</DependentUpon>
@@ -473,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Social\frmUserProfile.resx">
       <DependentUpon>frmUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucMusic\ucAlbumItem.resx">
+      <DependentUpon>ucAlbumItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucMusic\ucMusicPage.resx">
       <DependentUpon>ucMusicPage.cs</DependentUpon>
@@ -514,7 +520,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="API_REFERENCE.md" />
-    <None Include="GUI\Forms\Social\FORM_SIZE_OPTIMIZATION_FINAL.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
