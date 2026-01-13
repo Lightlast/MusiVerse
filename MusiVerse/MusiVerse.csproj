@@ -325,29 +325,11 @@
     <Compile Include="GUI\Forms\Social\frmEditPost.Designer.cs">
       <DependentUpon>frmEditPost.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Forms\Social\frmMyPosts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmMyPosts.Designer.cs">
-      <DependentUpon>frmMyPosts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmNotifications.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmNotifications.Designer.cs">
-      <DependentUpon>frmNotifications.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Forms\Social\frmSavedPosts.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\Forms\Social\frmSavedPosts.Designer.cs">
       <DependentUpon>frmSavedPosts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmTrendingPosts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Forms\Social\frmTrendingPosts.Designer.cs">
-      <DependentUpon>frmTrendingPosts.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Forms\Social\frmUserProfile.cs">
       <SubType>Form</SubType>
@@ -361,17 +343,17 @@
     <Compile Include="GUI\UserControls\ucMusic\ucAlbumItem.Designer.cs">
       <DependentUpon>ucAlbumItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\UserControls\ucShopping\ucConcertCard.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\UserControls\ucShopping\ucConcertCard.Designer.cs">
-      <DependentUpon>ucConcertCard.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\UserControls\ucMusic\ucMusicPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\UserControls\ucMusic\ucMusicPage.Designer.cs">
       <DependentUpon>ucMusicPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucShopping\ucConcertCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucShopping\ucConcertCard.Designer.cs">
+      <DependentUpon>ucConcertCard.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserControls\ucMusic\ucMusicPlayer.cs">
       <SubType>UserControl</SubType>
@@ -391,23 +373,17 @@
     <Compile Include="GUI\UserControls\ucMusic\ucPlaylistItem.Designer.cs">
       <DependentUpon>ucPlaylistItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\UserControls\ucSocial\ucPostItem.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\UserControls\ucSocial\ucPostItem.Designer.cs">
-      <DependentUpon>ucPostItem.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\UserControls\ucShopping\ucShopping.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\UserControls\ucShopping\ucShopping.Designer.cs">
       <DependentUpon>ucShopping.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\UserControls\ucSocial\ucSocialNetworkPage.cs">
+    <Compile Include="GUI\UserControls\ucSocial\ucPostItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\UserControls\ucSocial\ucSocialNetworkPage.Designer.cs">
-      <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
+    <Compile Include="GUI\UserControls\ucSocial\ucPostItem.Designer.cs">
+      <DependentUpon>ucPostItem.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserControls\ucMusic\ucSongDetail.cs">
       <SubType>UserControl</SubType>
@@ -420,6 +396,12 @@
     </Compile>
     <Compile Include="GUI\UserControls\ucMusic\ucSongItem.Designer.cs">
       <DependentUpon>ucSongItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSocial\ucSocialNetworkPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserControls\ucSocial\ucSocialNetworkPage.Designer.cs">
+      <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserControls\ucUserProfile.cs">
       <SubType>UserControl</SubType>
@@ -471,9 +453,6 @@
     <EmbeddedResource Include="GUI\Forms\Social\frmSavedPosts.resx">
       <DependentUpon>frmSavedPosts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Forms\Social\frmTrendingPosts.resx">
-      <DependentUpon>frmTrendingPosts.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\Social\frmUserProfile.resx">
       <DependentUpon>frmUserProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -492,20 +471,20 @@
     <EmbeddedResource Include="GUI\UserControls\ucMusic\ucPlaylistItem.resx">
       <DependentUpon>ucPlaylistItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\UserControls\ucSocial\ucPostItem.resx">
-      <DependentUpon>ucPostItem.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucShopping\ucShopping.resx">
       <DependentUpon>ucShopping.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\UserControls\ucSocial\ucSocialNetworkPage.resx">
-      <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\UserControls\ucSocial\ucPostItem.resx">
+      <DependentUpon>ucPostItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucMusic\ucSongDetail.resx">
       <DependentUpon>ucSongDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucMusic\ucSongItem.resx">
       <DependentUpon>ucSongItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserControls\ucSocial\ucSocialNetworkPage.resx">
+      <DependentUpon>ucSocialNetworkPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UserControls\ucUserProfile.resx">
       <DependentUpon>ucUserProfile.cs</DependentUpon>

@@ -5,6 +5,7 @@ using MusiVerse.GUI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MusiVerse.GUI.UserControls
@@ -15,6 +16,8 @@ namespace MusiVerse.GUI.UserControls
         // private ShareService _shareService;  // Tạm comment lại
         private int _currentUserID;
         private int _currentPage = 1;
+        private List<Post> _allPosts;
+        private List<Post> _filteredPosts;
 
         public ucSocialNetworkPage()
         {
@@ -26,7 +29,37 @@ namespace MusiVerse.GUI.UserControls
 
         private void ucSocialNetworkPage_Load(object sender, EventArgs e)
         {
+            SetupSearchBox();
             LoadFeed();
+        }
+
+        private void SetupSearchBox()
+        {
+            // Setup placeholder text
+            txtSearch.ForeColor = Color.Gray;
+            txtSearch.Text = "Tìm kiếm nghệ sĩ..";
+            
+            // Subscribe to focus events cho placeholder text
+            txtSearch.GotFocus += TxtSearch_GotFocus;
+            txtSearch.LostFocus += TxtSearch_LostFocus;
+        }
+
+        private void TxtSearch_GotFocus(object sender, EventArgs e)
+        {
+            if (txtSearch.Text == "Tìm kiếm nghệ sĩ..")
+            {
+                txtSearch.Text = "";
+                txtSearch.ForeColor = Color.Black;
+            }
+        }
+
+        private void TxtSearch_LostFocus(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                txtSearch.ForeColor = Color.Gray;
+                txtSearch.Text = "Tìm kiếm nghệ sĩ..";
+            }
         }
 
         private void LoadFeed()
@@ -36,6 +69,8 @@ namespace MusiVerse.GUI.UserControls
                 pnlFeed.Controls.Clear();
 
                 List<Post> posts = _postService.GetNewsFeed(_currentUserID, _currentPage, 10);
+                _allPosts = new List<Post>(posts);
+                _filteredPosts = new List<Post>(_allPosts);
 
                 if (posts.Count == 0 && _currentPage == 1)
                 {
@@ -51,34 +86,74 @@ namespace MusiVerse.GUI.UserControls
                     return;
                 }
 
-                int yPos = 15;
-                foreach (var post in posts)
-                {
-                    ucPostCard postCard = new ucPostCard();
-                    postCard.LoadPost(post, _currentUserID);
-                    
-                    // Center horizontally
-                    int centerX = (pnlFeed.Width - postCard.Width) / 2;
-                    postCard.Location = new Point(centerX, yPos);
-                    postCard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
-                    // Wire up events
-                    postCard.OnLikeClicked += (s, e) => HandleLike(post);
-                    postCard.OnCommentClicked += (s, e) => ShowCommentDialog(post);
-                    postCard.OnSaveClicked += (s, e) => HandleSave(post);
-                    postCard.OnDeleteClicked += (s, e) => DeletePost(post);
-                    postCard.OnEditClicked += (s, e) => ShowEditPostForm(post);
-                    postCard.OnShareClicked += (s, e) => HandleShare(post);
-                    postCard.OnProfileClicked += (s, e) => ShowUserProfile((int)s);
-
-                    pnlFeed.Controls.Add(postCard);
-                    yPos += postCard.Height + 8;
-                }
+                DisplayPosts(_filteredPosts);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi tải feed: " + ex.Message, "Lỗi");
             }
+        }
+
+        private void DisplayPosts(List<Post> posts)
+        {
+            pnlFeed.Controls.Clear();
+
+            if (posts.Count == 0)
+            {
+                Label lblEmpty = new Label
+                {
+                    Text = "Không tìm thấy bài viết nào phù hợp",
+                    Font = new Font("Segoe UI", 12),
+                    ForeColor = Color.Gray,
+                    AutoSize = true,
+                    Location = new Point(250, 100)
+                };
+                pnlFeed.Controls.Add(lblEmpty);
+                return;
+            }
+
+            int yPos = 15;
+            foreach (var post in posts)
+            {
+                ucPostCard postCard = new ucPostCard();
+                postCard.LoadPost(post, _currentUserID);
+                
+                // Center horizontally
+                int centerX = (pnlFeed.Width - postCard.Width) / 2;
+                postCard.Location = new Point(centerX, yPos);
+                postCard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+                // Wire up events
+                postCard.OnLikeClicked += (s, e) => HandleLike(post);
+                postCard.OnCommentClicked += (s, e) => ShowCommentDialog(post);
+                postCard.OnSaveClicked += (s, e) => HandleSave(post);
+                postCard.OnDeleteClicked += (s, e) => DeletePost(post);
+                postCard.OnEditClicked += (s, e) => ShowEditPostForm(post);
+                postCard.OnShareClicked += (s, e) => HandleShare(post);
+                postCard.OnProfileClicked += (s, e) => ShowUserProfile((int)s);
+
+                pnlFeed.Controls.Add(postCard);
+                yPos += postCard.Height + 8;
+            }
+        }
+
+        private void FilterPosts(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword) || keyword == "Tìm kiếm nghệ sĩ..")
+            {
+                _filteredPosts = new List<Post>(_allPosts);
+            }
+            else
+            {
+                // Tìm kiếm theo tên người dùng, nội dung post hoặc username
+                keyword = keyword.ToLower();
+                _filteredPosts = _allPosts.Where(p =>
+                    (!string.IsNullOrEmpty(p.Username) && p.Username.ToLower().Contains(keyword)) ||
+                    (!string.IsNullOrEmpty(p.Content) && p.Content.ToLower().Contains(keyword))
+                ).ToList();
+            }
+
+            DisplayPosts(_filteredPosts);
         }
 
         private void ShowPostMenu(Post post)
@@ -107,8 +182,8 @@ namespace MusiVerse.GUI.UserControls
         private void DeletePost(Post post)
         {
             var result = MessageBox.Show(
-                "B?n có ch?c mu?n xóa bài vi?t này?",
-                "Xác nh?n",
+                "Bạn có chắc muốn xóa bài viết này?",
+                "Xác nhận",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -123,7 +198,7 @@ namespace MusiVerse.GUI.UserControls
                 }
                 else
                 {
-                    MessageBox.Show(deleteResult.Item2, "L?i");
+                    MessageBox.Show(deleteResult.Item2, "Lỗi");
                 }
             }
         }
@@ -234,6 +309,66 @@ namespace MusiVerse.GUI.UserControls
         }
 
         private void pnlTopBar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            // Bỏ qua nếu là placeholder text
+            if (txtSearch.Text == "Tìm kiếm nghệ sĩ.." || txtSearch.ForeColor == Color.Gray)
+            {
+                return;
+            }
+
+            // Thực hiện tìm kiếm real-time
+            FilterPosts(txtSearch.Text);
+        }
+
+        private void cmbSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbSort.SelectedIndex > 0)
+            {
+                string sortOption = cmbSort.SelectedItem.ToString();
+                SortPosts(sortOption);
+            }
+        }
+
+        private void SortPosts(string sortBy)
+        {
+            try
+            {
+                // Sắp xếp danh sách bài viết đã lọc hiện tại
+                switch (sortBy)
+                {
+                    case "Mới nhất":
+                        _filteredPosts.Sort((a, b) => b.CreatedDate.CompareTo(a.CreatedDate));
+                        break;
+                    case "Cũ nhất":
+                        _filteredPosts.Sort((a, b) => a.CreatedDate.CompareTo(b.CreatedDate));
+                        break;
+                    case "Nhiều lượt thích":
+                        _filteredPosts.Sort((a, b) => b.LikeCount.CompareTo(a.LikeCount));
+                        break;
+                    case "Nhiều bình luận":
+                        _filteredPosts.Sort((a, b) => b.CommentCount.CompareTo(a.CommentCount));
+                        break;
+                    default:
+                        _filteredPosts.Sort((a, b) => b.CreatedDate.CompareTo(a.CreatedDate));
+                        break;
+                }
+
+                // Hiển thị lại danh sách đã sắp xếp
+                DisplayPosts(_filteredPosts);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi sắp xếp bài viết: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void panelSearch_Paint(object sender, PaintEventArgs e)
         {
 
         }

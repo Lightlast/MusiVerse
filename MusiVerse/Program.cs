@@ -19,22 +19,17 @@ namespace MusiVerse
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            // Use ApplicationContext for proper form lifecycle management
-            ApplicationContext appContext = new ApplicationContext();
-            
+            // Show login form
             frmLogin loginForm = new frmLogin();
-            loginForm.FormClosed += (s, e) =>
+            if (loginForm.ShowDialog() == DialogResult.OK)
             {
-                if (loginForm.DialogResult != DialogResult.OK)
-                {
-                    appContext.ExitThread();
-                }
-            };
+                // If login successful, show main form
+                Application.Run(new frmMain());
+
+
+
+            }
             
-            appContext.MainForm = loginForm;
-            loginForm.Show();
-            
-            Application.Run(appContext);
         }
     }
 }
