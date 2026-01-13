@@ -8,7 +8,7 @@ namespace MusiVerse.DAL
     public class DatabaseConnection
     {
         private static string connectionString =
-            @"Data Source=MTC;Initial Catalog=MUSIVERSE_DB;Integrated Security=True";
+            @"Data Source=SAYAL\SQLEXPRESS;Initial Catalog=MusiverseDB;Integrated Security=True";
 
         // Hoặc có thể lấy từ App.config
         // private static string connectionString = 
