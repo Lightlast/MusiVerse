@@ -8,6 +8,30 @@ namespace MusiVerse.DAL.Repositories
 {
     public class AlbumRepository
     {
+        public Album GetAlbumByTitle(string title, int artistID)
+        {
+            string query = @"SELECT a.AlbumID, a.Title, a.ArtistID, u.FullName AS ArtistName, 
+                                   a.CoverImage, a.ReleaseDate, a.IsActive,
+                                   (SELECT COUNT(*) FROM Songs WHERE AlbumID = a.AlbumID) AS SongCount
+                           FROM Albums a
+                           INNER JOIN Users u ON a.ArtistID = u.UserID
+                           WHERE a.Title = @Title AND a.ArtistID = @ArtistID";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@Title", title),
+                new SqlParameter("@ArtistID", artistID)
+            };
+
+            DataTable dt = DatabaseConnection.ExecuteQuery(query, parameters);
+
+            if (dt.Rows.Count > 0)
+            {
+                return MapRowToAlbum(dt.Rows[0]);
+            }
+
+            return null;
+        }
+
         public Album GetAlbumById(int albumID)
         {
             string query = @"SELECT a.AlbumID, a.Title, a.ArtistID, u.FullName AS ArtistName, 
@@ -79,6 +103,55 @@ namespace MusiVerse.DAL.Repositories
             }
 
             return songs;
+        }
+
+        public bool CreateAlbum(Album album)
+        {
+            string query = @"INSERT INTO Albums (Title, ArtistID, CoverImage, ReleaseDate, IsActive) 
+                           VALUES (@Title, @ArtistID, @CoverImage, @ReleaseDate, 1)";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@Title", album.Title),
+                new SqlParameter("@ArtistID", album.ArtistID),
+                new SqlParameter("@CoverImage", album.CoverImage ?? (object)DBNull.Value),
+                new SqlParameter("@ReleaseDate", album.ReleaseDate)
+            };
+
+            int result = DatabaseConnection.ExecuteNonQuery(query, parameters);
+            return result > 0;
+        }
+
+        public bool UpdateAlbum(Album album)
+        {
+            string query = @"UPDATE Albums 
+                           SET Title = @Title, 
+                               CoverImage = @CoverImage, 
+                               ReleaseDate = @ReleaseDate,
+                               IsActive = @IsActive
+                           WHERE AlbumID = @AlbumID";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@AlbumID", album.AlbumID),
+                new SqlParameter("@Title", album.Title),
+                new SqlParameter("@CoverImage", album.CoverImage ?? (object)DBNull.Value),
+                new SqlParameter("@ReleaseDate", album.ReleaseDate),
+                new SqlParameter("@IsActive", album.IsActive)
+            };
+
+            int result = DatabaseConnection.ExecuteNonQuery(query, parameters);
+            return result > 0;
+        }
+
+        public bool DeleteAlbum(int albumID)
+        {
+            string query = "UPDATE Albums SET IsActive = 0 WHERE AlbumID = @AlbumID";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@AlbumID", albumID)
+            };
+
+            int result = DatabaseConnection.ExecuteNonQuery(query, parameters);
+            return result > 0;
         }
 
         private Album MapRowToAlbum(DataRow row)

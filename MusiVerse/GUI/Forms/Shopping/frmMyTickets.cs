@@ -1,5 +1,6 @@
 ﻿using MusiVerse.BLL.Services;
 using MusiVerse.DTO.Models;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,52 +41,23 @@ namespace MusiVerse.GUI.Forms.Shopping
         {
             try
             {
-                // Xóa các controls cũ
-                this.Controls.Clear();
-
-                // Tạo panel chứa danh sách vé
-                FlowLayoutPanel flowPanel = new FlowLayoutPanel
-                {
-                    Dock = DockStyle.Fill,
-                    AutoScroll = true,
-                    Padding = new Padding(15),
-                    BackColor = Color.FromArgb(240, 240, 245)
-                };
-
-                // Tạo label tiêu đề
-                Label lblTitle = new Label
-                {
-                    Text = "🎫 Vé Concert Của Tôi",
-                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                    ForeColor = Color.FromArgb(30, 144, 255),
-                    AutoSize = true
-                };
-                flowPanel.Controls.Add(lblTitle);
+                flpTickets.Controls.Clear();
+                pnlEmpty.Visible = false;
 
                 // Lấy danh sách vé
                 var tickets = _ticketService.GetUserTickets(_userID);
 
                 if (tickets.Count == 0)
                 {
-                    Label lblNoTickets = new Label
-                    {
-                        Text = "Bạn chưa có vé concert nào",
-                        Font = new Font("Segoe UI", 12),
-                        ForeColor = Color.Gray,
-                        AutoSize = true
-                    };
-                    flowPanel.Controls.Add(lblNoTickets);
-                }
-                else
-                {
-                    foreach (var ticket in tickets)
-                    {
-                        Panel ticketCard = CreateTicketCard(ticket);
-                        flowPanel.Controls.Add(ticketCard);
-                    }
+                    pnlEmpty.Visible = true;
+                    return;
                 }
 
-                this.Controls.Add(flowPanel);
+                foreach (var ticket in tickets)
+                {
+                    Panel ticketCard = CreateTicketCard(ticket);
+                    flpTickets.Controls.Add(ticketCard);
+                }
             }
             catch (Exception ex)
             {
@@ -100,7 +72,8 @@ namespace MusiVerse.GUI.Forms.Shopping
                 Size = new Size(850, 200),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Margin = new Padding(5, 10, 5, 10)
+                Margin = new Padding(0, 10, 0, 10),
+                AutoSize = false
             };
 
             // Thông tin vé
@@ -137,7 +110,6 @@ namespace MusiVerse.GUI.Forms.Shopping
                 AutoSize = true
             };
 
-            // Hiển thị hạng ghế nếu có
             Label lblSeatClass = new Label
             {
                 Text = ticket.TicketType == 1 ? $"Hạng: {ticket.SeatClass}" : "Loại: Không sấp chỗ",
@@ -147,7 +119,6 @@ namespace MusiVerse.GUI.Forms.Shopping
                 AutoSize = true
             };
 
-            // Trạng thái vé
             bool isExpired = _ticketService.IsTicketExpired(ticket);
             Label lblStatus = new Label
             {
@@ -158,7 +129,6 @@ namespace MusiVerse.GUI.Forms.Shopping
                 AutoSize = true
             };
 
-            // Giá vé
             Label lblPrice = new Label
             {
                 Text = $"Giá: {ticket.Price:N0}đ",
@@ -167,7 +137,6 @@ namespace MusiVerse.GUI.Forms.Shopping
                 AutoSize = true
             };
 
-            // Nút xem QR code
             Button btnViewQR = new Button
             {
                 Text = "📱 Xem QR Code",
@@ -176,11 +145,11 @@ namespace MusiVerse.GUI.Forms.Shopping
                 BackColor = Color.FromArgb(100, 149, 237),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 9)
+                Font = new Font("Segoe UI", 9),
+                AutoSize = false
             };
             btnViewQR.Click += (s, e) => ViewQRCode(ticket);
 
-            // Nút tải xuống QR code
             Button btnDownloadQR = new Button
             {
                 Text = "⬇️ Tải QR Code",
@@ -189,7 +158,8 @@ namespace MusiVerse.GUI.Forms.Shopping
                 BackColor = Color.FromArgb(0, 150, 136),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 9)
+                Font = new Font("Segoe UI", 9),
+                AutoSize = false
             };
             btnDownloadQR.Click += (s, e) => DownloadQRCode(ticket);
 
@@ -208,68 +178,115 @@ namespace MusiVerse.GUI.Forms.Shopping
 
         private void ViewQRCode(Ticket ticket)
         {
-            if (!System.IO.File.Exists(ticket.QRCodeImage))
+            try
             {
-                MessageBox.Show("Không tìm thấy file QR code", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // Tạo QR code từ mã vé sử dụng QRCoder
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(ticket.TicketCode, QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrCodeData);
+                
+                Bitmap qrBitmap = qrCode.GetGraphic(20);
+
+                Form qrForm = new Form
+                {
+                    Text = $"QR Code - {ticket.TicketCode}",
+                    Size = new Size(500, 600),
+                    StartPosition = FormStartPosition.CenterParent,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    MaximizeBox = false,
+                    MinimizeBox = false
+                };
+
+                // Panel chứa QR code
+                Panel pnlQR = new Panel
+                {
+                    Dock = DockStyle.Top,
+                    Height = 420,
+                    BackColor = Color.White,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+
+                PictureBox pbQR = new PictureBox
+                {
+                    Image = qrBitmap,
+                    SizeMode = PictureBoxSizeMode.CenterImage,
+                    Dock = DockStyle.Fill
+                };
+                pnlQR.Controls.Add(pbQR);
+
+                // Label mã vé
+                Label lblTicketCode = new Label
+                {
+                    Text = $"Mã vé: {ticket.TicketCode}",
+                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Bottom,
+                    Height = 50,
+                    BackColor = Color.FromArgb(240, 240, 245)
+                };
+
+                // Label thông tin
+                Label lblInfo = new Label
+                {
+                    Text = $"Concert: {ticket.ConcertName}\nNgày: {ticket.ConcertDate:dd/MM/yyyy HH:mm}\nGiá: {ticket.Price:N0}đ",
+                    Font = new Font("Segoe UI", 9),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Bottom,
+                    Height = 80,
+                    BackColor = Color.White
+                };
+
+                qrForm.Controls.Add(pnlQR);
+                qrForm.Controls.Add(lblTicketCode);
+                qrForm.Controls.Add(lblInfo);
+                qrForm.ShowDialog();
             }
-
-            Form qrForm = new Form
+            catch (Exception ex)
             {
-                Text = $"QR Code - {ticket.TicketCode}",
-                Size = new Size(450, 550),
-                StartPosition = FormStartPosition.CenterParent,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                MaximizeBox = false,
-                MinimizeBox = false
-            };
-
-            PictureBox pbQR = new PictureBox
-            {
-                Image = Image.FromFile(ticket.QRCodeImage),
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Dock = DockStyle.Top,
-                Size = new Size(450, 400)
-            };
-
-            Label lblTicketCode = new Label
-            {
-                Text = $"Mã vé: {ticket.TicketCode}",
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Dock = DockStyle.Fill
-            };
-
-            qrForm.Controls.Add(lblTicketCode);
-            qrForm.Controls.Add(pbQR);
-            qrForm.ShowDialog();
+                MessageBox.Show($"Lỗi tạo QR code: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void DownloadQRCode(Ticket ticket)
         {
-            if (!System.IO.File.Exists(ticket.QRCodeImage))
+            try
             {
-                MessageBox.Show("Không tìm thấy file QR code", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                SaveFileDialog saveDialog = new SaveFileDialog
+                {
+                    FileName = $"QR_{ticket.TicketCode}_{DateTime.Now:yyyyMMdd_HHmmss}.png",
+                    Filter = "PNG Image (*.png)|*.png|JPG Image (*.jpg)|*.jpg"
+                };
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Tạo QR code từ mã vé sử dụng QRCoder
+                    QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(ticket.TicketCode, QRCodeGenerator.ECCLevel.Q);
+                    QRCode qrCode = new QRCode(qrCodeData);
+                    
+                    Bitmap qrBitmap = qrCode.GetGraphic(20);
+
+                    // Lưu file
+                    if (saveDialog.FileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase))
+                    {
+                        qrBitmap.Save(saveDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    else
+                    {
+                        qrBitmap.Save(saveDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+
+                    MessageBox.Show(
+                        $"Tải xuống thành công!\nĐường dẫn: {saveDialog.FileName}",
+                        "Thành công",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
             }
-
-            SaveFileDialog saveDialog = new SaveFileDialog
+            catch (Exception ex)
             {
-                FileName = $"QR_{ticket.TicketCode}.png",
-                Filter = "PNG Image (*.png)|*.png"
-            };
-
-            if (saveDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    System.IO.File.Copy(ticket.QRCodeImage, saveDialog.FileName, true);
-                    MessageBox.Show("Tải xuống thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show($"Lỗi tải QR code: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

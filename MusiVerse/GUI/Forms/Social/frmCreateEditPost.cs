@@ -83,7 +83,7 @@ namespace MusiVerse.GUI.Forms.Social
             {
                 Text = "?? ?nh/Video",
                 Location = new Point(20, 240),
-                Size = new Size(560, 80),
+                Size = new Size(560, 150),
                 Font = new Font("Segoe UI", 10),
                 ForeColor = Color.Gray
             };
@@ -96,6 +96,16 @@ namespace MusiVerse.GUI.Forms.Social
                 Font = new Font("Segoe UI", 9),
                 ForeColor = Color.Black,
                 Name = "lblMediaPath"
+            };
+
+            PictureBox pbMediaPreview = new PictureBox
+            {
+                Name = "pbMediaPreview",
+                Location = new Point(10, 50),
+                Size = new Size(100, 100),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                BorderStyle = BorderStyle.FixedSingle,
+                Visible = false
             };
 
             Button btnBrowseMedia = new Button
@@ -129,6 +139,7 @@ namespace MusiVerse.GUI.Forms.Social
             btnRemoveMedia.Click += BtnRemoveMedia_Click;
 
             _gbMedia.Controls.Add(lblMediaPath);
+            _gbMedia.Controls.Add(pbMediaPreview);
             _gbMedia.Controls.Add(btnBrowseMedia);
             _gbMedia.Controls.Add(btnRemoveMedia);
             this.Controls.Add(_gbMedia);
@@ -160,7 +171,7 @@ namespace MusiVerse.GUI.Forms.Social
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;
-            btnCancel.Click += (s, e) => this.Close();
+            btnCancel.Click += BtnCancel_Click;
 
             this.Controls.Add(btnPost);
             this.Controls.Add(btnCancel);
@@ -169,6 +180,47 @@ namespace MusiVerse.GUI.Forms.Social
             if (_post != null && !string.IsNullOrEmpty(_post.MediaPath))
             {
                 _selectedMediaPath = _post.MediaPath;
+                
+                // Load existing media preview
+                PictureBox pbPreview = _gbMedia.Controls["pbMediaPreview"] as PictureBox;
+                Label lblPath = _gbMedia.Controls["lblMediaPath"] as Label;
+                
+                if (pbPreview != null && System.IO.File.Exists(_selectedMediaPath))
+                {
+                    try
+                    {
+                        string fileExtension = Path.GetExtension(_selectedMediaPath).ToLower();
+                        bool isVideo = fileExtension == ".mp4" || fileExtension == ".avi" || fileExtension == ".mov";
+
+                        if (isVideo)
+                        {
+                            // Show video icon
+                            Bitmap bmp = new Bitmap(100, 100);
+                            using (Graphics g = Graphics.FromImage(bmp))
+                            {
+                                g.Clear(Color.FromArgb(50, 50, 50));
+                                g.DrawString("?? VIDEO", new Font("Arial", 10, FontStyle.Bold), Brushes.White, new PointF(10, 40));
+                            }
+                            pbPreview.Image = bmp;
+                        }
+                        else
+                        {
+                            // Show image preview
+                            pbPreview.Image = Image.FromFile(_selectedMediaPath);
+                        }
+                        pbPreview.Visible = true;
+                    }
+                    catch
+                    {
+                        pbPreview.Visible = false;
+                    }
+                }
+                
+                if (lblPath != null)
+                {
+                    lblPath.Text = Path.GetFileName(_selectedMediaPath);
+                    lblPath.ForeColor = Color.Green;
+                }
             }
         }
 
@@ -185,6 +237,40 @@ namespace MusiVerse.GUI.Forms.Social
                 _selectedMediaPath = openFileDialog.FileName;
                 Label lblMediaPath = _gbMedia.Controls["lblMediaPath"] as Label;
                 lblMediaPath.Text = Path.GetFileName(_selectedMediaPath);
+                lblMediaPath.ForeColor = Color.Green;
+
+                // Display preview
+                PictureBox pbMediaPreview = _gbMedia.Controls["pbMediaPreview"] as PictureBox;
+                if (pbMediaPreview != null)
+                {
+                    try
+                    {
+                        string fileExtension = Path.GetExtension(_selectedMediaPath).ToLower();
+                        bool isVideo = fileExtension == ".mp4" || fileExtension == ".avi" || fileExtension == ".mov";
+
+                        if (isVideo)
+                        {
+                            // Show video icon
+                            Bitmap bmp = new Bitmap(100, 100);
+                            using (Graphics g = Graphics.FromImage(bmp))
+                            {
+                                g.Clear(Color.FromArgb(50, 50, 50));
+                                g.DrawString("?? VIDEO", new Font("Arial", 10, FontStyle.Bold), Brushes.White, new PointF(10, 40));
+                            }
+                            pbMediaPreview.Image = bmp;
+                        }
+                        else
+                        {
+                            // Show image preview
+                            pbMediaPreview.Image = Image.FromFile(_selectedMediaPath);
+                        }
+                        pbMediaPreview.Visible = true;
+                    }
+                    catch
+                    {
+                        pbMediaPreview.Visible = false;
+                    }
+                }
             }
         }
 
@@ -193,6 +279,14 @@ namespace MusiVerse.GUI.Forms.Social
             _selectedMediaPath = "";
             Label lblMediaPath = _gbMedia.Controls["lblMediaPath"] as Label;
             lblMediaPath.Text = "Ch?a ch?n ?nh/video";
+            lblMediaPath.ForeColor = Color.Gray;
+
+            PictureBox pbMediaPreview = _gbMedia.Controls["pbMediaPreview"] as PictureBox;
+            if (pbMediaPreview != null)
+            {
+                pbMediaPreview.Image = null;
+                pbMediaPreview.Visible = false;
+            }
         }
 
         private void BtnPost_Click(object sender, EventArgs e)
@@ -265,6 +359,21 @@ namespace MusiVerse.GUI.Forms.Social
             {
                 MessageBox.Show("L?i: " + ex.Message, "L?i");
             }
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtContent_TextChanged(object sender, EventArgs e)
+        {
+            // Optional: Add any text change handling here
+        }
+
+        private void lblContent_Click(object sender, EventArgs e)
+        {
+            // Optional: Add any label click handling here
         }
 
         private string GetMediaType(string filePath)

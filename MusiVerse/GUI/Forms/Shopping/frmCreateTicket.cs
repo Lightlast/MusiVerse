@@ -1,4 +1,4 @@
-using MusiVerse.BLL.Services;
+﻿using MusiVerse.BLL.Services;
 using MusiVerse.DTO.Models;
 using MusiVerse.GUI.Utils;
 using System;
@@ -19,7 +19,7 @@ namespace MusiVerse.GUI.Forms.Shopping
         private ConcertService _concertService;
         private int _artistID;
         private string _posterImagePath = "";
-        private int _editingConcertID = 0; // N?u = 0 th� l� t?o m?i, n?u > 0 th� l� ch?nh s?a
+        private int _editingConcertID = 0; // Nếu = 0 thì là tạo mới, nếu > 0 thì là chỉnh sửa
 
         public frmCreateTicket(int artistID)
         {
@@ -28,7 +28,7 @@ namespace MusiVerse.GUI.Forms.Shopping
             _concertService = new ConcertService();
         }
 
-        // Constructor cho ch?nh s?a
+        // Constructor cho chỉnh sửa
         public frmCreateTicket(int artistID, Concert concert)
         {
             InitializeComponent();
@@ -48,25 +48,25 @@ namespace MusiVerse.GUI.Forms.Shopping
 
         private void SetupUI()
         {
-            this.Text = _editingConcertID > 0 ? "?? Ch?nh S?a Concert" : "?? T?o Concert M?i";
+            this.Text = _editingConcertID > 0 ? "✏️ Chỉnh Sửa Concert" : "🎫 Tạo Concert Mới";
             this.Size = new Size(700, 800);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
-            btnChoosePoster.Text = "?? Ch?n Poster";
+            btnChoosePoster.Text = "📷 Chọn Poster";
             btnChoosePoster.BackColor = Color.FromArgb(100, 149, 237);
             btnChoosePoster.ForeColor = Color.White;
             btnChoosePoster.FlatStyle = FlatStyle.Flat;
 
-            btnCreate.Text = _editingConcertID > 0 ? "?? C?p Nh?t" : "? T?o Concert";
+            btnCreate.Text = _editingConcertID > 0 ? "💾 Cập Nhật" : "✨ Tạo Concert";
             btnCreate.BackColor = Color.FromArgb(0, 150, 136);
             btnCreate.ForeColor = Color.White;
             btnCreate.FlatStyle = FlatStyle.Flat;
             btnCreate.Font = new Font("Segoe UI", 11, FontStyle.Bold);
 
-            btnCancel.Text = "H?y";
+            btnCancel.Text = "Hủy";
             btnCancel.BackColor = Color.FromArgb(200, 200, 200);
             btnCancel.FlatStyle = FlatStyle.Flat;
         }
@@ -95,7 +95,7 @@ namespace MusiVerse.GUI.Forms.Shopping
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"L?i: {ex.Message}", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -104,7 +104,7 @@ namespace MusiVerse.GUI.Forms.Shopping
             OpenFileDialog openDialog = new OpenFileDialog
             {
                 Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp",
-                Title = "Ch?n Poster Concert"
+                Title = "Chọn Poster Concert"
             };
 
             if (openDialog.ShowDialog() == DialogResult.OK)
@@ -121,35 +121,35 @@ namespace MusiVerse.GUI.Forms.Shopping
                 // Validate
                 if (string.IsNullOrWhiteSpace(txtConcertName.Text))
                 {
-                    MessageBox.Show("Vui l�ng nh?p t�n concert!", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập tên concert!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtVenue.Text))
                 {
-                    MessageBox.Show("Vui l�ng nh?p ??a ?i?m!", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập địa điểm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (dtConcertDate.Value <= DateTime.Now)
                 {
-                    MessageBox.Show("Ng�y concert ph?i trong t??ng lai!", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ngày concert phải trong tương lai!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (numTotalTickets.Value <= 0)
                 {
-                    MessageBox.Show("S? v� ph?i l?n h?n 0!", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Số vé phải lớn hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (numPrice.Value < 0)
                 {
-                    MessageBox.Show("Gi� v� kh�ng ???c �m!", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Giá vé không được âm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // T?o ho?c c?p nh?t concert
+                // Tạo hoặc cập nhật concert
                 var concert = new Concert
                 {
                     ConcertID = _editingConcertID,
@@ -158,7 +158,7 @@ namespace MusiVerse.GUI.Forms.Shopping
                     Venue = txtVenue.Text,
                     ConcertDate = dtConcertDate.Value,
                     TotalTickets = (int)numTotalTickets.Value,
-                    AvailableTickets = _editingConcertID == 0 ? (int)numTotalTickets.Value : 0, // C?p nh?t khi t?o m?i
+                    AvailableTickets = _editingConcertID == 0 ? (int)numTotalTickets.Value : 0, // Cập nhật khi tạo mới
                     Price = (decimal)numPrice.Value,
                     Description = txtDescription.Text,
                     PosterImage = _posterImagePath,
@@ -168,17 +168,17 @@ namespace MusiVerse.GUI.Forms.Shopping
 
                 if (_editingConcertID == 0)
                 {
-                    // T?o m?i
+                    // Tạo mới
                     int concertID = _concertService.CreateConcert(concert);
-                    MessageBox.Show($"? Concert t?o th�nh c�ng! ID: {concertID}", "Th�nh c�ng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"✨ Concert tạo thành công! ID: {concertID}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // C?p nh?t
+                    // Cập nhật
                     bool success = _concertService.UpdateConcert(concert);
                     if (success)
                     {
-                        MessageBox.Show("?? Concert c?p nh?t th�nh c�ng!", "Th�nh c�ng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("💾 Concert cập nhật thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
 
@@ -187,7 +187,7 @@ namespace MusiVerse.GUI.Forms.Shopping
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"L?i: {ex.Message}", "L?i", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -199,7 +199,7 @@ namespace MusiVerse.GUI.Forms.Shopping
 
         private void cbTicketType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // C� th? th�m logic n?u c?n thi?t
+            // Có thể thêm logic nếu cần thiết
         }
     }
 }

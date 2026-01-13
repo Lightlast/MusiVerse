@@ -1,6 +1,6 @@
-﻿namespace MusiVerse.GUI.Forms.Shopping
+﻿ namespace MusiVerse.GUI.Forms.Shopping
 {
-    partial class frmMyTickets
+    partial class frmTicketsManagement
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.flpTickets = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlContent = new System.Windows.Forms.Panel();
+            this.scpConcerts = new System.Windows.Forms.Panel();
             this.pnlEmpty = new System.Windows.Forms.Panel();
             this.lblEmpty = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
-            this.pnlTitle.SuspendLayout();
+            this.pnlHeader.SuspendLayout();
+            this.pnlContent.SuspendLayout();
             this.pnlEmpty.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,52 +45,63 @@
             // 
             this.pnlMain.AutoScroll = true;
             this.pnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.pnlMain.Controls.Add(this.pnlTitle);
-            this.pnlMain.Controls.Add(this.flpTickets);
+            this.pnlMain.Controls.Add(this.pnlHeader);
+            this.pnlMain.Controls.Add(this.pnlContent);
             this.pnlMain.Controls.Add(this.pnlEmpty);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1800, 1154);
+            this.pnlMain.Size = new System.Drawing.Size(2000, 1250);
             this.pnlMain.TabIndex = 0;
             // 
-            // pnlTitle
+            // pnlHeader
             // 
-            this.pnlTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.pnlTitle.Controls.Add(this.lblTitle);
-            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-            this.pnlTitle.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.pnlTitle.Name = "pnlTitle";
-            this.pnlTitle.Padding = new System.Windows.Forms.Padding(30, 29, 30, 29);
-            this.pnlTitle.Size = new System.Drawing.Size(1800, 92);
-            this.pnlTitle.TabIndex = 0;
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
+            this.pnlHeader.Controls.Add(this.lblTitle);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Padding = new System.Windows.Forms.Padding(30, 29, 30, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(2000, 115);
+            this.pnlHeader.TabIndex = 0;
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
-            this.lblTitle.Location = new System.Drawing.Point(15, 9);
+            this.lblTitle.Location = new System.Drawing.Point(30, 29);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(530, 65);
+            this.lblTitle.Size = new System.Drawing.Size(548, 65);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🎫 Vé Concert Của Tôi";
+            this.lblTitle.Text = "⚙️ Quản Lý Vé Concert";
             // 
-            // flpTickets
+            // pnlContent
             // 
-            this.flpTickets.AutoScroll = true;
-            this.flpTickets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.flpTickets.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpTickets.Location = new System.Drawing.Point(0, 115);
-            this.flpTickets.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.flpTickets.Name = "flpTickets";
-            this.flpTickets.Padding = new System.Windows.Forms.Padding(30, 29, 30, 29);
-            this.flpTickets.Size = new System.Drawing.Size(1800, 1038);
-            this.flpTickets.TabIndex = 1;
-            this.flpTickets.WrapContents = false;
+            this.pnlContent.AutoScroll = true;
+            this.pnlContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
+            this.pnlContent.Controls.Add(this.scpConcerts);
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(0, 0);
+            this.pnlContent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.Padding = new System.Windows.Forms.Padding(30, 29, 30, 29);
+            this.pnlContent.Size = new System.Drawing.Size(2000, 1250);
+            this.pnlContent.TabIndex = 1;
+            // 
+            // scpConcerts
+            // 
+            this.scpConcerts.AutoScroll = true;
+            this.scpConcerts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
+            this.scpConcerts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scpConcerts.Location = new System.Drawing.Point(30, 29);
+            this.scpConcerts.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.scpConcerts.Name = "scpConcerts";
+            this.scpConcerts.Size = new System.Drawing.Size(1940, 1192);
+            this.scpConcerts.TabIndex = 2;
             // 
             // pnlEmpty
             // 
@@ -98,7 +111,7 @@
             this.pnlEmpty.Location = new System.Drawing.Point(0, 0);
             this.pnlEmpty.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pnlEmpty.Name = "pnlEmpty";
-            this.pnlEmpty.Size = new System.Drawing.Size(1800, 1154);
+            this.pnlEmpty.Size = new System.Drawing.Size(2000, 1250);
             this.pnlEmpty.TabIndex = 2;
             this.pnlEmpty.Visible = false;
             // 
@@ -107,43 +120,46 @@
             this.lblEmpty.AutoSize = true;
             this.lblEmpty.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lblEmpty.ForeColor = System.Drawing.Color.Gray;
-            this.lblEmpty.Location = new System.Drawing.Point(700, 385);
+            this.lblEmpty.Location = new System.Drawing.Point(700, 481);
             this.lblEmpty.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblEmpty.Name = "lblEmpty";
-            this.lblEmpty.Size = new System.Drawing.Size(410, 45);
+            this.lblEmpty.Size = new System.Drawing.Size(381, 45);
             this.lblEmpty.TabIndex = 0;
-            this.lblEmpty.Text = "Bạn chưa có vé concert nào";
+            this.lblEmpty.Text = "Bạn chưa tạo concert nào";
             // 
-            // frmMyTickets
+            // frmTicketsManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(1800, 1154);
+            this.ClientSize = new System.Drawing.Size(2000, 1250);
             this.Controls.Add(this.pnlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmMyTickets";
+            this.Name = "frmTicketsManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "🎫 Vé của tôi";
-            this.Load += new System.EventHandler(this.frmMyTickets_Load);
+            this.Text = "⚙️ Quản lý vé Concert";
+            this.Load += new System.EventHandler(this.frmTicketsManagement_Load);
             this.pnlMain.ResumeLayout(false);
-            this.pnlTitle.ResumeLayout(false);
-            this.pnlTitle.PerformLayout();
+            this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
+            this.pnlContent.ResumeLayout(false);
             this.pnlEmpty.ResumeLayout(false);
             this.pnlEmpty.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
+        #endregion
+
         private System.Windows.Forms.Panel pnlMain;
-        private System.Windows.Forms.Panel pnlTitle;
+        private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.FlowLayoutPanel flpTickets;
+        private System.Windows.Forms.Panel pnlContent;
         private System.Windows.Forms.Panel pnlEmpty;
         private System.Windows.Forms.Label lblEmpty;
-        #endregion
+        private System.Windows.Forms.Panel scpConcerts;
     }
 }

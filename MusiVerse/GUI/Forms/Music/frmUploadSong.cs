@@ -182,27 +182,48 @@ namespace MusiVerse.GUI.Forms.Music
                     txtTitle.Text = fileName;
                 }
 
-                // Try to get duration using TagLib (if available)
-                // For now, estimate based on file size
-                FileInfo fileInfo = new FileInfo(filePath);
-                int estimatedDuration = EstimateDuration(fileInfo.Length);
-
-                lblDuration.Text = $"Thời lượng: ~{TimeSpan.FromSeconds(estimatedDuration):mm\\:ss}";
-
-                // TODO: Implement TagLib-Sharp for proper ID3 tag extraction
-                /*
-                var file = TagLib.File.Create(filePath);
-                txtTitle.Text = file.Tag.Title ?? fileName;
-                txtAlbum.Text = file.Tag.Album ?? "";
-                lblDuration.Text = $"Thời lượng: {file.Properties.Duration:mm\\:ss}";
-                */
+                // Lấy duration thực tế từ file audio
+                int actualDuration = GetActualDuration(filePath);
+                lblDuration.Text = actualDuration > 0 
+                    ? $"Thời lượng: {FormatDuration(actualDuration)}"
+                    : $"Thời lượng: ~{TimeSpan.FromSeconds(EstimateDuration(new FileInfo(filePath).Length)):mm\\:ss}";
             }
             catch (Exception ex)
             {
-                // If extraction fails, just use filename
                 lblMetadataStatus.Text = "Không thể đọc metadata";
                 lblMetadataStatus.ForeColor = Color.Orange;
             }
+        }
+
+        /// <summary>
+        /// Lấy duration thực tế từ file audio bằng NAudio
+        /// </summary>
+        private int GetActualDuration(string filePath)
+        {
+            try
+            {
+                using (var reader = new NAudio.Wave.AudioFileReader(filePath))
+                {
+                    return (int)Math.Round(reader.TotalTime.TotalSeconds);
+                }
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// Format thời lượng từ giây thành MM:SS hoặc HH:MM:SS
+        /// </summary>
+        private string FormatDuration(int seconds)
+        {
+            TimeSpan ts = TimeSpan.FromSeconds(seconds);
+            
+            if (ts.Hours > 0)
+                return ts.ToString(@"hh\:mm\:ss");
+            else
+                return ts.ToString(@"mm\:ss");
         }
 
         private int EstimateDuration(long fileSize)
@@ -315,11 +336,19 @@ namespace MusiVerse.GUI.Forms.Music
                 // Step 3: Save to database
                 lblProgress.Text = "Đang lưu vào database...";
 
+                // Lấy duration thực tế từ file audio
+                int actualDuration = GetActualDuration(selectedAudioFile);
+                if (actualDuration <= 0)
+                {
+                    // Fallback: ước tính nếu không lấy được
+                    actualDuration = EstimateDuration(new FileInfo(selectedAudioFile).Length);
+                }
+
                 Song newSong = new Song
                 {
                     Title = txtTitle.Text.Trim(),
                     ArtistID = SessionManager.GetCurrentUserID(),
-                    Duration = EstimateDuration(new FileInfo(selectedAudioFile).Length),
+                    Duration = actualDuration,
                     FilePath = audioDestPath,
                     CoverImage = coverDestPath,
                     Genre = cmbGenre.SelectedItem?.ToString(),
@@ -414,6 +443,11 @@ namespace MusiVerse.GUI.Forms.Music
             pictureBoxCover.Image = null;
             lblCoverStatus.Text = "Chưa chọn ảnh bìa";
             lblCoverStatus.ForeColor = Color.Gray;
+        }
+
+        private void cmbGenre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

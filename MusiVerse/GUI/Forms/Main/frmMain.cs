@@ -1,8 +1,10 @@
 ﻿using MusiVerse.BLL.Services;
+using MusiVerse.DAL.Repositories;
 using MusiVerse.GUI.Forms.Auth;
 using MusiVerse.GUI.UserControls;
 using MusiVerse.GUI.Utils;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -271,6 +273,12 @@ namespace MusiVerse.GUI.Forms.Main
                 currentMusicPage.OnSongRequested += (sender, song) =>
                 {
                 };
+
+                // Subscribe to show song detail event
+                currentMusicPage.OnShowSongDetail += (sender, song) => ShowSongDetail(song);
+                
+                // Subscribe to show playlist detail event
+                currentMusicPage.OnShowPlaylistDetail += (sender, playlist) => ShowPlaylistDetail(playlist);
                 
                 panelContent.Controls.Add(currentMusicPage);
             }
@@ -278,6 +286,206 @@ namespace MusiVerse.GUI.Forms.Main
             {
                 ShowErrorPage("🎵 THƯ VIỆN NHẠC", $"Lỗi: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Hiển thị chi tiết bài hát trong panelContent của frmMain
+        /// </summary>
+        public void ShowSongDetail(MusiVerse.DTO.Models.Song song)
+        {
+            try
+            {
+                ClearContentExceptMusicPlayer();
+
+                ucSongDetail songDetailControl = new ucSongDetail
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                // Subscribe to events
+                songDetailControl.OnSongSelected += (s, selectedSong) => ShowSongDetail(selectedSong);
+                songDetailControl.OnAlbumSelected += (s, album) => ShowAlbumDetail(album);
+
+                songDetailControl.LoadSongDetail(song);
+                
+                panelContent.Controls.Add(songDetailControl);
+            }
+            catch (Exception ex)
+            {
+                ShowErrorPage("🎵 CHI TIẾT BÀI HÁT", $"Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Hiển thị chi tiết album trong panelContent của frmMain
+        /// </summary>
+        public void ShowAlbumDetail(MusiVerse.DTO.Models.Album album)
+        {
+            try
+            {
+                ClearContentExceptMusicPlayer();
+
+                // TODO: Implement album detail view if needed
+                MessageBox.Show($"Album: {album.Title}\n\nChức năng xem chi tiết album đang được phát triển",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                LoadMusicPage();
+            }
+            catch (Exception ex)
+            {
+                ShowErrorPage("💿 CHI TIẾT ALBUM", $"Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Hiển thị chi tiết playlist trong panelContent của frmMain
+        /// </summary>
+        public void ShowPlaylistDetail(MusiVerse.DTO.Models.Playlist playlist)
+        {
+            try
+            {
+                ClearContentExceptMusicPlayer();
+
+                Panel playlistHeader = new Panel
+                {
+                    Size = new Size(panelContent.Width - 20, 180),
+                    Location = new Point(10, 10),
+                    BackColor = Color.FromArgb(230, 240, 255),
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+
+                PictureBox pbPlaylistCover = new PictureBox
+                {
+                    Size = new Size(140, 140),
+                    Location = new Point(10, 10),
+                    SizeMode = PictureBoxSizeMode.StretchImage
+                };
+
+                if (!string.IsNullOrEmpty(playlist.CoverImage) && System.IO.File.Exists(playlist.CoverImage))
+                {
+                    try
+                    {
+                        pbPlaylistCover.Image = Image.FromFile(playlist.CoverImage);
+                    }
+                    catch
+                    {
+                        pbPlaylistCover.Image = CreateDefaultPlaylistCover();
+                    }
+                }
+                else
+                {
+                    pbPlaylistCover.Image = CreateDefaultPlaylistCover();
+                }
+
+                playlistHeader.Controls.Add(pbPlaylistCover);
+
+                Label lblPlaylistTitle = new Label
+                {
+                    Text = playlist.Name,
+                    Location = new Point(160, 15),
+                    Size = new Size(400, 40),
+                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(30, 144, 255),
+                    AutoSize = false
+                };
+                playlistHeader.Controls.Add(lblPlaylistTitle);
+
+                Label lblDescription = new Label
+                {
+                    Text = playlist.Description ?? "Không có mô tả",
+                    Location = new Point(160, 60),
+                    Size = new Size(400, 40),
+                    Font = new Font("Segoe UI", 11),
+                    ForeColor = Color.Gray,
+                    AutoSize = false
+                };
+                playlistHeader.Controls.Add(lblDescription);
+
+                Label lblInfo = new Label
+                {
+                    Text = $"📅 Tạo: {playlist.CreatedDate:dd/MM/yyyy} | 🎵 {playlist.SongCount} bài hát",
+                    Location = new Point(160, 105),
+                    Size = new Size(400, 30),
+                    Font = new Font("Segoe UI", 10),
+                    ForeColor = Color.DarkGray
+                };
+                playlistHeader.Controls.Add(lblInfo);
+
+                Label lblVisibility = new Label
+                {
+                    Text = playlist.IsPublic ? "🌐 Public" : "🔒 Private",
+                    Location = new Point(160, 140),
+                    Size = new Size(400, 25),
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                    ForeColor = playlist.IsPublic ? Color.Green : Color.Red
+                };
+                playlistHeader.Controls.Add(lblVisibility);
+
+                panelContent.Controls.Add(playlistHeader);
+
+                // Load songs in playlist
+                FlowLayoutPanel flowPanelSongs = new FlowLayoutPanel
+                {
+                    Location = new Point(10, 200),
+                    Size = new Size(panelContent.Width - 20, panelContent.Height - 220),
+                    AutoScroll = true,
+                    BackColor = Color.White
+                };
+
+                var playlistService = new MusiVerse.BLL.Services.PlaylistService();
+                List<MusiVerse.DTO.Models.Song> playlistSongs = playlistService.GetPlaylistSongs(playlist.PlaylistID);
+
+                if (playlistSongs.Count == 0)
+                {
+                    Label lblEmpty = new Label
+                    {
+                        Text = "Playlist này không có bài hát nào",
+                        Font = new Font("Segoe UI", 14),
+                        ForeColor = Color.Gray,
+                        AutoSize = true,
+                        Location = new Point(50, 50)
+                    };
+                    flowPanelSongs.Controls.Add(lblEmpty);
+                }
+                else
+                {
+                    var songRepository = new MusiVerse.DAL.Repositories.SongRepository();
+                    foreach (var song in playlistSongs)
+                    {
+                        ucSongItem songItem = new ucSongItem(song);
+
+                        songItem.OnPlayClicked += (s, e) =>
+                        {
+                            bool isPlaying = MusicPlayerService.Instance.LoadAndPlay(song);
+                            if (isPlaying)
+                            {
+                                songRepository.IncrementPlayCount(song.SongID);
+                            }
+                        };
+
+                        songItem.OnSongTitleClicked += (s, e) => ShowSongDetail(song);
+
+                        flowPanelSongs.Controls.Add(songItem);
+                    }
+                }
+
+                panelContent.Controls.Add(flowPanelSongs);
+            }
+            catch (Exception ex)
+            {
+                ShowErrorPage("📋 CHI TIẾT PLAYLIST", $"Lỗi: {ex.Message}");
+            }
+        }
+
+        private Image CreateDefaultPlaylistCover()
+        {
+            Bitmap bmp = new Bitmap(140, 140);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.FromArgb(100, 100, 120));
+                g.DrawString("🎵", new Font("Arial", 60), Brushes.White, new PointF(20, 20));
+            }
+            return bmp;
         }
 
         private void LoadSocialNetworkPage()

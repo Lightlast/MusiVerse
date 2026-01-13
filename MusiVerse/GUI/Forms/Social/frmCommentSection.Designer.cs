@@ -3,18 +3,7 @@
     partial class frmCommentSection
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblCommentCount;
-        private System.Windows.Forms.Panel pnlComments;
-        private System.Windows.Forms.Panel pnlCommentInput;
-        private System.Windows.Forms.TextBox txtComment;
-        private System.Windows.Forms.Button btnSendComment;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -24,131 +13,142 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.pnlHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblCommentCount = new System.Windows.Forms.Label();
             this.pnlComments = new System.Windows.Forms.Panel();
-            this.pnlCommentInput = new System.Windows.Forms.Panel();
-            this.btnSendComment = new System.Windows.Forms.Button();
-            this.txtComment = new System.Windows.Forms.TextBox();
-            this.pnlHeader.SuspendLayout();
-            this.pnlCommentInput.SuspendLayout();
+            this.flowLayoutPanelComments = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblCommentsTitle = new System.Windows.Forms.Label();
+            this.pnlAddComment = new System.Windows.Forms.Panel();
+            this.lblAddComment = new System.Windows.Forms.Label();
+            this.txtNewComment = new System.Windows.Forms.TextBox();
+            this.btnAddComment = new System.Windows.Forms.Button();
+            this.pnlComments.SuspendLayout();
+            this.pnlAddComment.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlHeader
-            // 
-            this.pnlHeader.BackColor = System.Drawing.Color.White;
-            this.pnlHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlHeader.Controls.Add(this.lblTitle);
-            this.pnlHeader.Controls.Add(this.lblCommentCount);
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Padding = new System.Windows.Forms.Padding(20);
-            this.pnlHeader.Size = new System.Drawing.Size(900, 80);
-            this.pnlHeader.TabIndex = 3;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.lblTitle.Location = new System.Drawing.Point(23, -1);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(231, 51);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "?? Bình lu?n";
-            // 
-            // lblCommentCount
-            // 
-            this.lblCommentCount.AutoSize = true;
-            this.lblCommentCount.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblCommentCount.ForeColor = System.Drawing.Color.Gray;
-            this.lblCommentCount.Location = new System.Drawing.Point(25, 42);
-            this.lblCommentCount.Name = "lblCommentCount";
-            this.lblCommentCount.Size = new System.Drawing.Size(218, 37);
-            this.lblCommentCount.TabIndex = 1;
-            this.lblCommentCount.Text = "T?ng: 0 bình lu?n";
             // 
             // pnlComments
             // 
             this.pnlComments.AutoScroll = true;
-            this.pnlComments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.pnlComments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlComments.Location = new System.Drawing.Point(0, 80);
+            this.pnlComments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.pnlComments.Controls.Add(this.flowLayoutPanelComments);
+            this.pnlComments.Controls.Add(this.lblCommentsTitle);
+            this.pnlComments.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlComments.Location = new System.Drawing.Point(0, 0);
             this.pnlComments.Name = "pnlComments";
-            this.pnlComments.Padding = new System.Windows.Forms.Padding(20);
-            this.pnlComments.Size = new System.Drawing.Size(900, 540);
-            this.pnlComments.TabIndex = 0;
+            this.pnlComments.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlComments.Size = new System.Drawing.Size(1095, 537);
+            this.pnlComments.TabIndex = 1;
             // 
-            // pnlCommentInput
+            // flowLayoutPanelComments
             // 
-            this.pnlCommentInput.BackColor = System.Drawing.Color.White;
-            this.pnlCommentInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCommentInput.Controls.Add(this.btnSendComment);
-            this.pnlCommentInput.Controls.Add(this.txtComment);
-            this.pnlCommentInput.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlCommentInput.Location = new System.Drawing.Point(0, 620);
-            this.pnlCommentInput.Name = "pnlCommentInput";
-            this.pnlCommentInput.Padding = new System.Windows.Forms.Padding(20);
-            this.pnlCommentInput.Size = new System.Drawing.Size(900, 80);
-            this.pnlCommentInput.TabIndex = 1;
+            this.flowLayoutPanelComments.AutoScroll = true;
+            this.flowLayoutPanelComments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.flowLayoutPanelComments.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanelComments.Location = new System.Drawing.Point(0, 53);
+            this.flowLayoutPanelComments.Name = "flowLayoutPanelComments";
+            this.flowLayoutPanelComments.Size = new System.Drawing.Size(1059, 517);
+            this.flowLayoutPanelComments.TabIndex = 1;
+            this.flowLayoutPanelComments.WrapContents = false;
             // 
-            // btnSendComment
+            // lblCommentsTitle
             // 
-            this.btnSendComment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.btnSendComment.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSendComment.FlatAppearance.BorderSize = 0;
-            this.btnSendComment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendComment.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSendComment.ForeColor = System.Drawing.Color.White;
-            this.btnSendComment.Location = new System.Drawing.Point(630, 20);
-            this.btnSendComment.Name = "btnSendComment";
-            this.btnSendComment.Size = new System.Drawing.Size(80, 47);
-            this.btnSendComment.TabIndex = 0;
-            this.btnSendComment.Text = "G?i";
-            this.btnSendComment.UseVisualStyleBackColor = false;
+            this.lblCommentsTitle.AutoSize = true;
+            this.lblCommentsTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.lblCommentsTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblCommentsTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCommentsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
+            this.lblCommentsTitle.Location = new System.Drawing.Point(10, 10);
+            this.lblCommentsTitle.Margin = new System.Windows.Forms.Padding(24, 0, 24, 0);
+            this.lblCommentsTitle.Name = "lblCommentsTitle";
+            this.lblCommentsTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 137);
+            this.lblCommentsTitle.Size = new System.Drawing.Size(181, 174);
+            this.lblCommentsTitle.TabIndex = 0;
+            this.lblCommentsTitle.Text = "💬 Bình luận";
+            this.lblCommentsTitle.Click += new System.EventHandler(this.lblCommentsTitle_Click);
             // 
-            // txtComment
+            // pnlAddComment
             // 
-            this.txtComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtComment.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtComment.Location = new System.Drawing.Point(20, 20);
-            this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(600, 43);
-            this.txtComment.TabIndex = 1;
-            this.txtComment.Text = "Viết bình luận...";
+            this.pnlAddComment.BackColor = System.Drawing.Color.White;
+            this.pnlAddComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlAddComment.Controls.Add(this.lblAddComment);
+            this.pnlAddComment.Controls.Add(this.txtNewComment);
+            this.pnlAddComment.Controls.Add(this.btnAddComment);
+            this.pnlAddComment.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlAddComment.Location = new System.Drawing.Point(0, 576);
+            this.pnlAddComment.Name = "pnlAddComment";
+            this.pnlAddComment.Padding = new System.Windows.Forms.Padding(15);
+            this.pnlAddComment.Size = new System.Drawing.Size(1095, 187);
+            this.pnlAddComment.TabIndex = 2;
+            // 
+            // lblAddComment
+            // 
+            this.lblAddComment.AutoSize = true;
+            this.lblAddComment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblAddComment.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
+            this.lblAddComment.Location = new System.Drawing.Point(10, 40);
+            this.lblAddComment.Margin = new System.Windows.Forms.Padding(24, 0, 24, 0);
+            this.lblAddComment.Name = "lblAddComment";
+            this.lblAddComment.Size = new System.Drawing.Size(199, 32);
+            this.lblAddComment.TabIndex = 0;
+            this.lblAddComment.Text = "Thêm bình luận:";
+            // 
+            // txtNewComment
+            // 
+            this.txtNewComment.BackColor = System.Drawing.Color.White;
+            this.txtNewComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNewComment.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtNewComment.Location = new System.Drawing.Point(11, 86);
+            this.txtNewComment.Multiline = true;
+            this.txtNewComment.Name = "txtNewComment";
+            this.txtNewComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNewComment.Size = new System.Drawing.Size(720, 60);
+            this.txtNewComment.TabIndex = 1;
+            // 
+            // btnAddComment
+            // 
+            this.btnAddComment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnAddComment.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddComment.FlatAppearance.BorderSize = 0;
+            this.btnAddComment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddComment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnAddComment.ForeColor = System.Drawing.Color.White;
+            this.btnAddComment.Location = new System.Drawing.Point(958, 113);
+            this.btnAddComment.Name = "btnAddComment";
+            this.btnAddComment.Size = new System.Drawing.Size(100, 46);
+            this.btnAddComment.TabIndex = 2;
+            this.btnAddComment.Text = "✔️ Gửi";
+            this.btnAddComment.UseVisualStyleBackColor = false;
+            this.btnAddComment.Click += new System.EventHandler(this.btnAddComment_Click);
             // 
             // frmCommentSection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(900, 700);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.ClientSize = new System.Drawing.Size(1095, 763);
             this.Controls.Add(this.pnlComments);
-            this.Controls.Add(this.pnlCommentInput);
-            this.Controls.Add(this.pnlHeader);
+            this.Controls.Add(this.pnlAddComment);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmCommentSection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "?? Bình lu?n";
-            this.pnlHeader.ResumeLayout(false);
-            this.pnlHeader.PerformLayout();
-            this.pnlCommentInput.ResumeLayout(false);
-            this.pnlCommentInput.PerformLayout();
+            this.Text = "💬 Bình luận";
+            this.Load += new System.EventHandler(this.frmCommentSection_Load);
+            this.pnlComments.ResumeLayout(false);
+            this.pnlComments.PerformLayout();
+            this.pnlAddComment.ResumeLayout(false);
+            this.pnlAddComment.PerformLayout();
             this.ResumeLayout(false);
 
         }
-
-        #endregion
+        private System.Windows.Forms.Panel pnlComments;
+        private System.Windows.Forms.Label lblCommentsTitle;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelComments;
+        private System.Windows.Forms.Panel pnlAddComment;
+        private System.Windows.Forms.Label lblAddComment;
+        private System.Windows.Forms.TextBox txtNewComment;
+        private System.Windows.Forms.Button btnAddComment;
     }
 }

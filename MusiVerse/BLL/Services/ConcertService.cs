@@ -56,6 +56,12 @@ namespace MusiVerse.BLL.Services
             }
         }
 
+        // Alias cho GetConcertsByArtist
+        public List<Concert> GetArtistConcerts(int artistID)
+        {
+            return GetConcertsByArtist(artistID);
+        }
+
         // Thêm concert mới (chỉ dành cho artist)
         public int CreateConcert(Concert concert)
         {

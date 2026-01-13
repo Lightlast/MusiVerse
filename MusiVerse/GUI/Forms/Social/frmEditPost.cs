@@ -19,199 +19,33 @@ namespace MusiVerse.GUI.Forms.Social
             InitializeComponent();
             _post = post;
             _postService = new PostService();
-            SetupUI();
             LoadPostData();
+            SetupEventHandlers();
         }
 
-        private void SetupUI()
+        private void SetupEventHandlers()
         {
-            this.Text = "✏️ Chỉnh sửa bài viết";
-            this.Size = new Size(600, 600);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(245, 245, 245);
-
-            // Header
-            Panel pnlHeader = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(20)
-            };
-
-            Label lblTitle = new Label
-            {
-                Text = "✏️ Chỉnh sửa bài viết",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                ForeColor = Color.FromArgb(30, 144, 255),
-                Location = new Point(20, 15),
-                AutoSize = true
-            };
-
-            pnlHeader.Controls.Add(lblTitle);
-
-            // Content panel
-            Panel pnlContent = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(245, 245, 245),
-                Padding = new Padding(20),
-                AutoScroll = true
-            };
-
-            // Content label
-            Label lblContent = new Label
-            {
-                Text = "Nội dung bài viết:",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Location = new Point(20, 20),
-                AutoSize = true
-            };
-
-            // Content textbox
-            TextBox txtContent = new TextBox
-            {
-                Name = "txtContent",
-                Location = new Point(20, 50),
-                Size = new Size(540, 150),
-                Font = new Font("Segoe UI", 10),
-                Multiline = true,
-                ScrollBars = ScrollBars.Vertical,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Media label
-            Label lblMedia = new Label
-            {
-                Text = "Hình ảnh/Video:",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Location = new Point(20, 220),
-                AutoSize = true
-            };
-
-            Label lblMediaSelected = new Label
-            {
-                Name = "lblMediaSelected",
-                Text = "Chưa chọn file",
-                Font = new Font("Segoe UI", 9),
-                ForeColor = Color.Gray,
-                Location = new Point(20, 250),
-                AutoSize = true
-            };
-
-            Button btnSelectMedia = new Button
-            {
-                Text = "📁 Chọn tệp",
-                Location = new Point(20, 280),
-                Size = new Size(120, 35),
-                BackColor = Color.FromArgb(100, 149, 237),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnSelectMedia.FlatAppearance.BorderSize = 0;
-            btnSelectMedia.Click += (s, e) => SelectMedia(lblMediaSelected);
-
-            Button btnRemoveMedia = new Button
-            {
-                Text = "❌ Xóa tệp",
-                Location = new Point(150, 280),
-                Size = new Size(120, 35),
-                BackColor = Color.FromArgb(200, 200, 200),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnRemoveMedia.FlatAppearance.BorderSize = 0;
-            btnRemoveMedia.Click += (s, e) => RemoveMedia(lblMediaSelected);
-
-            pnlContent.Controls.Add(lblContent);
-            pnlContent.Controls.Add(txtContent);
-            pnlContent.Controls.Add(lblMedia);
-            pnlContent.Controls.Add(lblMediaSelected);
-            pnlContent.Controls.Add(btnSelectMedia);
-            pnlContent.Controls.Add(btnRemoveMedia);
-
-            // Footer buttons
-            Panel pnlFooter = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 50,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(20)
-            };
-
-            Button btnSave = new Button
-            {
-                Text = "✔️ Cập nhật",
-                Location = new Point(350, 10),
-                Size = new Size(120, 35),
-                BackColor = Color.FromArgb(76, 175, 80),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnSave.FlatAppearance.BorderSize = 0;
-            btnSave.Click += (s, e) => SavePost(txtContent);
-
-            Button btnCancel = new Button
-            {
-                Text = "✘ Hủy",
-                Location = new Point(480, 10),
-                Size = new Size(100, 35),
-                BackColor = Color.FromArgb(200, 200, 200),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                DialogResult = DialogResult.Cancel,
-                Cursor = Cursors.Hand
-            };
-            btnCancel.FlatAppearance.BorderSize = 0;
-            btnCancel.Click += (s, e) => this.Close();
-
-            pnlFooter.Controls.Add(btnSave);
-            pnlFooter.Controls.Add(btnCancel);
-
-            this.Controls.Add(pnlContent);
-            this.Controls.Add(pnlFooter);
-            this.Controls.Add(pnlHeader);
+            btnSelectMedia.Click += (s, e) => SelectMedia();
+            btnRemoveMedia.Click += (s, e) => RemoveMedia();
+            btnSave.Click += (s, e) => SavePost();
         }
 
         private void LoadPostData()
         {
-            TextBox txtContent = this.Controls.Find("txtContent", true).Length > 0
-                ? (TextBox)this.Controls.Find("txtContent", true)[0]
-                : null;
+            if (_post == null) return;
 
-            if (txtContent != null)
-            {
-                txtContent.Text = _post.Content;
-            }
+            this.Text = "✏️ Chỉnh sửa bài viết";
+            txtContent.Text = _post.Content ?? "";
 
-            if (!string.IsNullOrEmpty(_post.MediaPath))
+            if (!string.IsNullOrEmpty(_post.MediaPath) && File.Exists(_post.MediaPath))
             {
                 _selectedMediaPath = _post.MediaPath;
-                Label lblMediaSelected = this.Controls.Find("lblMediaSelected", true).Length > 0
-                    ? (Label)this.Controls.Find("lblMediaSelected", true)[0]
-                    : null;
-
-                if (lblMediaSelected != null)
-                {
-                    lblMediaSelected.Text = Path.GetFileName(_post.MediaPath);
-                    lblMediaSelected.ForeColor = Color.Green;
-                }
+                DisplayMediaPreview(_selectedMediaPath);
+                btnRemoveMedia.Enabled = true;
             }
         }
 
-        private void SelectMedia(Label lblMediaSelected)
+        private void SelectMedia()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -222,19 +56,47 @@ namespace MusiVerse.GUI.Forms.Social
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 _selectedMediaPath = openFileDialog.FileName;
-                lblMediaSelected.Text = Path.GetFileName(openFileDialog.FileName);
-                lblMediaSelected.ForeColor = Color.Green;
+                DisplayMediaPreview(_selectedMediaPath);
+                btnRemoveMedia.Enabled = true;
             }
         }
 
-        private void RemoveMedia(Label lblMediaSelected)
+        private void DisplayMediaPreview(string filePath)
         {
-            _selectedMediaPath = null;
-            lblMediaSelected.Text = "Chưa chọn file";
-            lblMediaSelected.ForeColor = Color.Gray;
+            try
+            {
+                string fileExtension = Path.GetExtension(filePath).ToLower();
+                bool isVideo = fileExtension == ".mp4" || fileExtension == ".avi" || fileExtension == ".mov";
+
+                if (isVideo)
+                {
+                    Bitmap bmp = new Bitmap(pbMedia.Width, pbMedia.Height);
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        g.Clear(Color.FromArgb(50, 50, 50));
+                        g.DrawString("▶️ VIDEO", new Font("Arial", 16, FontStyle.Bold), Brushes.White, new PointF(40, 85));
+                    }
+                    pbMedia.Image = bmp;
+                }
+                else
+                {
+                    pbMedia.Image = Image.FromFile(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể tải preview: {ex.Message}", "Lỗi");
+            }
         }
 
-        private void SavePost(TextBox txtContent)
+        private void RemoveMedia()
+        {
+            _selectedMediaPath = null;
+            pbMedia.Image = null;
+            btnRemoveMedia.Enabled = false;
+        }
+
+        private void SavePost()
         {
             string content = txtContent.Text.Trim();
 

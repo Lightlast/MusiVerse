@@ -1,4 +1,4 @@
-namespace MusiVerse.GUI.Forms.Social
+﻿namespace MusiVerse.GUI.Forms.Social
 {
     partial class frmEditPost
     {
@@ -85,7 +85,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.btnRemoveMedia.Name = "btnRemoveMedia";
             this.btnRemoveMedia.Size = new System.Drawing.Size(140, 57);
             this.btnRemoveMedia.TabIndex = 3;
-            this.btnRemoveMedia.Text = "? X�a";
+            this.btnRemoveMedia.Text = "? Xóa";
             this.btnRemoveMedia.UseVisualStyleBackColor = false;
             // 
             // btnSelectMedia
@@ -100,7 +100,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.btnSelectMedia.Name = "btnSelectMedia";
             this.btnSelectMedia.Size = new System.Drawing.Size(140, 51);
             this.btnSelectMedia.TabIndex = 2;
-            this.btnSelectMedia.Text = "?? Ch?n h�nh ?nh";
+            this.btnSelectMedia.Text = "?Chọn";
             this.btnSelectMedia.UseVisualStyleBackColor = false;
             // 
             // pbMedia
@@ -109,7 +109,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.pbMedia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbMedia.Location = new System.Drawing.Point(20, 300);
             this.pbMedia.Name = "pbMedia";
-            this.pbMedia.Size = new System.Drawing.Size(200, 150);
+            this.pbMedia.Size = new System.Drawing.Size(200, 202);
             this.pbMedia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMedia.TabIndex = 1;
             this.pbMedia.TabStop = false;
@@ -120,29 +120,29 @@ namespace MusiVerse.GUI.Forms.Social
             this.lblMedia.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblMedia.Location = new System.Drawing.Point(23, 260);
             this.lblMedia.Name = "lblMedia";
-            this.lblMedia.Size = new System.Drawing.Size(223, 37);
+            this.lblMedia.Size = new System.Drawing.Size(226, 37);
             this.lblMedia.TabIndex = 0;
-            this.lblMedia.Text = "H�nh ?nh/Video:";
+            this.lblMedia.Text = "Hình ảnh/Video:";
             // 
             // txtContent
             // 
             this.txtContent.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtContent.Location = new System.Drawing.Point(20, 130);
+            this.txtContent.Location = new System.Drawing.Point(20, 145);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
             this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtContent.Size = new System.Drawing.Size(660, 120);
+            this.txtContent.Size = new System.Drawing.Size(660, 105);
             this.txtContent.TabIndex = 4;
             // 
             // lblContent
             // 
             this.lblContent.AutoSize = true;
             this.lblContent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblContent.Location = new System.Drawing.Point(23, 90);
+            this.lblContent.Location = new System.Drawing.Point(23, 105);
             this.lblContent.Name = "lblContent";
-            this.lblContent.Size = new System.Drawing.Size(138, 37);
+            this.lblContent.Size = new System.Drawing.Size(143, 37);
             this.lblContent.TabIndex = 5;
-            this.lblContent.Text = "N?i dung:";
+            this.lblContent.Text = "Nội dung:";
             // 
             // pnlHeader
             // 
@@ -164,9 +164,9 @@ namespace MusiVerse.GUI.Forms.Social
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.lblTitle.Location = new System.Drawing.Point(2, -1);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(379, 51);
+            this.lblTitle.Size = new System.Drawing.Size(341, 51);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "?? Ch?nh s?a b�i vi?t";
+            this.lblTitle.Text = "Chỉnh sửa bài viết";
             // 
             // pnlButtons
             // 
@@ -191,7 +191,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(200, 50);
             this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "?? L?u";
+            this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = false;
             // 
             // btnCancel
@@ -207,7 +207,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 50);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "H?y";
+            this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = false;
             // 
             // frmEditPost
@@ -222,7 +222,7 @@ namespace MusiVerse.GUI.Forms.Social
             this.MaximizeBox = false;
             this.Name = "frmEditPost";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Ch?nh s?a b�i vi?t";
+            this.Text = "Ch?nh s?a bài vi?t";
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMedia)).EndInit();

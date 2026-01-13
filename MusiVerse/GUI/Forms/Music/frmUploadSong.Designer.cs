@@ -19,18 +19,16 @@
         {
             this.panelMain = new System.Windows.Forms.Panel();
             this.lblInstructions = new System.Windows.Forms.Label();
+            this.lblProgress = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.lblProgress = new System.Windows.Forms.Label();
             this.groupBoxCover = new System.Windows.Forms.GroupBox();
             this.lblCoverStatus = new System.Windows.Forms.Label();
             this.btnClearCover = new System.Windows.Forms.Button();
             this.btnSelectCover = new System.Windows.Forms.Button();
             this.pictureBoxCover = new System.Windows.Forms.PictureBox();
             this.groupBoxSongInfo = new System.Windows.Forms.GroupBox();
-            this.txtAlbum = new System.Windows.Forms.TextBox();
-            this.lblAlbum = new System.Windows.Forms.Label();
             this.cmbGenre = new System.Windows.Forms.ComboBox();
             this.lblGenre = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
@@ -70,14 +68,17 @@
             this.panelMain.Size = new System.Drawing.Size(1356, 1057);
             this.panelMain.TabIndex = 0;
             // 
-            // progressBar
+            // lblInstructions
             // 
-            this.progressBar.Location = new System.Drawing.Point(51, 840);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(5);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(1269, 31);
-            this.progressBar.TabIndex = 10;
-            this.progressBar.Visible = false;
+            this.lblInstructions.AutoSize = true;
+            this.lblInstructions.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblInstructions.ForeColor = System.Drawing.Color.Gray;
+            this.lblInstructions.Location = new System.Drawing.Point(5, 1001);
+            this.lblInstructions.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblInstructions.Name = "lblInstructions";
+            this.lblInstructions.Size = new System.Drawing.Size(805, 32);
+            this.lblInstructions.TabIndex = 9;
+            this.lblInstructions.Text = "💡 Hỗ trợ: MP3, WAV, M4A | Tối đa 50MB | Ảnh bìa: JPG, PNG | Tối đa 5MB";
             // 
             // lblProgress
             // 
@@ -91,17 +92,14 @@
             this.lblProgress.TabIndex = 11;
             this.lblProgress.Visible = false;
             // 
-            // lblInstructions
+            // progressBar
             // 
-            this.lblInstructions.AutoSize = true;
-            this.lblInstructions.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblInstructions.ForeColor = System.Drawing.Color.Gray;
-            this.lblInstructions.Location = new System.Drawing.Point(5, 1001);
-            this.lblInstructions.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblInstructions.Name = "lblInstructions";
-            this.lblInstructions.Size = new System.Drawing.Size(805, 32);
-            this.lblInstructions.TabIndex = 9;
-            this.lblInstructions.Text = "💡 Hỗ trợ: MP3, WAV, M4A | Tối đa 50MB | Ảnh bìa: JPG, PNG | Tối đa 5MB";
+            this.progressBar.Location = new System.Drawing.Point(51, 840);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(5);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(1269, 31);
+            this.progressBar.TabIndex = 10;
+            this.progressBar.Visible = false;
             // 
             // btnCancel
             // 
@@ -211,8 +209,6 @@
             // 
             // groupBoxSongInfo
             // 
-            this.groupBoxSongInfo.Controls.Add(this.txtAlbum);
-            this.groupBoxSongInfo.Controls.Add(this.lblAlbum);
             this.groupBoxSongInfo.Controls.Add(this.cmbGenre);
             this.groupBoxSongInfo.Controls.Add(this.lblGenre);
             this.groupBoxSongInfo.Controls.Add(this.txtTitle);
@@ -227,26 +223,6 @@
             this.groupBoxSongInfo.TabStop = false;
             this.groupBoxSongInfo.Text = "2. Thông Tin Bài Hát";
             // 
-            // txtAlbum
-            // 
-            this.txtAlbum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtAlbum.Location = new System.Drawing.Point(411, 217);
-            this.txtAlbum.Margin = new System.Windows.Forms.Padding(5);
-            this.txtAlbum.Name = "txtAlbum";
-            this.txtAlbum.Size = new System.Drawing.Size(340, 43);
-            this.txtAlbum.TabIndex = 5;
-            // 
-            // lblAlbum
-            // 
-            this.lblAlbum.AutoSize = true;
-            this.lblAlbum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblAlbum.Location = new System.Drawing.Point(411, 175);
-            this.lblAlbum.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblAlbum.Name = "lblAlbum";
-            this.lblAlbum.Size = new System.Drawing.Size(208, 37);
-            this.lblAlbum.TabIndex = 4;
-            this.lblAlbum.Text = "Album (Nếu có):";
-            // 
             // cmbGenre
             // 
             this.cmbGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -257,6 +233,7 @@
             this.cmbGenre.Name = "cmbGenre";
             this.cmbGenre.Size = new System.Drawing.Size(340, 45);
             this.cmbGenre.TabIndex = 3;
+            this.cmbGenre.SelectedIndexChanged += new System.EventHandler(this.cmbGenre_SelectedIndexChanged);
             // 
             // lblGenre
             // 
@@ -435,8 +412,6 @@
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label lblGenre;
         private System.Windows.Forms.ComboBox cmbGenre;
-        private System.Windows.Forms.Label lblAlbum;
-        private System.Windows.Forms.TextBox txtAlbum;
         private System.Windows.Forms.GroupBox groupBoxCover;
         private System.Windows.Forms.PictureBox pictureBoxCover;
         private System.Windows.Forms.Button btnSelectCover;

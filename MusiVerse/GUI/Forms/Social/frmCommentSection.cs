@@ -1,188 +1,79 @@
-using MusiVerse.BLL.Services;
+﻿using MusiVerse.BLL.Services;
 using MusiVerse.DTO.Models;
 using MusiVerse.GUI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MusiVerse.GUI.Forms.Social
 {
     public partial class frmCommentSection : Form
     {
-        private CommentService _commentService;
-        private PostService _postService;
         private Post _post;
-        private Panel _pnlComments;
-        private TextBox _txtComment;
-        private Label _lblCommentCount;
+        private CommentService _commentService;
+        private int _currentUserID;
+        private List<Comment> _comments;
 
         public frmCommentSection(Post post)
         {
             InitializeComponent();
             _post = post;
             _commentService = new CommentService();
-            _postService = new PostService();
-            SetupUI();
-            LoadComments();
+            _currentUserID = SessionManager.GetCurrentUserID();
+            _comments = new List<Comment>();
         }
 
-        private void SetupUI()
+        private void frmCommentSection_Load(object sender, EventArgs e)
         {
-            this.Text = $"B�nh lu?n - {_post.Username}";
-            this.Size = new System.Drawing.Size(600, 700);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.BackColor = Color.FromArgb(240, 240, 245);
-
-            // Main panel
-            Panel pnlMain = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(240, 240, 245),
-                AutoScroll = true,
-                Padding = new Padding(10)
-            };
-
-            // Post preview header
-            Panel pnlPostHeader = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 120,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(10)
-            };
-
-            Label lblUsername = new Label
-            {
-                Text = $"?? {_post.Username}",
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                Location = new Point(10, 10),
-                AutoSize = true
-            };
-
-            Label lblContent = new Label
-            {
-                Text = _post.Content.Length > 100 ? _post.Content.Substring(0, 100) + "..." : _post.Content,
-                Font = new Font("Segoe UI", 9),
-                Location = new Point(10, 35),
-                AutoSize = true,
-                MaximumSize = new Size(560, 50)
-            };
-
-            _lblCommentCount = new Label
-            {
-                Text = $"?? {_post.LikeCount}  ?? {_post.CommentCount}  ?? {_post.ShareCount}",
-                Font = new Font("Segoe UI", 9),
-                ForeColor = Color.Gray,
-                Location = new Point(10, 85),
-                AutoSize = true
-            };
-
-            pnlPostHeader.Controls.Add(lblUsername);
-            pnlPostHeader.Controls.Add(lblContent);
-            pnlPostHeader.Controls.Add(_lblCommentCount);
-
-            // Comments list
-            _pnlComments = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(240, 240, 245),
-                AutoScroll = true,
-                Padding = new Padding(0, 10, 0, 0)
-            };
-
-            // Comment input section
-            Panel pnlCommentInput = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 80,
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(10)
-            };
-
-            _txtComment = new TextBox
-            {
-                Location = new Point(10, 10),
-                Size = new System.Drawing.Size(490, 35),
-                Multiline = true,
-                ScrollBars = ScrollBars.Vertical,
-                Font = new Font("Segoe UI", 10)
-            };
-
-            Button btnSend = new Button
-            {
-                Text = "G?i",
-                Location = new Point(510, 10),
-                Size = new System.Drawing.Size(70, 35),
-                BackColor = Color.FromArgb(0, 150, 136),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnSend.FlatAppearance.BorderSize = 0;
-            btnSend.Click += (s, e) => SendComment();
-
-            pnlCommentInput.Controls.Add(_txtComment);
-            pnlCommentInput.Controls.Add(btnSend);
-
-            pnlMain.Controls.Add(_pnlComments);
-            pnlMain.Controls.Add(pnlPostHeader);
-            pnlMain.Controls.Add(pnlCommentInput);
-
-            this.Controls.Add(pnlMain);
+            LoadComments();
         }
 
         private void LoadComments()
         {
             try
             {
-                _pnlComments.Controls.Clear();
+                flowLayoutPanelComments.Controls.Clear();
+                _comments = _commentService.GetCommentsByPost(_post.PostID);
 
-                List<Comment> comments = _commentService.GetCommentsByPost(_post.PostID);
-
-                if (comments.Count == 0)
+                if (_comments == null || _comments.Count == 0)
                 {
-                    Label lblNoComments = new Label
+                    Label lblEmpty = new Label
                     {
-                        Text = "Ch?a c� b�nh lu?n n�o. H�y l� ng??i b�nh lu?n ??u ti�n! ??",
+                        Text = "Chưa có bình luận nào",
                         Font = new Font("Segoe UI", 10),
                         ForeColor = Color.Gray,
-                        Location = new Point(20, 20),
-                        AutoSize = true
+                        AutoSize = true,
+                        Margin = new Padding(10)
                     };
-                    _pnlComments.Controls.Add(lblNoComments);
+                    flowLayoutPanelComments.Controls.Add(lblEmpty);
+                    return;
                 }
-                else
+
+                foreach (Comment comment in _comments)
                 {
-                    foreach (Comment comment in comments)
-                    {
-                        AddCommentControl(comment);
-                    }
+                    Panel commentPanel = CreateCommentPanel(comment);
+                    flowLayoutPanelComments.Controls.Add(commentPanel);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i t?i b�nh lu?n: " + ex.Message, "L?i",
+                MessageBox.Show("Lỗi tải bình luận: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void AddCommentControl(Comment comment)
+        private Panel CreateCommentPanel(Comment comment)
         {
             Panel pnlComment = new Panel
             {
-                Dock = DockStyle.Top,
-                Height = 120,
+                Width = flowLayoutPanelComments.Width - 15,
+                Height = 100,
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                Padding = new Padding(10),
-                Margin = new Padding(0, 0, 0, 5)
+                Margin = new Padding(3),
+                Tag = comment.CommentID
             };
 
             // Avatar
@@ -193,232 +84,164 @@ namespace MusiVerse.GUI.Forms.Social
                 Location = new Point(10, 10),
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Image = LoadUserAvatar(comment.UserAvatar),
-                Cursor = Cursors.Hand
+                BorderStyle = BorderStyle.None
             };
+            pnlComment.Controls.Add(pbAvatar);
 
             // Username
             Label lblUsername = new Label
             {
-                Text = comment.Username,
+                Text = comment.Username ?? "Anonymous",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.FromArgb(30, 144, 255),
                 Location = new Point(60, 10),
                 AutoSize = true
             };
+            pnlComment.Controls.Add(lblUsername);
 
             // Date
-            Label lblDate = new Label
+            Label lblCommentDate = new Label
             {
-                Text = GetTimeAgo(comment.CreatedDate),
+                Text = FormatDate(comment.CreatedDate),
                 Font = new Font("Segoe UI", 8),
                 ForeColor = Color.Gray,
-                Location = new Point(60, 30),
+                Location = new Point(60, 28),
                 AutoSize = true
             };
+            pnlComment.Controls.Add(lblCommentDate);
 
             // Content
-            Label lblContent = new Label
+            Label lblCommentContent = new Label
             {
                 Text = comment.Content,
                 Font = new Font("Segoe UI", 10),
-                Location = new Point(10, 55),
-                AutoSize = true,
-                MaximumSize = new Size(520, 50)
+                ForeColor = Color.FromArgb(80, 80, 80),
+                Location = new Point(60, 50),
+                Size = new Size(pnlComment.Width - 140, 40),
+                AutoSize = false
             };
+            pnlComment.Controls.Add(lblCommentContent);
 
-            pnlComment.Controls.Add(pbAvatar);
-            pnlComment.Controls.Add(lblUsername);
-            pnlComment.Controls.Add(lblDate);
-            pnlComment.Controls.Add(lblContent);
-
-            // Menu button (for comment owner)
-            int currentUserID = SessionManager.GetCurrentUserID();
-            if (currentUserID == comment.UserID)
+            // Show edit/delete buttons only for comment owner
+            if (comment.UserID == _currentUserID)
             {
-                Button btnMenu = new Button
+                Button btnEdit = new Button
                 {
-                    Text = "?",
-                    Width = 35,
-                    Height = 30,
-                    Location = new Point(545, 10),
+                    Text = "✏️",
+                    Location = new Point(pnlComment.Width - 90, 10),
+                    Size = new Size(35, 35),
+                    BackColor = Color.FromArgb(100, 149, 237),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
                     FlatStyle = FlatStyle.Flat,
-                    BackColor = Color.White,
-                    ForeColor = Color.Gray,
-                    Font = new Font("Arial", 12),
-                    Cursor = Cursors.Hand
+                    Cursor = Cursors.Hand,
+                    Tag = comment
                 };
-                btnMenu.FlatAppearance.BorderSize = 0;
-                btnMenu.Click += (s, e) => ShowCommentMenu(comment, pnlComment);
-                pnlComment.Controls.Add(btnMenu);
+                btnEdit.FlatAppearance.BorderSize = 0;
+                btnEdit.Click += (s, e) => EditComment(comment);
+                pnlComment.Controls.Add(btnEdit);
+
+                Button btnDelete = new Button
+                {
+                    Text = "❌",
+                    Location = new Point(pnlComment.Width - 50, 10),
+                    Size = new Size(35, 35),
+                    BackColor = Color.FromArgb(220, 20, 60),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                    FlatStyle = FlatStyle.Flat,
+                    Cursor = Cursors.Hand,
+                    Tag = comment.CommentID
+                };
+                btnDelete.FlatAppearance.BorderSize = 0;
+                btnDelete.Click += (s, e) => DeleteComment(comment);
+                pnlComment.Controls.Add(btnDelete);
             }
 
-            _pnlComments.Controls.Add(pnlComment);
+            return pnlComment;
         }
 
-        private void ShowCommentMenu(Comment comment, Panel pnlComment)
+        private void btnAddComment_Click(object sender, EventArgs e)
         {
-            ContextMenuStrip menu = new ContextMenuStrip();
-            
-            ToolStripMenuItem editItem = new ToolStripMenuItem("?? Ch?nh s?a", null, (s, e) => EditComment(comment, pnlComment));
-            ToolStripMenuItem deleteItem = new ToolStripMenuItem("??? X�a", null, (s, e) => DeleteComment(comment, pnlComment));
-            
-            menu.Items.Add(editItem);
-            menu.Items.Add(deleteItem);
-            
-            menu.Show(Cursor.Position);
-        }
-
-        private void EditComment(Comment comment, Panel pnlComment)
-        {
-            Form frmEdit = new Form
-            {
-                Text = "Ch?nh s?a b�nh lu?n",
-                Size = new System.Drawing.Size(400, 200),
-                StartPosition = FormStartPosition.CenterParent,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                MaximizeBox = false,
-                MinimizeBox = false
-            };
-
-            TextBox txtEditContent = new TextBox
-            {
-                Multiline = true,
-                ScrollBars = ScrollBars.Vertical,
-                Font = new Font("Segoe UI", 10),
-                Dock = DockStyle.Fill,
-                Padding = new Padding(10),
-                Text = comment.Content
-            };
-
-            Panel pnlButtons = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 50,
-                BackColor = SystemColors.Control
-            };
-
-            Button btnSave = new Button
-            {
-                Text = "L?u",
-                Location = new Point(220, 10),
-                Size = new System.Drawing.Size(80, 35),
-                BackColor = Color.FromArgb(0, 150, 136),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                DialogResult = DialogResult.OK
-            };
-            btnSave.FlatAppearance.BorderSize = 0;
-
-            Button btnCancel = new Button
-            {
-                Text = "H?y",
-                Location = new Point(310, 10),
-                Size = new System.Drawing.Size(80, 35),
-                BackColor = Color.FromArgb(200, 200, 200),
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10),
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                DialogResult = DialogResult.Cancel
-            };
-            btnCancel.FlatAppearance.BorderSize = 0;
-
-            pnlButtons.Controls.Add(btnSave);
-            pnlButtons.Controls.Add(btnCancel);
-
-            frmEdit.Controls.Add(txtEditContent);
-            frmEdit.Controls.Add(pnlButtons);
-
-            if (frmEdit.ShowDialog() == DialogResult.OK)
-            {
-                string newContent = txtEditContent.Text.Trim();
-                if (string.IsNullOrWhiteSpace(newContent))
-                {
-                    MessageBox.Show("N?i dung b�nh lu?n kh�ng ???c tr?ng", "C?nh b�o",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                comment.Content = newContent;
-                var result = _commentService.UpdateComment(comment);
-                if (result.Item1)
-                {
-                    LoadComments();
-                }
-                else
-                {
-                    MessageBox.Show(result.Item2, "L?i",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-            frmEdit.Dispose();
-        }
-
-        private void SendComment()
-        {
-            string content = _txtComment.Text.Trim();
+            string content = txtNewComment.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(content))
             {
-                MessageBox.Show("B�nh lu?n kh�ng ???c tr?ng", "C?nh b�o",
+                MessageBox.Show("Vui lòng nhập nội dung bình luận", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNewComment.Focus();
                 return;
             }
 
             try
             {
-                Comment comment = new Comment
+                Comment newComment = new Comment
                 {
                     PostID = _post.PostID,
-                    UserID = SessionManager.GetCurrentUserID(),
-                    Username = SessionManager.GetCurrentUsername(),
-                    UserAvatar = SessionManager.GetCurrentUserAvatar(),
+                    UserID = _currentUserID,
                     Content = content,
                     CreatedDate = DateTime.Now,
                     IsActive = true
                 };
 
-                var result = _commentService.AddComment(comment);
-
+                var result = _commentService.AddComment(newComment);
                 if (result.Item1)
                 {
-                    _txtComment.Clear();
-                    _post.CommentCount++;
-                    _lblCommentCount.Text = $"?? {_post.LikeCount}  ?? {_post.CommentCount}  ?? {_post.ShareCount}";
+                    MessageBox.Show(result.Item2, "Thành công",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtNewComment.Clear();
                     LoadComments();
                 }
                 else
                 {
-                    MessageBox.Show(result.Item2, "L?i",
+                    MessageBox.Show(result.Item2, "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("L?i: " + ex.Message, "L?i",
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void DeleteComment(Comment comment, Panel pnlComment)
+        private void EditComment(Comment comment)
         {
-            var result = MessageBox.Show("B?n c� ch?c mu?n x�a b�nh lu?n n�y?", "X�c nh?n",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            frmEditComment editForm = new frmEditComment(comment);
+            if (editForm.ShowDialog() == DialogResult.OK)
+            {
+                LoadComments();
+            }
+        }
+
+        private void DeleteComment(Comment comment)
+        {
+            DialogResult result = MessageBox.Show(
+                "Bạn chắc chắn muốn xóa bình luận này?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                var deleteResult = _commentService.DeleteComment(comment.CommentID, SessionManager.GetCurrentUserID());
-                if (deleteResult.Item1)
+                try
                 {
-                    _pnlComments.Controls.Remove(pnlComment);
-                    _post.CommentCount--;
-                    _lblCommentCount.Text = $"?? {_post.LikeCount}  ?? {_post.CommentCount}  ?? {_post.ShareCount}";
+                    var deleteResult = _commentService.DeleteComment(comment.CommentID, _currentUserID);
+                    if (deleteResult.Item1)
+                    {
+                        MessageBox.Show(deleteResult.Item2, "Thành công",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadComments();
+                    }
+                    else
+                    {
+                        MessageBox.Show(deleteResult.Item2, "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show(deleteResult.Item2, "L?i",
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -426,7 +249,7 @@ namespace MusiVerse.GUI.Forms.Social
 
         private Image LoadUserAvatar(string avatarPath)
         {
-            if (!string.IsNullOrEmpty(avatarPath) && System.IO.File.Exists(avatarPath))
+            if (!string.IsNullOrEmpty(avatarPath) && File.Exists(avatarPath))
             {
                 try
                 {
@@ -435,27 +258,34 @@ namespace MusiVerse.GUI.Forms.Social
                 catch { }
             }
 
-            Bitmap bmp = new Bitmap(40, 40);
+            Bitmap bmp = new Bitmap(35, 35);
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.FromArgb(100, 100, 120));
-                g.DrawString("??", new Font("Arial", 16), Brushes.White, new PointF(8, 6));
+                g.DrawString("👤", new Font("Arial", 16), Brushes.White, new PointF(4, 4));
             }
             return bmp;
         }
 
-        private string GetTimeAgo(DateTime date)
+        private string FormatDate(DateTime date)
         {
             TimeSpan timeSpan = DateTime.Now - date;
 
-            if (timeSpan.TotalSeconds < 60)
-                return "v?a xong";
+            if (timeSpan.TotalMinutes < 1)
+                return "Vừa xong";
             else if (timeSpan.TotalMinutes < 60)
-                return $"{(int)timeSpan.TotalMinutes}m tr??c";
+                return $"{(int)timeSpan.TotalMinutes} phút trước";
             else if (timeSpan.TotalHours < 24)
-                return $"{(int)timeSpan.TotalHours}h tr??c";
+                return $"{(int)timeSpan.TotalHours} giờ trước";
+            else if (timeSpan.TotalDays < 7)
+                return $"{(int)timeSpan.TotalDays} ngày trước";
             else
                 return date.ToString("dd/MM/yyyy");
+        }
+
+        private void lblCommentsTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

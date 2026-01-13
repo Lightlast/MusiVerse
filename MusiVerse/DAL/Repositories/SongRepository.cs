@@ -137,6 +137,20 @@ namespace MusiVerse.DAL.Repositories
             return result > 0;
         }
 
+        // Cập nhật AlbumID cho bài hát
+        public bool UpdateSongAlbum(int songID, int albumID)
+        {
+            string query = "UPDATE Songs SET AlbumID = @AlbumID WHERE SongID = @SongID";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@SongID", songID),
+                new SqlParameter("@AlbumID", albumID)
+            };
+
+            int result = DatabaseConnection.ExecuteNonQuery(query, parameters);
+            return result > 0;
+        }
+
         // Xóa bài hát (soft delete)
         public bool DeleteSong(int songID)
         {
